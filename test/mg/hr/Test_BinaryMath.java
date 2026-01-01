@@ -29,6 +29,14 @@ public class Test_BinaryMath
             _bit01_ = null;
             _excepted1 = null;
 
+            byte[] _bit20_ = {1, 1, 0, 1, 0, 1};
+            byte[] _bit21_ = {0, 0, 0, 0, 1, 1};
+            byte[] _excepted2 = {1, 1, 1, 0, 0, 0};
+            assertArrayEquals(_excepted2, mg.hr.BinaryMath._addBinary(_bit20_, _bit21_));
+            _bit00_ = null;
+            _bit01_ = null;
+            _excepted2 = null;
+
 
 
         } catch (NotABinaryNumberException e) {

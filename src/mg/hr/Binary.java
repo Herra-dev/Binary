@@ -1,3 +1,7 @@
+/**
+ * USED TO TRANSFORM NUMBER IN DECIMAL TO BINARY
+ */
+
 package mg.hr;
 
 public abstract class Binary
@@ -6,24 +10,23 @@ public abstract class Binary
 /**
  * @param _number
  * @param _bitNumber
- * @return array of int with length defined by the param _bitNumber
+ * @return array of byte with length defined by the param _bitNumber
  */
-    public static int[] toBinary(double _number, int _bitNumber)
+    public static byte[] toBinary(double _number, int _bitNumber)
     {
-        if(_bitNumber == 0) return new int[0];
+        if(_bitNumber == 0) return new byte[0];
 
-        int tab[] = new int[_bitNumber];
+        byte tab[] = new byte[_bitNumber];
         for(int i = 0; i < _bitNumber; i++)
             tab[i] = 0;
         
         if(_number == 0) return tab;    
 
-        // if _number < 0, _number is a negative number
         boolean _signed = (_number < 0) ? true : false; 
         
         double i = (_number - (int)_number); 
 
-        // if i(result of the previous calcul) is between -1 and 1(both excluded) but not 0, _double is a floating number
+        // if i(result of the previous calcul) is between -1 and 1(both excluded) but not 0, _number is a floating number
         boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
 
         if(!_signed)
@@ -52,11 +55,11 @@ public abstract class Binary
 
 //============================================================================
 
-    private static int[] _toBinaryUnsignedInteger(int _number, int _bitNumber)
+    private static byte[] _toBinaryUnsignedInteger(int _number, int _bitNumber)
     {
         int _numberCopy = _number;
         
-        int binaryReversed[] = new int[_bitNumber];
+        byte binaryReversed[] = new byte[_bitNumber];
 
         while(_numberCopy > 0)
         {
@@ -66,7 +69,7 @@ public abstract class Binary
             _numberCopy -= java.lang.StrictMath.pow(2, i);
         }
 
-        int binary[] = new int[_bitNumber];
+        byte binary[] = new byte[_bitNumber];
         int j = 0;
         for(int i = binaryReversed.length - 1; i >= 0; i--)
         {
@@ -78,27 +81,27 @@ public abstract class Binary
 
 //============================================================================
 
-    private static int[] _toBinaryUnsignedFloat(double _number, int _bitNumber)
+    private static byte[] _toBinaryUnsignedFloat(double _number, int _bitNumber)
     {
-        int tab[] = {5};
+        byte tab[] = {5};
         System.out.println("positif - float");
         return tab;
     }
 
 //============================================================================
 
-    private static int[] _toBinarySignedInteger(double _number, int _bitNumber)
+    private static byte[] _toBinarySignedInteger(double _number, int _bitNumber)
     {
-        int tab[] = {5};
+        byte tab[] = {5};
         System.out.println("negatif - integer");
         return tab;
     }
 
 //============================================================================
 
-    private static int[] _toBinarySignedFloat(double _number, int _bitNumber)
+    private static byte[] _toBinarySignedFloat(double _number, int _bitNumber)
     {
-        int tab[] = {5};
+        byte tab[] = {5};
         System.out.println("negatif - float");
         return tab;
     }

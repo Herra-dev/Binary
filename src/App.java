@@ -2,10 +2,11 @@ public class App
 {
     public static void main(String[] args)
     {
-        int tab[] = new int[8];
-        tab = mg.hr.Binary.toBinary(7, 3);
-        for(int i = 0; i < tab.length; i++)
-            System.out.print(tab[i]);
+        byte a[] = {1, 1, 1};
+        byte b[] = {0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0};
+        
+        for(byte c: mg.hr.BinaryMath._addBinary(a, b, 0))
+           System.out.print(c);
         System.out.println();
     }
 }

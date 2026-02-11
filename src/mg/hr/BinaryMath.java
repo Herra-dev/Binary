@@ -22,6 +22,14 @@ public abstract class BinaryMath
         _firstBinaryNumber = _completeBinaryNumber(_firstBinaryNumber, _bitNumber);
         _secondBinaryNumber = _completeBinaryNumber(_secondBinaryNumber, _bitNumber);
 
+        for(byte i: _firstBinaryNumber)
+            System.out.print(i);
+        System.out.println();
+        for(byte i: _secondBinaryNumber)
+            System.out.print(i);
+        System.out.println();
+
+
         for(int i = _bitNumber - 1; i >= 0; i--)
         {
             a = _firstBinaryNumber[i];
@@ -41,13 +49,16 @@ public abstract class BinaryMath
                 {
                     j = i;
                     result[i] = 0;
-                    while(j > 0)
+                    while(--j >= 0)
                     {
-                        if(_firstBinaryNumber[--j] == 1)
+                        if(_firstBinaryNumber[j] == 1)
                             _firstBinaryNumber[j] = 0;
-                        else break;
+                        else
+                        {
+                            _firstBinaryNumber[j] = 1;
+                            break;
+                        }
                     }
-                    if(j >= 0) _firstBinaryNumber[j] = 1;
                 }
             }
             else result[i] = 1;

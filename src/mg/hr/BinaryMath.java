@@ -15,33 +15,18 @@ public abstract class BinaryMath
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
     {
         byte a, b;
-        int j;
-        int up = (_firstBinaryNumber.length < _secondBinaryNumber.length) ? _secondBinaryNumber.length : _firstBinaryNumber.length;
+        int j, up = (_firstBinaryNumber.length < _secondBinaryNumber.length) ? _secondBinaryNumber.length : _firstBinaryNumber.length;
         _bitNumber = (_bitNumber > up) ? _bitNumber : up;
         byte result[] = new byte[_bitNumber];
         _firstBinaryNumber = _completeBinaryNumber(_firstBinaryNumber, _bitNumber);
         _secondBinaryNumber = _completeBinaryNumber(_secondBinaryNumber, _bitNumber);
-
-        for(byte i: _firstBinaryNumber)
-            System.out.print(i);
-        System.out.println();
-        for(byte i: _secondBinaryNumber)
-            System.out.print(i);
-        System.out.println();
-
 
         for(int i = _bitNumber - 1; i >= 0; i--)
         {
             a = _firstBinaryNumber[i];
             b = _secondBinaryNumber[i];
 
-            //
-            //all cases: |-- a == b: 
-            //           |       |----- a == 0
-            //           |       |----- a == 1
-            //           |-- a != b
-            //
-            if((a == b)) 
+            if((a == b)) //---------------------------------// case where a == b 
             {
                 if(a == 0) 
                     result[i] = 0;
@@ -68,20 +53,24 @@ public abstract class BinaryMath
     }
 
 //============================================================================
- 
+
+/**
+ * used to complete a binary number with 0 in the left, example:
+ * for a number in 8 bits(length) : 1011 become 00001011, 1 become 00000001
+ * 
+ * @param _number
+ * @param length
+ * @return array of byte with length defined by param length
+ */
     private static byte[] _completeBinaryNumber(byte[] _number, int length)
     {
-        byte tab[] = new byte[length];
-        byte tab1[] = new byte[length];
-
-        //
-        //  for 8 bits number: 1101 -> 00001101
-        //                       11 -> 00000011
+        byte tab[] = new byte[length]; // array to stock the reverse of the binary number to complete
+        byte tab1[] = new byte[length]; // array to stock the binary number completed
 
         int j = 0, k = 0;
-        for(int i = _number.length -1; i >= 0; i--) tab[j++] = _number[i];
-        for(int i = _number.length; i < length; i++) tab[i] = 0;
-        for(int i = tab.length - 1; i >= 0; i--) tab1[k++] = tab[i];
+        for(int i = _number.length -1; i >= 0; i--) tab[j++] = _number[i]; // reversing the binary number and stock it into tab
+        for(int i = _number.length; i < length; i++) tab[i] = 0; // adding 0 in tab starting from last bit reversed index until length - 1 
+        for(int i = tab.length - 1; i >= 0; i--) tab1[k++] = tab[i]; // reversing tab and stock it to tab1
 
         return tab1;
     } 

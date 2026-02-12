@@ -26,7 +26,7 @@ public abstract class BinaryMath
             a = _firstBinaryNumber[i];
             b = _secondBinaryNumber[i];
 
-            if((a == b)) //---------------------------------// case where a == b 
+            if((a == b)) 
             {
                 if(a == 0) 
                     result[i] = 0;

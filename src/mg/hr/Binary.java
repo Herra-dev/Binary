@@ -11,8 +11,13 @@ public abstract class Binary
  * if _bitNumber is equals to 0, return immediatly an array of byte with length 0.
  * 
  * method used:
- * exemple: for 98 in decimal,  64 < 98 < 128, so 98 contains 64 = pow(2, 6),
- *      98 - 64 = 34, 32 < 34 < 64,  ---> 32 = pow(2, 5),
+ * exemple: 
+ *      for 98 in decimal, 
+ *      98, 64 < 98 < 128, so 98 contains 64 = pow(2, 6),                     [keep 6]
+ *      98 - 64 = 34, 32 < 34 < 64,  ---> 32 = pow(2, 5),                     [keep 5]
+ *      34 - 32 = 2, ---> 2 = pow(2, 1).                                      [keep 1]
+ * 
+ *      result: 01100010 = 98
  *      
  * 
  * @param _number

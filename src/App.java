@@ -2,11 +2,7 @@ public class App
 {
     public static void main(String[] args)
     {
-        byte a[] = {1, 1, 1, 1, 0};
-        byte b[] = {   1, 0, 1, 1};
-        
-        for(byte c: mg.hr.BinaryMath._addBinary(a, b, 3))
-           System.out.print(c);
-        System.out.println();
+        for(byte b : mg.hr.Binary.toBinary(1, 1))
+            System.out.println(b);
     }
 }

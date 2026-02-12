@@ -8,6 +8,12 @@ public abstract class Binary
 {
 
 /**
+ * if _bitNumber is equals to 0, return immediatly an array of byte with length 0.
+ * 
+ * method used:
+ *      exemple: for 98 in decimal,  64 < 98 < 128, so 98 contains 64 = pow(2, 6),
+ *      
+ * 
  * @param _number
  * @param _bitNumber
  * @return array of byte with length defined by the param _bitNumber
@@ -17,6 +23,10 @@ public abstract class Binary
         if(_bitNumber == 0) return new byte[0];
 
         byte tab[] = new byte[_bitNumber];
+        
+        //================
+        // initialisation of the array to stock binary number
+        //================
         for(int i = 0; i < _bitNumber; i++)
             tab[i] = 0;
         

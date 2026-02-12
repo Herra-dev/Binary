@@ -3,16 +3,35 @@ package mg.hr;
 public abstract class BinaryMath
 {
     
-    /**
-     * if _bitNumber is inferior of _firstBinaryNumber.length or _secondBinaryNumber.length,
-     * it will be set to the superior between _firstBinaryNumber.length and _secondBinaryNumber.length
-     * 
-     * @param _firstBinaryNumber
-     * @param _secondBinaryNumber
-     * @param _bitNumber
-     * 
-     * @return array of byte with length defined by the param _bitNumber
-     */
+/**
+ * add _firstNumber to _secondNumber in binary.
+ *  
+ * @param _firstNumber
+ * @param _secondNumber
+ * @param _bitNumber
+ * 
+ * @return array of byte with length defined by the param _bitNumber
+ */
+    public static byte[] _addBinary(double _firstNumber, double _secondNumber, int _bitNumber)
+    {
+        byte tab[] = mg.hr.Binary.toBinary(_firstNumber, _bitNumber);
+        byte tab1[] = mg.hr.Binary.toBinary(_secondNumber, _bitNumber);
+
+        tab  = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
+
+        return tab;
+    }
+    
+/**
+ * if _bitNumber is inferior of _firstBinaryNumber.length or _secondBinaryNumber.length,
+ * it will be set to the superior between _firstBinaryNumber.length and _secondBinaryNumber.length
+ * 
+ * @param _firstBinaryNumber
+ * @param _secondBinaryNumber
+ * @param _bitNumber
+ * 
+ * @return array of byte with length defined by the param _bitNumber
+ */
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
     {
         byte a, b;
@@ -54,6 +73,13 @@ public abstract class BinaryMath
     }
 
 //============================================================================
+
+    public static byte[] _withDrawBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
+    {
+        byte tab[] = new byte[_bitNumber];
+
+        return tab;
+    }
 
 /**
  * used to complete a binary number with 0 in the left, example:

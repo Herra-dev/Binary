@@ -1,4 +1,4 @@
-package test;
+package test.mg.hr;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,6 +17,9 @@ public class Test_Binary
     public void _test_toBinary()
     {
         byte[] _excepted = {0, 0, 0, 0, 0, 0, 0, 0}; // 0000_0000 = 0
+        //-----------------------------------------------------------------------
+        // case where the number in decimal is a non floating number and positive
+        {
         for(int i = 0; i < _excepted.length; i++)
             assertEquals(_excepted[i], mg.hr.Binary.toBinary(0, 8)[i]);
         
@@ -42,6 +45,33 @@ public class Test_Binary
             _excepted[i] = 0; // 0000_1111 = 15
         for(int i = 0; i < _excepted.length; i++)
             assertEquals(_excepted[i], mg.hr.Binary.toBinary(15, 8)[i]);
+        }
+        
+        //-----------------------------------------------------------------------
+        // case where the number in decimal is a non floating number and negative
+        {
+        for(int i = 0; i < _excepted.length; i++)
+            _excepted[i] = 1; // 1111_1111 = -1
+        for(int i = 0; i < _excepted.length; i++)
+            assertEquals(_excepted[i], mg.hr.Binary.toBinary(-1, 8)[i]);
+        
+        _excepted[4] = 0;
+        _excepted[5] = 0;
+        _excepted[6] = 0;
+        for(int i = 0; i < _excepted.length; i++)
+            assertEquals(_excepted[i], mg.hr.Binary.toBinary(-15, 8)[i]);
+        
+        _excepted[0] = 1;
+        _excepted[1] = 0;
+        _excepted[2] = 0;
+        _excepted[3] = 1;
+        _excepted[4] = 1;
+        _excepted[5] = 1;
+        _excepted[6] = 1;
+        _excepted[7] = 0;
+        for(int i = 0; i < _excepted.length; i++)
+            assertEquals(_excepted[i], mg.hr.Binary.toBinary(-98, 8)[i]);
+        }
     }
 
     @Test

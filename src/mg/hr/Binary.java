@@ -8,21 +8,12 @@ public abstract class Binary
 {
 
 /**
+ * returns array of byte with length defined by the param _bitNumber
  * if _bitNumber is equals to 0, return immediatly an array of byte with length 0.
- * 
- * method used:
- * exemple: 
- *      for 98 in decimal, 
- *      98, 64 < 98 < 128, so 98 contains 64 = pow(2, 6),                     [keep 6]
- *      98 - 64 = 34, 32 < 34 < 64,  ---> 32 = pow(2, 5),                     [keep 5]
- *      34 - 32 = 2, ---> 2 = pow(2, 1).                                      [keep 1]
- * 
- *      result: 01100010 = 98
- *      
- * 
+ *    
  * @param _number
  * @param _bitNumber
- * @return array of byte with length defined by the param _bitNumber
+ * @return byte[] 
  */
     public static byte[] toBinary(double _number, int _bitNumber)
     {
@@ -39,7 +30,6 @@ public abstract class Binary
         if(_number == 0) return tab;    
 
         boolean _signed = (_number < 0) ? true : false; 
-        
         double i = (_number - (int)_number); 
 
         // if i(result of the previous calcul) is between -1 and 1(both excluded) but not 0, _number is a floating number
@@ -47,19 +37,25 @@ public abstract class Binary
 
         if(!_signed)
         {
-            if(!_isFloat) return _toBinaryUnsignedInteger((int)_number, _bitNumber); // unsigned integer
+            if(!_isFloat) return _toBinaryUnsignedInteger((long)_number, _bitNumber); // unsigned long
             else return _toBinaryUnsignedFloat(_number, _bitNumber); // unsigned float
         }
         else
         {
-            if(!_isFloat) return _toBinarySignedInteger(_number, _bitNumber); // signed integer
+            if(!_isFloat) return _toBinarySignedInteger((long)_number, _bitNumber); // signed long
             else return _toBinarySignedFloat(_number, _bitNumber); // signed float
         }
     }
 
 //============================================================================
 
-    public static int _powerOfTwoClose(int _number)
+/**
+ * returns power of two close or equal to _number 
+ * 
+ * @param _number
+ * @return int 
+ */
+    public static int _powerOfTwoClose(long _number)
     {
         int i = 1;
         int pow = 0;
@@ -69,11 +65,37 @@ public abstract class Binary
         return pow;
     }
 
+    public static byte[] _complementBinary(byte[] _binary)
+    {
+        for(int i = 0; i < _binary.length; i++)
+        {
+            if(_binary[i] == 0) _binary[i] = 1;
+            else _binary[i] = 0;
+        }
+        return _binary;
+    }
+
 //============================================================================
 
-    private static byte[] _toBinaryUnsignedInteger(int _number, int _bitNumber)
+/**
+ * returns array of byte with length defined by the param _bitNumber
+ * 
+ * method used:
+ * exemple: 
+ *      for 98 in decimal, 
+ *      98, 64 < 98 < 128, so 98 contains 64 = pow(2, 6),                     [keep 6]
+ *      98 - 64 = 34, 32 < 34 < 64,  ---> 32 = pow(2, 5),                     [keep 5]
+ *      34 - 32 = 2, ---> 2 = pow(2, 1).                                      [keep 1]
+ * 
+ *      result: 01100010 = 98
+ * 
+ * @param _number
+ * @param _bitNumber
+ * @return byte[]
+ */
+    private static byte[] _toBinaryUnsignedInteger(long _number, int _bitNumber)
     {
-        int _numberCopy = _number;
+        long _numberCopy = _number;
         
         byte binaryReversed[] = new byte[_bitNumber];
 
@@ -106,10 +128,23 @@ public abstract class Binary
 
 //============================================================================
 
-    private static byte[] _toBinarySignedInteger(double _number, int _bitNumber)
+/**
+ * 
+ * 
+ * @param _number
+ * @param _bitNumber
+ * @return byte[]
+ */
+    private static byte[] _toBinarySignedInteger(long _number, int _bitNumber)
     {
-        byte tab[] = {5};
-        System.out.println("negatif - integer");
+        byte tab[] = new byte[_bitNumber];
+        byte tab1[] = new byte[_bitNumber];
+
+        tab = _toBinaryUnsignedInteger(-(_number), _bitNumber);
+        tab  = mg.hr.Binary._complementBinary(tab);
+
+        tab1[_bitNumber-1] = 1;
+        tab = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
         return tab;
     }
 
@@ -123,6 +158,5 @@ public abstract class Binary
     }
 
 //============================================================================
-
 
 }

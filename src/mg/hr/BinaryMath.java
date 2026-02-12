@@ -2,6 +2,7 @@ package mg.hr;
 
 public abstract class BinaryMath
 {
+    
     /**
      * if _bitNumber is inferior of _firstBinaryNumber.length or _secondBinaryNumber.length,
      * it will be set to the superior between _firstBinaryNumber.length and _secondBinaryNumber.length

@@ -44,5 +44,20 @@ public class Test_Binary
             assertEquals(_excepted[i], mg.hr.Binary.toBinary(15, 8)[i]);
     }
 
+    @Test
+    public void _test__powerOfTwoClose()
+    {
+        assertEquals(0, mg.hr.Binary._powerOfTwoClose(1));
+        assertEquals(1, mg.hr.Binary._powerOfTwoClose(3));
+        assertEquals(8, mg.hr.Binary._powerOfTwoClose(256));
+        assertEquals(9, mg.hr.Binary._powerOfTwoClose(1023));
+        assertEquals(10, mg.hr.Binary._powerOfTwoClose(1024));
+        assertEquals(11, mg.hr.Binary._powerOfTwoClose(2048));
+        assertEquals(11, mg.hr.Binary._powerOfTwoClose(2049));
+        assertEquals(11, mg.hr.Binary._powerOfTwoClose(4095));
+        assertEquals(12, mg.hr.Binary._powerOfTwoClose(4096));
+        assertEquals(12, mg.hr.Binary._powerOfTwoClose(4097));
+    }
+
     
 }

@@ -35,7 +35,8 @@ public abstract class BinaryMath
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
     {
         byte a, b;
-        int j, up = (_firstBinaryNumber.length < _secondBinaryNumber.length) ? _secondBinaryNumber.length : _firstBinaryNumber.length;
+        int j, _originalBitNumber = _bitNumber;
+        int up = (_firstBinaryNumber.length < _secondBinaryNumber.length) ? _secondBinaryNumber.length : _firstBinaryNumber.length;
         _bitNumber = (_bitNumber > up) ? _bitNumber : up;
         byte result[] = new byte[_bitNumber];
         _firstBinaryNumber = _completeBinaryNumber(_firstBinaryNumber, _bitNumber);
@@ -69,7 +70,15 @@ public abstract class BinaryMath
             else result[i] = 1;
         }
 
-        return result;
+        if(_bitNumber == _originalBitNumber) return result;
+        else
+        {
+            result = mg.hr.Binary._reverseBinary(result);com.sun.tools.javac.launcher
+            byte result1[] = new byte[_originalBitNumber];
+            for(int i = 0; i < _originalBitNumber; i++)
+                result1[i] = result[i];
+            return result1;
+        }
     }
 
 //============================================================================

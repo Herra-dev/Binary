@@ -21,6 +21,8 @@ public abstract class BinaryMath
 
         return tab;
     }
+
+//============================================================================
     
 /**
  * if _bitNumber is inferior of _firstBinaryNumber.length or _secondBinaryNumber.length,
@@ -73,7 +75,7 @@ public abstract class BinaryMath
         if(_bitNumber == _originalBitNumber) return result;
         else
         {
-            result = mg.hr.Binary._reverseBinary(result);com.sun.tools.javac.launcher
+            result = mg.hr.Binary._reverseBinary(result);
             byte result1[] = new byte[_originalBitNumber];
             for(int i = 0; i < _originalBitNumber; i++)
                 result1[i] = result[i];
@@ -83,12 +85,49 @@ public abstract class BinaryMath
 
 //============================================================================
 
-    public static byte[] _withDrawBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
+    public static byte[] _subtractBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
     {
-        byte tab[] = new byte[_bitNumber];
+        byte a, b;
+        byte result[] = new byte[_bitNumber];
+        int _originalBitNumber = _bitNumber;
+        int up = (_firstBinaryNumber.length < _secondBinaryNumber.length) ? _secondBinaryNumber.length : _firstBinaryNumber.length;
+        _bitNumber = (_bitNumber > up) ? _bitNumber : up;
+        _firstBinaryNumber = _completeBinaryNumber(_firstBinaryNumber, _bitNumber);
+        _secondBinaryNumber = _completeBinaryNumber(_secondBinaryNumber, _bitNumber);
 
-        return tab;
+        for(int i = _bitNumber - 1; i >= 0; i--)
+        {
+            a = _firstBinaryNumber[i];
+            b = _secondBinaryNumber[i];
+
+            if(a == b)
+            {
+                result[i] = 0;
+            }
+            else if(a == 1 && b == 0)
+            {
+                result[i] = 1;
+            }
+            else if(a == 0 && b == 1)
+            {
+                
+            }
+
+        
+        }
+        
+        if(_bitNumber == _originalBitNumber) return result;
+        else
+        {
+            result = mg.hr.Binary._reverseBinary(result);
+            byte result1[] = new byte[_originalBitNumber];
+            for(int i = 0; i < _originalBitNumber; i++)
+                result1[i] = result[i];
+            return result1;
+        }
     }
+
+//============================================================================
 
 /**
  * used to complete a binary number with 0 in the left, example:
@@ -109,5 +148,8 @@ public abstract class BinaryMath
         for(int i = tab.length - 1; i >= 0; i--) tab1[k++] = tab[i]; // reversing tab and stock it to tab1
 
         return tab1;
-    } 
+    }
+
+//============================================================================
+
 }

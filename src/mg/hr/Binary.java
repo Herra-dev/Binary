@@ -75,6 +75,8 @@ public abstract class Binary
         return _binary;
     }
 
+//============================================================================
+
     public static byte[] _reverseBinary(byte[] _number)
     {
         byte[] reversedBinary = new byte[_number.length];

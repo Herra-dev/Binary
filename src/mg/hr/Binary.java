@@ -49,6 +49,39 @@ public abstract class Binary
 
 //============================================================================
 
+    public static double toDecimal(byte[] _number,
+        /*signed or unsigned number*/ mg.hr.enumeration.NumberSign sign,
+        /*integer or floating number*/ mg.hr.enumeration.NumberType type)
+    {
+        if(sign.getNumberSign() == 0)/* SIGNED NUMBER*/
+        {
+            return (type.getNumberType() == 0) ? _toDecimalSignedInteger() : _toDecimalSignedFloat();
+        }
+        else /* UNSIGNED NUMBER */
+        {
+            return (type.getNumberType() == 1) ? _toDecimalUnsignedInteger() : _toDecimalUnsignedFloat();
+        }
+    }
+
+    private static double _toDecimalSignedInteger()
+    {
+        return 5;
+    }
+    private static double _toDecimalSignedFloat()
+    {
+        return 5;
+    }
+    private static double _toDecimalUnsignedInteger()
+    {
+        return 5;
+    }
+    private static double _toDecimalUnsignedFloat()
+    {
+        return 5;
+    }
+
+//============================================================================
+
 /**
  * returns power of two close or equal to _number 
  * 
@@ -64,6 +97,8 @@ public abstract class Binary
 
         return pow;
     }
+
+//============================================================================
 
     public static byte[] _complementBinary(byte[] _binary)
     {

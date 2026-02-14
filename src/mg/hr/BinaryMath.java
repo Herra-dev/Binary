@@ -2,9 +2,9 @@ package mg.hr;
 
 public abstract class BinaryMath
 {
-    
+
 /**
- * add _firstNumber to _secondNumber in binary.
+ * add _firstNumber to _secondNumber and returns result in binary.
  *  
  * @param _firstNumber
  * @param _secondNumber
@@ -14,14 +14,16 @@ public abstract class BinaryMath
  */
     public static byte[] _addBinary(double _firstNumber, double _secondNumber, int _bitNumber)
     {
-        byte tab[] = mg.hr.Binary.toBinary(_firstNumber, _bitNumber);
-        byte tab1[] = mg.hr.Binary.toBinary(_secondNumber, _bitNumber);
-
-        tab  = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
-
-        return tab;
+        return mg.hr.Binary.toBinary((_firstNumber + _secondNumber), _bitNumber);
     }
 
+//============================================================================
+
+    public static byte[] _subtractBinary(double _firstNumber, double _secondNumber, int _bitNumber)
+    {
+        return mg.hr.Binary.toBinary((_firstNumber - _secondNumber), _bitNumber);
+    }
+    
 //============================================================================
     
 /**
@@ -108,12 +110,16 @@ public abstract class BinaryMath
             {
                 result[i] = 1;
             }
-            else if(a == 0 && b == 1)
+            else if(a != b)
             {
-                
+                if(b == 1)
+                {
+                    result[i] = 1;
+                    int j = i;
+                    if(--j >= 0 && _secondBinaryNumber[j] == 0)
+                        _secondBinaryNumber[j] = 1;
+                }   
             }
-
-        
         }
         
         if(_bitNumber == _originalBitNumber) return result;

@@ -37,13 +37,15 @@ public abstract class Binary
 
         if(!_signed)
         {
-            if(!_isFloat) return _toBinaryUnsignedInteger((long)_number, _bitNumber); // unsigned long
-            else return _toBinaryUnsignedFloat(_number, _bitNumber); // unsigned float
+            return (!_isFloat) 
+                ? _toBinaryUnsignedInteger((long)_number, _bitNumber) // unsigned long
+                : _toBinaryUnsignedFloat(_number, _bitNumber); // unsigned float
         }
         else
         {
-            if(!_isFloat) return _toBinarySignedInteger((long)_number, _bitNumber); // signed long
-            else return _toBinarySignedFloat(_number, _bitNumber); // signed float
+            return (!_isFloat) 
+                ? _toBinarySignedInteger((long)_number, _bitNumber) // signed long
+                : _toBinarySignedFloat(_number, _bitNumber); // signed float
         }
     }
 
@@ -53,30 +55,35 @@ public abstract class Binary
         /*signed or unsigned number*/ mg.hr.enumeration.NumberSign sign,
         /*integer or floating number*/ mg.hr.enumeration.NumberType type)
     {
-        if(sign.getNumberSign() == 0)/* SIGNED NUMBER*/
-        {
-            return (type.getNumberType() == 0) ? _toDecimalSignedInteger() : _toDecimalSignedFloat();
-        }
-        else /* UNSIGNED NUMBER */
-        {
-            return (type.getNumberType() == 1) ? _toDecimalUnsignedInteger() : _toDecimalUnsignedFloat();
-        }
+        /*
+        * sign: _SIGNED   = 0
+        *       _UNSIGNED = 1
+        * type: _INTEGER  = 0
+        *       _FLOAT    = 1
+         */
+        return (sign.getNumberSign() == 0) 
+                ? ((type.getNumberType() == 0) ? _toDecimalSignedInteger() : _toDecimalSignedFloat())
+                : ((type.getNumberType() == 0) ? _toDecimalUnsignedInteger() : _toDecimalUnsignedFloat());
     }
 
     private static double _toDecimalSignedInteger()
     {
+        System.out.println("signed integer");
         return 5;
     }
     private static double _toDecimalSignedFloat()
     {
+        System.out.println("signed float");
         return 5;
     }
     private static double _toDecimalUnsignedInteger()
     {
+        System.out.println("unsigned integer");
         return 5;
     }
     private static double _toDecimalUnsignedFloat()
     {
+        System.out.println("unsigned float");
         return 5;
     }
 

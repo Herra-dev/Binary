@@ -7,7 +7,7 @@ public enum NumberSign
     _SIGNED(0),
     _UNSIGNED(1);
 
-    protected int _nbr;
+    protected int _nbr = 1;
 
     NumberSign(int nbr)
     {

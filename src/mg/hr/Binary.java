@@ -4,6 +4,8 @@
 
 package mg.hr;
 
+import mg.hr.exception.BinaryException;
+
 public abstract class Binary
 {
 
@@ -14,9 +16,11 @@ public abstract class Binary
  * @param _number
  * @param _bitNumber
  * @return byte[] 
+ * @throws mg.hr.exception.BinaryException
  */
-    public static byte[] toBinary(double _number, int _bitNumber)
+    public static byte[] toBinary(double _number, int _bitNumber) throws mg.hr.exception.BinaryException
     {
+        if(_bitNumber < 0) throw new mg.hr.exception.BinaryException();
         if(_bitNumber == 0) return new byte[0];
 
         byte tab[] = new byte[_bitNumber];
@@ -35,18 +39,32 @@ public abstract class Binary
         // if i(result of the previous calcul) is between -1 and 1(both excluded) but not 0, _number is a floating number
         boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
 
-        if(!_signed)
+        if(!_isFloat)
         {
-            return (!_isFloat) 
-                ? _toBinaryUnsignedInteger((long)_number, _bitNumber) // unsigned long
-                : _toBinaryUnsignedFloat(_number, _bitNumber); // unsigned float
+            if(!_signed)
+                return _toBinaryUnsignedInteger((long)_number, _bitNumber); // unsigned long
+            else
+                return _toBinarySignedInteger((long)_number, _bitNumber); // signed long
         }
         else
-        {
-            return (!_isFloat) 
-                ? _toBinarySignedInteger((long)_number, _bitNumber) // signed long
-                : _toBinarySignedFloat(_number, _bitNumber); // signed float
-        }
+            return _toBinaryFloat(_number, mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION);
+
+    }
+
+//============================================================================
+
+/**
+ * Same as before but _bitNumber is automatically setted depending to _number
+ * 
+ * @param _number
+ * @return byte[] 
+ * @throws mg.hr.exception.BinaryException
+ */
+    public static byte[] toBinary(double _number) throws mg.hr.exception.BinaryException
+    {
+        return (_number > 0) 
+            ? toBinary(_number, mg.hr.Binary._powerOfTwoCloseBottom((long)_number) + 1)
+            : toBinary(_number, mg.hr.Binary._powerOfTwoCloseBottom((long)-(_number)) + 1);
     }
 
 //============================================================================
@@ -95,7 +113,7 @@ public abstract class Binary
  * @param _number
  * @return int 
  */
-    public static int _powerOfTwoClose(long _number)
+    public static int _powerOfTwoCloseBottom(long _number)
     {
         int i = 1;
         int pow = 0;
@@ -153,33 +171,114 @@ public abstract class Binary
     private static byte[] _toBinaryUnsignedInteger(long _number, int _bitNumber)
     {
         long _numberCopy = _number;
-        
+        int i = 0;
         byte binaryReversed[] = new byte[_bitNumber];
 
         while(_numberCopy > 0)
         {
-            int i = _powerOfTwoClose(_numberCopy);
+            i = _powerOfTwoCloseBottom(_numberCopy);
             if(i < binaryReversed.length)
                 binaryReversed[i] = 1;
+            
             _numberCopy -= java.lang.StrictMath.pow(2, i);
         }
 
-        byte binary[] = new byte[_bitNumber];
-        int j = 0;
-        for(int i = binaryReversed.length - 1; i >= 0; i--)
-        {
-            binary[j++] += binaryReversed[i];
-        }
-
-        return binary;
+        return _reverseBinary(binaryReversed);
     }
 
 //============================================================================
 
-    private static byte[] _toBinaryUnsignedFloat(double _number, int _bitNumber)
+/**
+ * For floating number, number of bit is usually represented in:
+ *      - half precision            = 16 bits
+ *      - simple precision          = 32 bits
+ *      - extended simple precision = 48 bits
+ *      - dual precision            = 64 bits
+ *      - extended dual precision   = 79 bits
+ *      - quadruple precision       = 128 bits
+ *      - octuple precision         = 256 bits
+ * 
+ * @param _number
+ * @param _bitNumber
+ * @return
+ */
+    private static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
     {
-        byte tab[] = {5};
-        System.out.println("positif - float");
+        byte tab[] = new byte[_Precision.getPrecision()];
+
+        //============================================================================
+        // SIGN
+        //============================================================================
+        byte _sign = (_number > 0) ? (byte)0 : (byte)1; // SIGN
+        
+        //============================================================================
+        // FLOOR
+        //============================================================================
+        byte _floorBinary[] = null;
+        try
+        {
+            int _numberAbsValue = (int)java.lang.StrictMath.abs(_number);
+            _floorBinary = mg.hr.Binary.toBinary(_numberAbsValue); // _floorBinary of _number in binary mode
+        } 
+        catch (mg.hr.exception.BinaryException e)
+        {
+            e.printStackTrace();
+        }
+
+        //============================================================================
+        // DECIMAL
+        //============================================================================
+        double _decimalPart = java.lang.StrictMath.abs(_number - (int)_number);
+        byte[] _decimalPartBinary = new byte[_Precision.getPrecision()];
+        
+        int i = 0;
+        while(_decimalPart != 0 && i < 32)
+        {
+            _decimalPart *= 2;  
+            System.out.println(_decimalPart);          
+            _decimalPartBinary[i++] = (byte)_decimalPart;
+            _decimalPart -= (int)_decimalPart;
+        }
+
+        int exp = 0;
+        for(exp = 0; exp < _floorBinary.length; exp++)
+        {
+            if(_floorBinary[exp] == 1)
+                break;
+        }
+
+        int expIndex = exp;
+        exp = (_floorBinary.length - 1) - exp;
+        
+        byte E[]  = null;
+        try
+        {
+            E = toBinary(exp + 127);
+
+            for(byte b: E)
+                System.out.print(b);
+            System.out.println();
+            System.out.println(exp);
+        }
+        catch(BinaryException e)
+        {
+            e.printStackTrace();
+        }
+        
+        int j = 0;
+        tab[j] = _sign; // ========================== SIGN =============
+
+        for(int k = 0; k < E.length; k++)
+            tab[++j] = E[k]; // ===================== EXPONENT =========
+
+        for(int k = expIndex + 1; k < _floorBinary.length; k++)
+            tab[++j] = _floorBinary[k]; // ========== MANTISSA =========
+        int k = 0;
+        while (++j < 32)
+        {
+            tab[j] = _decimalPartBinary[k++]; // ==== MANTISSA =========
+        }
+
         return tab;
     }
 
@@ -202,15 +301,6 @@ public abstract class Binary
 
         tab1[_bitNumber-1] = 1;
         tab = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
-        return tab;
-    }
-
-//============================================================================
-
-    private static byte[] _toBinarySignedFloat(double _number, int _bitNumber)
-    {
-        byte tab[] = {5};
-        System.out.println("negatif - float");
         return tab;
     }
 

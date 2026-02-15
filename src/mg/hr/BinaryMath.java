@@ -14,14 +14,32 @@ public abstract class BinaryMath
  */
     public static byte[] _addBinary(double _firstNumber, double _secondNumber, int _bitNumber)
     {
-        return mg.hr.Binary.toBinary((_firstNumber + _secondNumber), _bitNumber);
+        byte _binary[] = null;
+        try 
+        {
+            _binary = mg.hr.Binary.toBinary((_firstNumber + _secondNumber), _bitNumber);
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return _binary;
     }
 
 //============================================================================
 
     public static byte[] _subtractBinary(double _firstNumber, double _secondNumber, int _bitNumber)
     {
-        return mg.hr.Binary.toBinary((_firstNumber - _secondNumber), _bitNumber);
+        byte _binary[] = null;
+        try 
+        {
+            _binary = mg.hr.Binary.toBinary((_firstNumber - _secondNumber), _bitNumber);
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return _binary;
     }
     
 //============================================================================

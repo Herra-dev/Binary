@@ -10,8 +10,18 @@ public class Test_BinaryMath
     public void _test_addBinary()
     {
         int length = 8;
-        byte _tab[] = mg.hr.Binary.toBinary(5, length);
-        byte _tab1[] = mg.hr.Binary.toBinary(10, length);
+        byte _tab[] = null;
+        byte _tab1[] = null;
+
+        try 
+        {
+            _tab = mg.hr.Binary.toBinary(5, length);
+            _tab1 = mg.hr.Binary.toBinary(10, length);
+        } 
+        catch (Exception e) 
+        {
+            
+        }
 
         byte _excepted[] = {0, 0, 0, 0, 1, 1, 1, 1};
         

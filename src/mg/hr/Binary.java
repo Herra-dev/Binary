@@ -188,32 +188,12 @@ public abstract class Binary
 
 //============================================================================
 
-/**
- * For floating number, number of bit is usually represented in:
- *      - half precision            = 16 bits
- *      - simple precision          = 32 bits
- *      - extended simple precision = 48 bits
- *      - dual precision            = 64 bits
- *      - extended dual precision   = 79 bits
- *      - quadruple precision       = 128 bits
- *      - octuple precision         = 256 bits
- * 
- * @param _number
- * @param _bitNumber
- * @return
- */
-    private static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
+    private static byte _binarySign(double _number)
     {
-        byte tab[] = new byte[_Precision.getPrecision()];
-
-        //============================================================================
-        // SIGN
-        //============================================================================
-        byte _sign = (_number > 0) ? (byte)0 : (byte)1; // SIGN
-        
-        //============================================================================
-        // FLOOR
-        //============================================================================
+        return ((int)_number >= 0) ? (byte)0 : (byte)1;
+    }
+    private static byte[] _floor(double _number)
+    {
         byte _floorBinary[] = null;
         try
         {
@@ -225,46 +205,119 @@ public abstract class Binary
             e.printStackTrace();
         }
 
-        //============================================================================
-        // DECIMAL
-        //============================================================================
-        double _decimalPart = java.lang.StrictMath.abs(_number - (int)_number);
-        byte[] _decimalPartBinary = new byte[_Precision.getPrecision()];
-        
+        return _floorBinary;
+    }
+    private static byte[] _decimal(double _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
+    {
+        byte[] _decimalPartBinary = new byte[_precision.getPrecision()];
         int i = 0;
-        while(_decimalPart != 0 && i < 32)
+        while(_decimalPart != 0 && i < _decimalPartBinary.length)
         {
-            _decimalPart *= 2;  
-            System.out.println(_decimalPart);          
+            _decimalPart *= 2;         
             _decimalPartBinary[i++] = (byte)_decimalPart;
             _decimalPart -= (int)_decimalPart;
         }
 
-        int exp = 0;
-        for(exp = 0; exp < _floorBinary.length; exp++)
+        return _decimalPartBinary;
+    }
+    private static short[] _exp(double _number, byte[] _floorBinary, byte[] _decimalPartBinary)
+    {
+        short exp[] = new short[2];
+
+        int exp_d = 0;
+        int expIndex = 0;
+        _number = java.lang.StrictMath.abs(_number);
+        if((int)_number > 0)
         {
-            if(_floorBinary[exp] == 1)
-                break;
+            for(exp_d = 0; exp_d < _floorBinary.length; exp_d++)
+            {
+                if(_floorBinary[exp_d] == 1) // search first bit 1
+                {
+                    ++exp_d; // if 1 was found in index 0 for example, the comma place is in the next index
+                    break;
+                }
+            }
+            expIndex = exp_d;
+            exp_d = _floorBinary.length - exp_d; // distance between _floorBinary and exp_d
+        }
+        else if((int)_number == 0)
+        {
+            for(exp_d = 0; exp_d < _decimalPartBinary.length; exp_d++)
+            {
+                if(_decimalPartBinary[exp_d] == 1)
+                    break;
+            }
+            expIndex = exp_d;
+            exp_d = -exp_d;
         }
 
-        int expIndex = exp;
-        exp = (_floorBinary.length - 1) - exp;
+        exp[0] = (short)exp_d;
+        exp[1] = (short)expIndex;
+
+        return exp;
+    }
+
+/**
+ * For floating number, number of bit is usually represented in:
+ *      - half precision            = 16 bits
+ *      - simple precision          = 32 bits
+ *      - extended simple precision = 48 bits
+ *      - dual precision            = 64 bits
+ *      - extended dual precision   = 79 bits
+ *      - quadruple precision       = 128 bits
+ *      - octuple precision         = 256 bits
+ * 
+ * @param _number
+ * @param _precision
+ * @return
+ */
+    private static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
+    {
+        byte tab[] = new byte[_Precision.getPrecision()];
+
+        byte _sign = _binarySign(_number); // SIGN
+        byte _floorBinary[] = _floor(_number); // FLOOR
+        byte[] _decimalPartBinary = _decimal(java.lang.StrictMath.abs(_number - (int)_number), _Precision); //DECIMAL PART
+
+        //============================================================================
         
+        short[] __ = _exp(_number, _floorBinary, _decimalPartBinary);
+        short exp = __[0];
+        short expIndex = __[1];
+
+        ///////////////////////////////////
+
         byte E[]  = null;
         try
         {
-            E = toBinary(exp + 127);
-
-            for(byte b: E)
-                System.out.print(b);
-            System.out.println();
-            System.out.println(exp);
+            int l = exp + 127;
+            E = toBinary(l);
+            System.out.println("exosant = " + l);
         }
         catch(BinaryException e)
         {
             e.printStackTrace();
         }
+        //=========================================================================
         
+        System.out.println("sign = " + _sign);
+        System.out.print("E = ");
+        for(byte b: E)
+            System.out.print(b);
+        System.out.println();
+        
+        System.out.print("_floor = ");
+        for(byte b: _floorBinary)
+            System.out.print(b);
+        System.out.println();
+
+        System.out.print("_decimal part = ");
+        for(byte b: _decimalPartBinary)
+            System.out.print(b);
+        System.out.println();
+
+
+
         int j = 0;
         tab[j] = _sign; // ========================== SIGN =============
 

@@ -4,7 +4,7 @@ public class App
     {
         try
         {
-            for(byte b : mg.hr.Binary.toBinary(-1027.625))
+            for(byte b : mg.hr.Binary.toBinary(0.3))
                 System.out.print(b);
 
             System.out.println();

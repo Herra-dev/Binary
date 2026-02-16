@@ -291,7 +291,7 @@ public abstract class Binary
         try
         {
             int l = exp + 127;
-            E = toBinary(l);
+            E = toBinary(l, 8);
             System.out.println("exosant = " + l);
         }
         catch(BinaryException e)
@@ -324,13 +324,25 @@ public abstract class Binary
         for(int k = 0; k < E.length; k++)
             tab[++j] = E[k]; // ===================== EXPONENT =========
 
-        for(int k = expIndex + 1; k < _floorBinary.length; k++)
-            tab[++j] = _floorBinary[k]; // ========== MANTISSA =========
-        int k = 0;
-        while (++j < 32)
+        if((int)_number != 0)
         {
-            tab[j] = _decimalPartBinary[k++]; // ==== MANTISSA =========
+            for(int k = expIndex; k < _floorBinary.length; k++)
+            tab[++j] = _floorBinary[k]; // ========== MANTISSA =========
+            int k = 0;
+            while (++j < 32)
+            {
+                tab[j] = _decimalPartBinary[k++]; // ==== MANTISSA =========
+            }
         }
+        else
+        {
+            int k = expIndex;
+            while (++j < 32) 
+            {
+                tab[j] = _decimalPartBinary[++k];
+            }
+        }
+        
 
         return tab;
     }

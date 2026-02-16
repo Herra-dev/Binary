@@ -10,13 +10,14 @@ public abstract class Binary
 {
 
 /**
- * returns array of byte with length defined by the param _bitNumber
+ * returns array of byte with length defined by the param _bitNumber<p>
  * if _bitNumber is equals to 0, return immediatly an array of byte with length 0.
  *    
- * @param _number
- * @param _bitNumber
- * @return byte[] 
+ * @param _number {@code double}
+ * @param _bitNumber {@code int}
+ * @return {@code byte[] }
  * @throws mg.hr.exception.BinaryException
+ * @see {@link mg.hr.Binary#toBinary(double)}
  */
     public static byte[] toBinary(double _number, int _bitNumber) throws mg.hr.exception.BinaryException
     {
@@ -59,6 +60,7 @@ public abstract class Binary
  * @param _number
  * @return byte[] 
  * @throws mg.hr.exception.BinaryException
+ * @see {@link mg.hr.Binary#toBinary(double, int)}
  */
     public static byte[] toBinary(double _number) throws mg.hr.exception.BinaryException
     {
@@ -248,7 +250,7 @@ public abstract class Binary
                     break;
             }
             expIndex = exp_d;
-            exp_d = -exp_d;
+            exp_d = -(exp_d + 1);
         }
 
         exp[0] = (short)exp_d;
@@ -259,17 +261,18 @@ public abstract class Binary
 
 /**
  * For floating number, number of bit is usually represented in:
- *      - half precision            = 16 bits
- *      - simple precision          = 32 bits
- *      - extended simple precision = 48 bits
- *      - dual precision            = 64 bits
- *      - extended dual precision   = 79 bits
- *      - quadruple precision       = 128 bits
- *      - octuple precision         = 256 bits
+ *      <p>- half precision            = {@code 16 bits}
+ *      <p>- simple precision          = {@code 32 bits}
+ *      <p>- extended simple precision = {@code 48 bits}
+ *      <p>- dual precision            = {@code 64 bits}
+ *      <p>- extended dual precision   = {@code 79 bits}
+ *      <p>- quadruple precision       = {@code 128 bits}
+ *      <p>- octuple precision         = {@code 256 bits}
  * 
- * @param _number
- * @param _precision
+ * @param _number {@code double}
+ * @param _precision {@code mg.hr.enumeration.FloatPrecision}
  * @return
+ * @see mg.hr.enumeration.FloatPrecision
  */
     private static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
     {
@@ -290,33 +293,15 @@ public abstract class Binary
         byte E[]  = null;
         try
         {
-            int l = exp + 127;
-            E = toBinary(l, 8);
-            System.out.println("exosant = " + l);
+            int l = exp + _Precision.getBiais();
+            E = toBinary(l, _Precision.getExpNumber());
+            System.out.println("exposant = " + l);
         }
         catch(BinaryException e)
         {
             e.printStackTrace();
         }
         //=========================================================================
-        
-        System.out.println("sign = " + _sign);
-        System.out.print("E = ");
-        for(byte b: E)
-            System.out.print(b);
-        System.out.println();
-        
-        System.out.print("_floor = ");
-        for(byte b: _floorBinary)
-            System.out.print(b);
-        System.out.println();
-
-        System.out.print("_decimal part = ");
-        for(byte b: _decimalPartBinary)
-            System.out.print(b);
-        System.out.println();
-
-
 
         int j = 0;
         tab[j] = _sign; // ========================== SIGN =============
@@ -329,7 +314,7 @@ public abstract class Binary
             for(int k = expIndex; k < _floorBinary.length; k++)
             tab[++j] = _floorBinary[k]; // ========== MANTISSA =========
             int k = 0;
-            while (++j < 32)
+            while (++j < tab.length)
             {
                 tab[j] = _decimalPartBinary[k++]; // ==== MANTISSA =========
             }
@@ -337,13 +322,12 @@ public abstract class Binary
         else
         {
             int k = expIndex;
-            while (++j < 32) 
+            while (++j < tab.length) 
             {
                 tab[j] = _decimalPartBinary[++k];
             }
         }
         
-
         return tab;
     }
 

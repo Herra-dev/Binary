@@ -45,7 +45,7 @@ public abstract class Binary
                 return _toBinarySignedInteger((long)_number, _bitNumber); // signed long
         }
         else
-            return _toBinaryFloat(_number, mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION);
+            return _toBinaryFloat(_number, mg.hr.enumeration.FloatPrecision._HALF_PRECISION);
 
     }
 
@@ -138,12 +138,12 @@ public abstract class Binary
 
     public static byte[] _complementBinary(byte[] _binary)
     {
-        for(int i = 0; i < _binary.length; i++)
+        byte[] b = new byte[_binary.length];
+        for(int i = 0; i < b.length; i++)
         {
-            if(_binary[i] == 0) _binary[i] = 1;
-            else _binary[i] = 0;
+            b[i] = (_binary[i] == 0) ? (byte)1 : (byte)0;
         }
-        return _binary;
+        return b;
     }
 
 //============================================================================
@@ -335,7 +335,7 @@ public abstract class Binary
  * @return byte[]
  * @see mg.hr.enumeration.FloatPrecision
  */
-    private static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
+    public static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
     {
         byte tab[] = new byte[_Precision.getPrecision()];
 
@@ -363,15 +363,15 @@ public abstract class Binary
         //=========================================================================
 
         int j = 0;
-        tab[j] = _sign; // ========================== SIGN =============
+        tab[j] = _sign; // ============================== SIGN =============
 
         for(int k = 0; k < E.length; k++)
-            tab[++j] = E[k]; // ===================== EXPONENT =========
+            tab[++j] = E[k]; // ========================= EXPONENT =========
 
         if((int)_number != 0)
         {
             for(int k = expIndex; k < _floorBinary.length; k++)
-            tab[++j] = _floorBinary[k]; // ========== MANTISSA =========
+            tab[++j] = _floorBinary[k]; // ============== MANTISSA =========
             int k = 0;
             while (++j < tab.length)
             {
@@ -381,9 +381,9 @@ public abstract class Binary
         else
         {
             int k = expIndex;
-            while (++j < tab.length) 
+            while (++j < tab.length && ++k < _decimalPartBinary.length) 
             {
-                tab[j] = _decimalPartBinary[++k];
+                tab[j] = _decimalPartBinary[k];
             }
         }
         
@@ -406,12 +406,11 @@ public abstract class Binary
     private static byte[] _toBinarySignedInteger(long _number, int _bitNumber)
     {
         byte tab[] = new byte[_bitNumber];
-        byte tab1[] = new byte[_bitNumber];
+        byte tab1[] = {0, 0, 0, 0, 0, 0, 0, 1};
 
         tab = _toBinaryUnsignedInteger(-(_number), _bitNumber);
         tab  = mg.hr.Binary._complementBinary(tab);
 
-        tab1[_bitNumber-1] = 1;
         tab = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
         return tab;
     }

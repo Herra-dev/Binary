@@ -70,6 +70,8 @@ public abstract class BinaryMath
  * @param _bitNumber {@code int}
  * 
  * @return byte[]
+ * @see mg.hr.BinaryMath#_completeBinaryNumber(byte[], int)
+ * @see mg.hr.Binary#_reverseBinary(byte[])
  */
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
     {
@@ -124,6 +126,12 @@ public abstract class BinaryMath
 
     public static byte[] _subtractBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
     {
+        //transform first and second number in decimal
+        //if first or second number is a floating number:
+        //------------- use _subtractBinary(double, double, int)
+        //else continue
+
+        boolean retain = false;
         byte a, b;
         byte result[] = new byte[_bitNumber];
         int _originalBitNumber = _bitNumber;
@@ -132,27 +140,36 @@ public abstract class BinaryMath
         _firstBinaryNumber = _completeBinaryNumber(_firstBinaryNumber, _bitNumber);
         _secondBinaryNumber = _completeBinaryNumber(_secondBinaryNumber, _bitNumber);
 
+        
         for(int i = _bitNumber - 1; i >= 0; i--)
         {
             a = _firstBinaryNumber[i];
             b = _secondBinaryNumber[i];
 
-            if(a == b)
+            if(retain)
             {
-                result[i] = 0;
+                if(a == b)
+                {
+                    retain = true;
+                    result[i] = 1;
+                    continue;
+                }
+                else
+                {
+                    retain = (a == 0) ? true : false;
+                    result[i] = 0;
+                    continue;
+                }
             }
-            else if(a == 1 && b == 0)
-            {
-                result[i] = 1;
-            }
+
+            if(a == b)  result[i] = 0;
+            else if(a == 1 && b == 0) result[i] = 1;
             else if(a != b)
             {
                 if(b == 1)
                 {
                     result[i] = 1;
-                    int j = i;
-                    if(--j >= 0 && _secondBinaryNumber[j] == 0)
-                        _secondBinaryNumber[j] = 1;
+                    retain = true;
                 }   
             }
         }
@@ -162,8 +179,8 @@ public abstract class BinaryMath
         {
             result = mg.hr.Binary._reverseBinary(result);
             byte result1[] = new byte[_originalBitNumber];
-            for(int i = 0; i < _originalBitNumber; i++)
-                result1[i] = result[i];
+            for(int k = 0; k < _originalBitNumber; k++)
+                result1[k] = result[k];
             return result1;
         }
     }
@@ -182,7 +199,7 @@ public abstract class BinaryMath
  */
     private static byte[] _completeBinaryNumber(byte[] _number, int length)
     {
-        byte tab[] = new byte[length]; // array to stock the reverse of the binary number to complete
+        byte tab[] = new byte[length]; // array to stock the reverse of the  parameter binary _number to complete
         byte tab1[] = new byte[length]; // array to stock the binary number completed
 
         int j = 0, k = 0;

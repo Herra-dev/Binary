@@ -16,7 +16,7 @@ public abstract class Binary
  * @param _number {@code double}
  * @param _bitNumber {@code int}
  * @return {@code byte[] }
- * @throws mg.hr.exception.BinaryException
+ * @throws mg.hr.exception.BinaryException if {@code _bitNumber} is a negative value
  * @see {@link mg.hr.Binary#toBinary(double)}
  */
     public static byte[] toBinary(double _number, int _bitNumber) throws mg.hr.exception.BinaryException
@@ -55,12 +55,13 @@ public abstract class Binary
 //============================================================================
 
 /**
- * Same as before but _bitNumber is automatically setted depending to _number
+ * Same as {@link #toBinary(double, int)} but the second parameter {@code _bitNumber} is automatically setted according to parameter {@code _number}'s value
  * 
- * @param _number
- * @return byte[] 
+ * @param _number {@code double}
+ * @return an array - {@code byte[]} sequence of bit representing {@code _number} in binary 
  * @throws mg.hr.exception.BinaryException
- * @see {@link mg.hr.Binary#toBinary(double, int)}
+ * @see mg.hr.Binary#toBinary(double, int)
+ * @see mg.hr.Binary#_powerOfTwoCloseBottom(long)
  */
     public static byte[] toBinary(double _number) throws mg.hr.exception.BinaryException
     {
@@ -112,8 +113,8 @@ public abstract class Binary
 /**
  * returns power of two close or equal to _number 
  * 
- * @param _number
- * @return int 
+ * @param _number {@code long}
+ * @return {@code int} 
  */
     public static int _powerOfTwoCloseBottom(long _number)
     {
@@ -139,6 +140,15 @@ public abstract class Binary
 
 //============================================================================
 
+/**
+ * returns {@code _number} in reverse.
+ * <p>eg:
+ * <p> - {@code 10111} becomes {@code 11101}
+ * <p> - {@code 10001111} becomes {@code 11110001}
+ * 
+ * @param _number {@code byte[]}
+ * @return byte[]
+ */
     public static byte[] _reverseBinary(byte[] _number)
     {
         byte[] reversedBinary = new byte[_number.length];
@@ -157,18 +167,20 @@ public abstract class Binary
 /**
  * returns array of byte with length defined by the param _bitNumber
  * 
- * method used:
+ * method used:<p>
  * exemple: 
- *      for 98 in decimal, 
- *      98, 64 < 98 < 128, so 98 contains 64 = pow(2, 6),                     [keep 6]
- *      98 - 64 = 34, 32 < 34 < 64,  ---> 32 = pow(2, 5),                     [keep 5]
- *      34 - 32 = 2, ---> 2 = pow(2, 1).                                      [keep 1]
+ *      <p>for 98 in decimal, 
+ *      <p>98, 64 < 98 < 128, so 98 contains {@code 64} = pow(2, 6),    {@code [keep 6]}
+ *      <p>98 - 64 = 34, 32 < 34 < 64,  ---> {@code 32} = pow(2, 5),    {@code [keep 5]}
+ *      <p>34 - 32 = 2, ---> {@code 2} = pow(2, 1).                     {@code [keep 1]}
+ * <p><p>
+ *      <p>{@code result: 01100010 = 98}
  * 
- *      result: 01100010 = 98
- * 
- * @param _number
- * @param _bitNumber
+ * @param _number {@code long}
+ * @param _bitNumber {@code int}
  * @return byte[]
+ * @see mg.hr.Binary#_powerOfTwoCloseBottom(long)
+ * @see mg.hr.Binary#_reverseBinary(byte[])
  */
     private static byte[] _toBinaryUnsignedInteger(long _number, int _bitNumber)
     {
@@ -190,10 +202,23 @@ public abstract class Binary
 
 //============================================================================
 
+/**
+ * returns {@code 0} if {@code _number} is positive, returns {@code -1} otherwise
+ * 
+ * @param _number {@code double}
+ * @return {@code byte}
+ */
     private static byte _binarySign(double _number)
     {
         return ((int)_number >= 0) ? (byte)0 : (byte)1;
     }
+
+/**
+ * returns an array of byte representing the {@code floor} of a real number
+ * 
+ * @param _number {@code double}
+ * @return byte[]
+ */
     private static byte[] _floor(double _number)
     {
         byte _floorBinary[] = null;
@@ -209,6 +234,14 @@ public abstract class Binary
 
         return _floorBinary;
     }
+
+/**
+ * returns an array of byte representing the decimal part of a real number
+ * 
+ * @param _decimalPart {@code double}
+ * @param _precision {@link mg.hr.enumeration.FloatPrecision}
+ * @return byte[]
+ */
     private static byte[] _decimal(double _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
     {
         byte[] _decimalPartBinary = new byte[_precision.getPrecision()];
@@ -222,6 +255,15 @@ public abstract class Binary
 
         return _decimalPartBinary;
     }
+
+/**
+ * returns an array of short exponent information is stored
+ * 
+ * @param _number {@code double}
+ * @param _floorBinary {@code byte[]}
+ * @param _decimalPartBinary {@code byte[]}
+ * @return short[]
+ */
     private static short[] _exp(double _number, byte[] _floorBinary, byte[] _decimalPartBinary)
     {
         short exp[] = new short[2];
@@ -260,6 +302,8 @@ public abstract class Binary
     }
 
 /**
+ * returns an array of byte representing {@code _number} in {@code binary}
+ * <p><p>
  * For floating number, number of bit is usually represented in:
  *      <p>- half precision            = {@code 16 bits}
  *      <p>- simple precision          = {@code 32 bits}
@@ -268,6 +312,7 @@ public abstract class Binary
  *      <p>- extended dual precision   = {@code 79 bits}
  *      <p>- quadruple precision       = {@code 128 bits}
  *      <p>- octuple precision         = {@code 256 bits}
+ * 
  * 
  * @param _number {@code double}
  * @param _precision {@code mg.hr.enumeration.FloatPrecision}
@@ -287,8 +332,6 @@ public abstract class Binary
         short[] __ = _exp(_number, _floorBinary, _decimalPartBinary);
         short exp = __[0];
         short expIndex = __[1];
-
-        ///////////////////////////////////
 
         byte E[]  = null;
         try
@@ -334,11 +377,15 @@ public abstract class Binary
 //============================================================================
 
 /**
+ * return an array of byte representing {@code _number} who is: 
+ * <p> - {@code signed}
+ * <p> - {@code not a floating number}
+ * in binary
  * 
- * 
- * @param _number
- * @param _bitNumber
+ * @param _number {@code long}
+ * @param _bitNumber {@code int}
  * @return byte[]
+ * @see mg.hr.Binary#_toBinaryUnsignedInteger(long, int)
  */
     private static byte[] _toBinarySignedInteger(long _number, int _bitNumber)
     {

@@ -6,11 +6,14 @@ public abstract class BinaryMath
 /**
  * add _firstNumber to _secondNumber and returns result in binary.
  *  
- * @param _firstNumber
- * @param _secondNumber
- * @param _bitNumber
+ * @param _firstNumber {@code double}
+ * @param _secondNumber {@code double}
+ * @param _bitNumber {@code int}
  * 
- * @return array of byte with length defined by the param _bitNumber
+ * @return byte[]
+ * @see mg.hr.BinaryMath#_subtractBinary(byte[], byte[], int)
+ * @see mg.hr.BinaryMath#_subtractBinary(double, double, int)
+ * @see mg.hr.BinaryMath#_addBinary(byte[], byte[], int)
  */
     public static byte[] _addBinary(double _firstNumber, double _secondNumber, int _bitNumber)
     {
@@ -28,6 +31,18 @@ public abstract class BinaryMath
 
 //============================================================================
 
+/**
+ * substract _firstNumber to _secondNumber and returns result in binary.
+ *  
+ * @param _firstNumber {@code double}
+ * @param _secondNumber {@code double}
+ * @param _bitNumber {@code int}
+ * 
+ * @return byte[]
+ * @see mg.hr.BinaryMath#_subtractBinary(byte[], byte[], int)
+ * @see mg.hr.BinaryMath#_addBinary(byte[], byte[], int)
+ * @see mg.hr.BinaryMath#_addBinary(double, double, int)
+ */
     public static byte[] _subtractBinary(double _firstNumber, double _secondNumber, int _bitNumber)
     {
         byte _binary[] = null;
@@ -45,14 +60,16 @@ public abstract class BinaryMath
 //============================================================================
     
 /**
- * if _bitNumber is inferior of _firstBinaryNumber.length or _secondBinaryNumber.length,
- * it will be set to the superior between _firstBinaryNumber.length and _secondBinaryNumber.length
+ * returns an array of byte with length defined in the param {@code _bitNumber}
  * 
- * @param _firstBinaryNumber
- * @param _secondBinaryNumber
- * @param _bitNumber
+ * if {@code _bitNumber} is inferior of {@code _firstBinaryNumber.length} or {@code _secondBinaryNumber.length},
+ * <p>it will be set to the superior between _firstBinaryNumber.length and _secondBinaryNumber.length
  * 
- * @return array of byte with length defined by the param _bitNumber
+ * @param _firstBinaryNumber {@code byte[]}
+ * @param _secondBinaryNumber {@code byte[]}
+ * @param _bitNumber {@code int}
+ * 
+ * @return byte[]
  */
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
     {
@@ -154,11 +171,13 @@ public abstract class BinaryMath
 //============================================================================
 
 /**
- * used to complete a binary number with 0 in the left, example:
- * for a number in 8 bits(length) : 1011 become 00001011, 1 become 00000001
+ * used to complete a binary number with 0 in the left, example:<p>
+ * for a number in {@code 8} bits:
+ * <p> - {@code 1011} becomes {@code 00001011}, 
+ * <p> - {@code 1} becomes {@code 00000001}
  * 
- * @param _number
- * @param length
+ * @param _number {@code byte}
+ * @param length {@code int} number of bit
  * @return array of byte with length defined by param length
  */
     private static byte[] _completeBinaryNumber(byte[] _number, int length)

@@ -1,17 +1,14 @@
 /**
  * USED TO TRANSFORM NUMBER IN DECIMAL TO BINARY
  */
-
 package mg.hr;
-
-import mg.hr.exception.BinaryException;
 
 public abstract class Binary
 {
 
 /**
- * returns array of byte with length defined by the param _bitNumber<p>
- * if _bitNumber is equals to 0, return immediatly an array of byte with length 0.
+ * returns array of byte with length defined in parameter {@code _bitNumber}
+ * <p>if _bitNumber is equals to 0, return immediately an array of byte with length 0.
  *    
  * @param _number {@code double}
  * @param _bitNumber {@code int}
@@ -27,7 +24,7 @@ public abstract class Binary
         byte tab[] = new byte[_bitNumber];
         
         //================
-        // initialisation of the array to stock binary number with 0
+        // initialization of the array to stock binary number with 0
         //================
         for(int i = 0; i < _bitNumber; i++)
             tab[i] = 0;
@@ -87,21 +84,32 @@ public abstract class Binary
                 : ((type.getNumberType() == 0) ? _toDecimalUnsignedInteger() : _toDecimalUnsignedFloat());
     }
 
+//============================================================================
+
     private static double _toDecimalSignedInteger()
     {
         System.out.println("signed integer");
         return 5;
     }
+
+//============================================================================
+
     private static double _toDecimalSignedFloat()
     {
         System.out.println("signed float");
         return 5;
     }
+
+//============================================================================
+
     private static double _toDecimalUnsignedInteger()
     {
         System.out.println("unsigned integer");
         return 5;
     }
+
+//============================================================================    
+
     private static double _toDecimalUnsignedFloat()
     {
         System.out.println("unsigned float");
@@ -213,6 +221,8 @@ public abstract class Binary
         return ((int)_number >= 0) ? (byte)0 : (byte)1;
     }
 
+//============================================================================
+
 /**
  * returns an array of byte representing the {@code floor} of a real number
  * 
@@ -235,6 +245,8 @@ public abstract class Binary
         return _floorBinary;
     }
 
+//============================================================================
+
 /**
  * returns an array of byte representing the decimal part of a real number
  * 
@@ -255,6 +267,8 @@ public abstract class Binary
 
         return _decimalPartBinary;
     }
+
+//============================================================================
 
 /**
  * returns an array of short exponent information is stored
@@ -301,6 +315,8 @@ public abstract class Binary
         return exp;
     }
 
+//============================================================================
+
 /**
  * returns an array of byte representing {@code _number} in {@code binary}
  * <p><p>
@@ -316,7 +332,7 @@ public abstract class Binary
  * 
  * @param _number {@code double}
  * @param _precision {@code mg.hr.enumeration.FloatPrecision}
- * @return
+ * @return byte[]
  * @see mg.hr.enumeration.FloatPrecision
  */
     private static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
@@ -340,7 +356,7 @@ public abstract class Binary
             E = toBinary(l, _Precision.getExpNumber());
             System.out.println("exposant = " + l);
         }
-        catch(BinaryException e)
+        catch(mg.hr.exception.BinaryException e)
         {
             e.printStackTrace();
         }

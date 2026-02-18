@@ -69,55 +69,6 @@ public abstract class Binary
 
 //============================================================================
 
-    public static double toDecimal(byte[] _number,
-        /*signed or unsigned number*/ mg.hr.enumeration.NumberSign sign,
-        /*integer or floating number*/ mg.hr.enumeration.NumberType type)
-    {
-        /*
-        * sign: _SIGNED   = 0
-        *       _UNSIGNED = 1
-        * type: _INTEGER  = 0
-        *       _FLOAT    = 1
-         */
-        return (sign.getNumberSign() == 0) 
-                ? ((type.getNumberType() == 0) ? _toDecimalSignedInteger() : _toDecimalSignedFloat())
-                : ((type.getNumberType() == 0) ? _toDecimalUnsignedInteger() : _toDecimalUnsignedFloat());
-    }
-
-//============================================================================
-
-    private static double _toDecimalSignedInteger()
-    {
-        System.out.println("signed integer");
-        return 5;
-    }
-
-//============================================================================
-
-    private static double _toDecimalSignedFloat()
-    {
-        System.out.println("signed float");
-        return 5;
-    }
-
-//============================================================================
-
-    private static double _toDecimalUnsignedInteger()
-    {
-        System.out.println("unsigned integer");
-        return 5;
-    }
-
-//============================================================================    
-
-    private static double _toDecimalUnsignedFloat()
-    {
-        System.out.println("unsigned float");
-        return 5;
-    }
-
-//============================================================================
-
 /**
  * returns power of two close or equal to _number 
  * 
@@ -172,43 +123,6 @@ public abstract class Binary
 
 //============================================================================
 
-/**
- * returns array of byte with length defined by the param _bitNumber
- * 
- * method used:<p>
- * exemple: 
- *      <p>for 98 in decimal, 
- *      <p>98, 64 < 98 < 128, so 98 contains {@code 64} = pow(2, 6),    {@code [keep 6]}
- *      <p>98 - 64 = 34, 32 < 34 < 64,  ---> {@code 32} = pow(2, 5),    {@code [keep 5]}
- *      <p>34 - 32 = 2, ---> {@code 2} = pow(2, 1).                     {@code [keep 1]}
- * <p><p>
- *      <p>{@code result: 01100010 = 98}
- * 
- * @param _number {@code long}
- * @param _bitNumber {@code int}
- * @return byte[]
- * @see mg.hr.Binary#_powerOfTwoCloseBottom(long)
- * @see mg.hr.Binary#_reverseBinary(byte[])
- */
-    private static byte[] _toBinaryUnsignedInteger(long _number, int _bitNumber)
-    {
-        long _numberCopy = _number;
-        int i = 0;
-        byte binaryReversed[] = new byte[_bitNumber];
-
-        while(_numberCopy > 0)
-        {
-            i = _powerOfTwoCloseBottom(_numberCopy);
-            if(i < binaryReversed.length)
-                binaryReversed[i] = 1;
-            
-            _numberCopy -= java.lang.StrictMath.pow(2, i);
-        }
-
-        return _reverseBinary(binaryReversed);
-    }
-
-//============================================================================
 
 /**
  * returns {@code 0} if {@code _number} is positive, returns {@code -1} otherwise
@@ -413,6 +327,44 @@ public abstract class Binary
 
         tab = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
         return tab;
+    }
+
+//============================================================================
+
+/**
+ * returns array of byte with length defined by the param _bitNumber
+ * 
+ * method used:<p>
+ * exemple: 
+ *      <p>for 98 in decimal, 
+ *      <p>98, 64 < 98 < 128, so 98 contains {@code 64} = pow(2, 6),    {@code [keep 6]}
+ *      <p>98 - 64 = 34, 32 < 34 < 64,  ---> {@code 32} = pow(2, 5),    {@code [keep 5]}
+ *      <p>34 - 32 = 2, ---> {@code 2} = pow(2, 1).                     {@code [keep 1]}
+ * <p><p>
+ *      <p>{@code result: 01100010 = 98}
+ * 
+ * @param _number {@code long}
+ * @param _bitNumber {@code int}
+ * @return byte[]
+ * @see mg.hr.Binary#_powerOfTwoCloseBottom(long)
+ * @see mg.hr.Binary#_reverseBinary(byte[])
+ */
+    private static byte[] _toBinaryUnsignedInteger(long _number, int _bitNumber)
+    {
+        long _numberCopy = _number;
+        int i = 0;
+        byte binaryReversed[] = new byte[_bitNumber];
+
+        while(_numberCopy > 0)
+        {
+            i = _powerOfTwoCloseBottom(_numberCopy);
+            if(i < binaryReversed.length)
+                binaryReversed[i] = 1;
+            
+            _numberCopy -= java.lang.StrictMath.pow(2, i);
+        }
+
+        return _reverseBinary(binaryReversed);
     }
 
 //============================================================================

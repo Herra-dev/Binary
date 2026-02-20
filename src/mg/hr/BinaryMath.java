@@ -69,6 +69,20 @@ public abstract class BinaryMath
     
 //============================================================================
     
+    public static byte[] _multiplyBinary(double _firstNumber, double _secondNumber, int _bitNumber)
+    {
+        byte _binary[] = null;
+        try 
+        {
+            _binary = mg.hr.Binary.toBinary((_firstNumber * _secondNumber), _bitNumber);
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return _binary;
+    }
+
 /**
  * returns an array of byte with length defined in the param {@code _bitNumber}
  * 

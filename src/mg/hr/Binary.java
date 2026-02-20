@@ -39,14 +39,53 @@ public abstract class Binary
 
         if(!_isFloat)
         {
-            if(!_signed)
-                return _toBinaryUnsignedInteger((long)_number, _bitNumber); // unsigned long
-            else
-                return _toBinarySignedInteger((long)_number, _bitNumber); // signed long
+            if(!_signed) return _toBinaryUnsignedInteger((long)_number, _bitNumber); // unsigned long
+            else         return _toBinarySignedInteger((long)_number, _bitNumber); // signed long
         }
-        else
-            return _toBinaryFloat(_number, mg.hr.enumeration.FloatPrecision._HALF_PRECISION);
+        else             return _toBinaryFloat(_number, _askForPrecision(_number)); // floating number
+    }
 
+//============================================================================
+
+    private static mg.hr.enumeration.FloatPrecision _askForPrecision(double _number)
+    {
+        mg.hr.enumeration.FloatPrecision _Precision = mg.hr.enumeration.FloatPrecision._HALF_PRECISION;
+        short _choosenPrecision = 0;
+        System.out.println(_number + " is a floating point number, choose how to represent it = \n" + 
+            "\t16  - HALF_PRECISION\n" + 
+            "\t32  - SIMPLE_PRECISION\n" + 
+            "\t48  - EXTENDED_SIMPLE_PRECISION\n" + 
+            "\t64  - DUAL_PRECISION\n" +
+            "\t79  - EXTENDED_DUAL_PRECISION\n" +
+            "\t128 - QUADRUPLE_PRECISION\n" + 
+            "\t256 - OCTUPLE_PRECISION\n"
+        );
+        java.util.Scanner sc = new java.util.Scanner(java.lang.System.in);
+        _choosenPrecision = sc.nextShort();
+
+        while(_choosenPrecision != 16 && _choosenPrecision != 32 && 
+                _choosenPrecision != 48 && _choosenPrecision != 64 && 
+                    _choosenPrecision != 79 && _choosenPrecision != 128 && 
+                        _choosenPrecision != 256)
+        {
+            System.out.println("Please, enter: 16, 32, 48, 64, 79, 128 or 256");
+            _choosenPrecision = sc.nextShort();
+        }
+
+        switch (_choosenPrecision) {
+            case 16:  _Precision = mg.hr.enumeration.FloatPrecision._HALF_PRECISION;            break;
+            case 32:  _Precision = mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION;          break;
+            case 48:  _Precision = mg.hr.enumeration.FloatPrecision._EXTENDED_SIMPLE_PRECISION; break;
+            case 64:  _Precision = mg.hr.enumeration.FloatPrecision._DUAL_PRECISION;            break;
+            case 79:  _Precision = mg.hr.enumeration.FloatPrecision._EXTENDED_DUAL_PRECISION;   break;
+            case 128: _Precision = mg.hr.enumeration.FloatPrecision._QUADRUPLE_PRECISION;       break;
+            case 256: _Precision = mg.hr.enumeration.FloatPrecision._OCTUPLE_PRECISION;         break;
+            default: break;
+        }
+        
+        sc.close();
+
+        return _Precision;
     }
 
 //============================================================================
@@ -75,7 +114,7 @@ public abstract class Binary
  * @param _number {@code long}
  * @return {@code int} 
  */
-    public static int _powerOfTwoCloseBottom(long _number)
+    public static int _powerOfTwoCloseBottom(double _number)
     {
         int i = 1;
         int pow = 0;
@@ -249,7 +288,7 @@ public abstract class Binary
  * @return byte[]
  * @see mg.hr.enumeration.FloatPrecision
  */
-    public static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
+    private static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
     {
         byte tab[] = new byte[_Precision.getPrecision()];
 
@@ -317,10 +356,13 @@ public abstract class Binary
  * @return byte[]
  * @see mg.hr.Binary#_toBinaryUnsignedInteger(long, int)
  */
-    private static byte[] _toBinarySignedInteger(long _number, int _bitNumber)
+    private static byte[] _toBinarySignedInteger(double _number, int _bitNumber)
     {
         byte tab[] = new byte[_bitNumber];
-        byte tab1[] = {0, 0, 0, 0, 0, 0, 0, 1};
+        byte tab1[] = new byte[_bitNumber];
+        for(short i = 0; i < _bitNumber; i++)
+            tab1[i] = 0;
+        tab1[_bitNumber - 1] = 1;
 
         tab = _toBinaryUnsignedInteger(-(_number), _bitNumber);
         tab  = mg.hr.Binary._complementBinary(tab);
@@ -349,9 +391,9 @@ public abstract class Binary
  * @see mg.hr.Binary#_powerOfTwoCloseBottom(long)
  * @see mg.hr.Binary#_reverseBinary(byte[])
  */
-    private static byte[] _toBinaryUnsignedInteger(long _number, int _bitNumber)
+    private static byte[] _toBinaryUnsignedInteger(double _number, int _bitNumber)
     {
-        long _numberCopy = _number;
+        double _numberCopy = _number;
         int i = 0;
         byte binaryReversed[] = new byte[_bitNumber];
 

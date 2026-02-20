@@ -20,9 +20,11 @@ public abstract class BinaryMath
  * 
  * @return byte[]
  * @see mg.hr.BinaryMath#_subtractBinary(byte[], byte[], int)
- * @see mg.hr.BinaryMath#_subtractBinary(double, double, int)
  * @see mg.hr.BinaryMath#_addBinary(byte[], byte[], int)
+ * 
+ * @see mg.hr.BinaryMath#_subtractBinary(double, double, int)
  * @see mg.hr.BinaryMath#_multiplyBinary(double, double, int)
+ * @see mg.hr.BinaryMath#_divideBinary(double, double, int)
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _addBinary(double _firstNumber, double _secondNumber, int _bitNumber)
@@ -51,8 +53,10 @@ public abstract class BinaryMath
  * @return byte[]
  * @see mg.hr.BinaryMath#_subtractBinary(byte[], byte[], int)
  * @see mg.hr.BinaryMath#_addBinary(byte[], byte[], int)
+ * 
  * @see mg.hr.BinaryMath#_addBinary(double, double, int)
  * @see mg.hr.BinaryMath#_multiplyBinary(double, double, int)
+ * @see mg.hr.BinaryMath#_divideBinary(double, double, int)
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _subtractBinary(double _firstNumber, double _secondNumber, int _bitNumber)
@@ -81,8 +85,10 @@ public abstract class BinaryMath
  * @return byte[]
  * @see mg.hr.BinaryMath#_subtractBinary(byte[], byte[], int)
  * @see mg.hr.BinaryMath#_addBinary(byte[], byte[], int)
+ * 
  * @see mg.hr.BinaryMath#_subtractBinary(double, double, int)
  * @see mg.hr.BinaryMath#_addBinary(double, double, int)
+ * @see mg.hr.BinaryMath#_divideBinary(double, double, int)
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _multiplyBinary(double _firstNumber, double _secondNumber, int _bitNumber)

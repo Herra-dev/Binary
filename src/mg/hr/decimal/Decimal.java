@@ -1,9 +1,26 @@
+//========================================================================================
+// Decimal
+//========================================================================================
+//
+// THIS CLASS IS USED TO TRANSFORM A NUMBER IN BINARY INTO DECIMAL
+//========================================================================================
+
 package mg.hr.decimal;
 
 public abstract class Decimal 
 {
 //========================================================================================
 
+/**
+ * {@code NB:} The parameter {@code _bit} will be {@code treated} as an {@code unsigned integer}<p>
+ * even if its a floating number or signed number
+ * 
+ * @param _bit {@code byte[]} the number in binary to transform
+ * @return {@code double} the representation of {@code _bit} in decimal
+ * @see mg.hr.Binary#_reverseBinary(byte[])
+ * @see mg.hr.decimal.Decimal#_toDecimalSignedInteger(byte[])
+ * @author {@see https://github.com/Herra-dev}
+ */
     public static double _toDecimalUnsignedInteger(byte[] _bit)
     {
         byte[] _bitUnsignedInteger = mg.hr.Binary._reverseBinary(_bit);
@@ -19,6 +36,17 @@ public abstract class Decimal
 
 //========================================================================================
 
+/**
+ * {@code NB:} The parameter {@code _bit} will be {@code treated} as an {@code signed integer}<p>
+ * even if its a floating number or unsigned integer
+ * 
+ * @param _bit {@code byte[]} the number in binary to transform
+ * @return {@code double} the representation of {@code _bit} in decimal
+ * @see mg.hr.Binary#_complementBinary(byte[])
+ * @see mg.hr.BinaryMath#_addBinary(byte[], byte[], int)
+ * @see mg.hr.decimal.Decimal#_toDecimalUnsignedInteger(byte[])
+ * @author {@see https://github.com/Herra-dev}
+ */
     public static double _toDecimalSignedInteger(byte[] _bit)
     {
 
@@ -32,25 +60,69 @@ public abstract class Decimal
         _bit = mg.hr.BinaryMath._addBinary(_bit, _bitOne, _bit.length);
 
         double _SInteger = _toDecimalUnsignedInteger(_bit);
-        System.out.println("here");
         
         return -_SInteger;
     }
 
 //========================================================================================
 
+/**
+ * {@code NB:} The parameter {@code _bit} will be {@code treated} as an {@code floating point number}<p>
+ * even if its an unsigned or signed integer 
+ * 
+ * <p>this function works in 4 steps:
+ * <p>{@code first:} searching for the sign
+ * <p>{@code second:} searching for the floor
+ * <p>{@code third:} searching for decimal part(number after comma)
+ * <p>{@code fourth:} assembling all data gathered
+ * 
+ * @param _bit {@code byte[]}
+ * @return {@code double} the representation of {@code _bit} in decimal
+ * @see mg.hr.decimal.Decimal#_getFloorNumber(byte[])
+ * @see mg.hr.decimal.Decimal#_getDecimalPart(byte[])
+ * @author {@see https://github.com/Herra-dev}
+ */
     public static double _toDecimalFloat(byte[] _bit)
     {
-        boolean positive = (_bit[0] == 0) ? true : false; // SIGN
-        double floor = _getFloorNumber(_bit);
-        double decimalPart = _getDecimalPart(_bit);
-        //============================================
+        int _bitNumber = _bit.length;
+        short[] availableRepresentation = {16, 32, 48, 64, 79, 128, 256};
+        boolean proceed = false;
 
-        return (positive) ? (floor+decimalPart) : -(floor+decimalPart);
+        for(short i: availableRepresentation)
+            if(i == _bitNumber)
+                proceed = true;
+
+        //IF _bit.length IS AVAILABLE: PROCEED TRANSFORMATION
+        if(proceed)
+        {
+            boolean positive = (_bit[0] == 0) ? true : false; //==== SIGN
+            double floor = _getFloorNumber(_bit);             //==== FLOOR
+            double decimalPart = _getDecimalPart(_bit);       //==== DECIMAL PART
+
+            return (positive) ? (floor+decimalPart) : -(floor+decimalPart);
+        }
+        else
+        {
+            System.err.println("Representation not available, due to:\n" +
+                "\t- length of _bit = " + _bit.length + ", could not be represented"
+            );
+            System.out.println("_bit.length must be: ");
+            for(short s: availableRepresentation)
+                System.out.println("\t- " + s);
+            System.out.println();
+            return 0;
+        }
     }
 
 //========================================================================================
 
+/**
+ * Returns the precision of {@code _bit} 
+ * 
+ * @param _bit {@code byte[]}
+ * @return {@link mg.hr.enumeration.FloatPrecision}
+ * @author {@see https://github.com/Herra-dev}
+ */
     private static mg.hr.enumeration.FloatPrecision _getBinaryNumberPrecision(byte[] _bit)
     {
         short _bitNumber = (short)_bit.length;
@@ -72,6 +144,13 @@ public abstract class Decimal
 
 //========================================================================================
 
+/**
+ * Returns the exponent of _bit
+ * 
+ * @param _bit {@code byte[]}
+ * @return {@code double}
+ * @author {@see https://github.com/Herra-dev}
+ */
     private static double _getBinaryNumberExponent(byte[] _bit)
     {
         mg.hr.enumeration.FloatPrecision _nbrPrecision = _getBinaryNumberPrecision(_bit);
@@ -84,6 +163,13 @@ public abstract class Decimal
 
 //========================================================================================
 
+/**
+ * Returns the floor number of {@code _bit}
+ * 
+ * @param _bit {@code byte[]}
+ * @return {@code double}
+ * @author {@see https://github.com/Herra-dev}
+ */
     private static double _getFloorNumber(byte[] _bit)
     {
         mg.hr.enumeration.FloatPrecision _precision = _getBinaryNumberPrecision(_bit);
@@ -92,7 +178,7 @@ public abstract class Decimal
         _exponent -= _precision.getBiais();
         _exponent = (_expPositive) ? java.lang.StrictMath.abs(_exponent) : -(java.lang.StrictMath.abs(_exponent));
 
-        if(!_expPositive) return 0;
+        if(!_expPositive) return 0; // RETURN 0, IF EXPONENT IS A NEGATIVE VALUE
 
         byte[] _floor = new byte[(int)_exponent+1];
         _floor[0] = 1;
@@ -105,6 +191,13 @@ public abstract class Decimal
 
 //========================================================================================
 
+/**
+ * Returns _bit's decimal part in decimal
+ * 
+ * @param _bit {@code byte[]}
+ * @return {@code double}
+ * @author {@see https://github.com/Herra-dev}
+ */
     private static double _getDecimalPart(byte[] _bit)
     {
         mg.hr.enumeration.FloatPrecision _precision = _getBinaryNumberPrecision(_bit);

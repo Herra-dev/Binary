@@ -1,6 +1,10 @@
-/**
- * USED TO TRANSFORM NUMBER IN DECIMAL TO BINARY
- */
+//========================================================================================
+// Decimal
+//========================================================================================
+//
+// THIS CLASS IS USED TO TRANSFORM A NUMBER IN DECIMAL REPRESENTATION INTO BINARY 
+// REPRESENTATION
+//========================================================================================
 package mg.hr;
 
 public abstract class Binary
@@ -15,6 +19,7 @@ public abstract class Binary
  * @return {@code byte[] }
  * @throws mg.hr.exception.BinaryException if {@code _bitNumber} is a negative value
  * @see {@link mg.hr.Binary#toBinary(double)}
+ * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] toBinary(double _number, int _bitNumber) throws mg.hr.exception.BinaryException
     {
@@ -47,6 +52,14 @@ public abstract class Binary
 
 //============================================================================
 
+/**
+ * ask user for precision to represent number in {@code the parameter _number}<p>
+ * 
+ * @param _number {@code double}
+ * @return {@link mg.hr.enumeration.FloatPrecision}
+ * @see mg.hr.enumeration.FloatPrecision
+ * @author {@see https://github.com/Herra-dev}
+ */
     private static mg.hr.enumeration.FloatPrecision _askForPrecision(double _number)
     {
         mg.hr.enumeration.FloatPrecision _Precision = mg.hr.enumeration.FloatPrecision._HALF_PRECISION;
@@ -98,6 +111,7 @@ public abstract class Binary
  * @throws mg.hr.exception.BinaryException
  * @see mg.hr.Binary#toBinary(double, int)
  * @see mg.hr.Binary#_powerOfTwoCloseBottom(long)
+ * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] toBinary(double _number) throws mg.hr.exception.BinaryException
     {
@@ -113,6 +127,7 @@ public abstract class Binary
  * 
  * @param _number {@code long}
  * @return {@code int} 
+ * @author {@see https://github.com/Herra-dev}
  */
     public static int _powerOfTwoCloseBottom(double _number)
     {
@@ -126,6 +141,15 @@ public abstract class Binary
 
 //============================================================================
 
+/**
+ * returns the complement of {@code _binary}, eg:<p>
+ * * {@code 100011110} becomes {@code 011100001}<p> 
+ * * {@code 1010101000} becomes {@code 0101010111}
+ * 
+ * @param _binary {@code byte[]}
+ * @return {@code byte[]}
+ * @author {@see https://github.com/Herra-dev}
+ */
     public static byte[] _complementBinary(byte[] _binary)
     {
         byte[] b = new byte[_binary.length];
@@ -146,6 +170,7 @@ public abstract class Binary
  * 
  * @param _number {@code byte[]}
  * @return byte[]
+ * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _reverseBinary(byte[] _number)
     {
@@ -168,6 +193,7 @@ public abstract class Binary
  * 
  * @param _number {@code double}
  * @return {@code byte}
+ * @author {@see https://github.com/Herra-dev}
  */
     private static byte _binarySign(double _number)
     {
@@ -181,6 +207,7 @@ public abstract class Binary
  * 
  * @param _number {@code double}
  * @return byte[]
+ * @author {@see https://github.com/Herra-dev}
  */
     private static byte[] _floor(double _number)
     {
@@ -201,11 +228,12 @@ public abstract class Binary
 //============================================================================
 
 /**
- * returns an array of byte representing the decimal part of a real number
+ * returns an array of byte representing the decimal part of a floating-point number number
  * 
  * @param _decimalPart {@code double}
  * @param _precision {@link mg.hr.enumeration.FloatPrecision}
  * @return byte[]
+ * @author {@see https://github.com/Herra-dev}
  */
     private static byte[] _decimal(double _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
     {
@@ -230,6 +258,7 @@ public abstract class Binary
  * @param _floorBinary {@code byte[]}
  * @param _decimalPartBinary {@code byte[]}
  * @return short[]
+ * @author {@see https://github.com/Herra-dev}
  */
     private static short[] _exp(double _number, byte[] _floorBinary, byte[] _decimalPartBinary)
     {
@@ -287,6 +316,7 @@ public abstract class Binary
  * @param _precision {@code mg.hr.enumeration.FloatPrecision}
  * @return byte[]
  * @see mg.hr.enumeration.FloatPrecision
+ * @author {@see https://github.com/Herra-dev}
  */
     private static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
     {
@@ -355,6 +385,7 @@ public abstract class Binary
  * @param _bitNumber {@code int}
  * @return byte[]
  * @see mg.hr.Binary#_toBinaryUnsignedInteger(long, int)
+ * @author {@see https://github.com/Herra-dev}
  */
     private static byte[] _toBinarySignedInteger(double _number, int _bitNumber)
     {
@@ -374,22 +405,22 @@ public abstract class Binary
 //============================================================================
 
 /**
- * returns array of byte with length defined by the param _bitNumber
+ * returns array of byte with length defined in the param _bitNumber
  * 
- * method used:<p>
  * exemple: 
- *      <p>for 98 in decimal, 
- *      <p>98, 64 < 98 < 128, so 98 contains {@code 64} = pow(2, 6),    {@code [keep 6]}
- *      <p>98 - 64 = 34, 32 < 34 < 64,  ---> {@code 32} = pow(2, 5),    {@code [keep 5]}
- *      <p>34 - 32 = 2, ---> {@code 2} = pow(2, 1).                     {@code [keep 1]}
+ *      <p>* for 98 in decimal, 
+ *      <p>* 98, 64 < 98 < 128, so 98 contains {@code 64} = pow(2, 6),    {@code [keep 6]}
+ *      <p>* 98 - 64 = 34, 32 < 34 < 64,  ---> {@code 32} = pow(2, 5),    {@code [keep 5]}
+ *      <p>* 34 - 32 = 2, ---> {@code 2} = pow(2, 1).                     {@code [keep 1]}
  * <p><p>
- *      <p>{@code result: 01100010 = 98}
+ *      <p>** {@code result: 01100010 = 98}
  * 
  * @param _number {@code long}
  * @param _bitNumber {@code int}
  * @return byte[]
  * @see mg.hr.Binary#_powerOfTwoCloseBottom(long)
  * @see mg.hr.Binary#_reverseBinary(byte[])
+ * @author {@see https://github.com/Herra-dev}
  */
     private static byte[] _toBinaryUnsignedInteger(double _number, int _bitNumber)
     {

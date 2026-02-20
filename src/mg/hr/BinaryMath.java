@@ -1,3 +1,11 @@
+//============================================================================
+// BinaryMath
+//============================================================================
+//
+// THIS CLASS IS USED TO REALIZE CALCUL BETWEEN TWO BINARY NUMBER OR TWO DOUBLE NUMBER
+// RESULT WILL ALLWAYS IN BINARY MODE
+//============================================================================
+
 package mg.hr;
 
 public abstract class BinaryMath
@@ -8,12 +16,13 @@ public abstract class BinaryMath
  *  
  * @param _firstNumber {@code double}
  * @param _secondNumber {@code double}
- * @param _bitNumber {@code int}
+ * @param _bitNumber {@code int} number of bit to be returned
  * 
  * @return byte[]
  * @see mg.hr.BinaryMath#_subtractBinary(byte[], byte[], int)
  * @see mg.hr.BinaryMath#_subtractBinary(double, double, int)
  * @see mg.hr.BinaryMath#_addBinary(byte[], byte[], int)
+ * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _addBinary(double _firstNumber, double _secondNumber, int _bitNumber)
     {
@@ -42,6 +51,7 @@ public abstract class BinaryMath
  * @see mg.hr.BinaryMath#_subtractBinary(byte[], byte[], int)
  * @see mg.hr.BinaryMath#_addBinary(byte[], byte[], int)
  * @see mg.hr.BinaryMath#_addBinary(double, double, int)
+ * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _subtractBinary(double _firstNumber, double _secondNumber, int _bitNumber)
     {
@@ -72,6 +82,7 @@ public abstract class BinaryMath
  * @return byte[]
  * @see mg.hr.BinaryMath#_completeBinaryNumber(byte[], int)
  * @see mg.hr.Binary#_reverseBinary(byte[])
+ * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
     {
@@ -196,6 +207,7 @@ public abstract class BinaryMath
  * @param _number {@code byte}
  * @param length {@code int} number of bit
  * @return array of byte with length defined by param length
+ * @author {@see https://github.com/Herra-dev}
  */
     private static byte[] _completeBinaryNumber(byte[] _number, int length)
     {

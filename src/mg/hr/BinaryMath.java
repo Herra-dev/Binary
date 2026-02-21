@@ -267,9 +267,34 @@ public abstract class BinaryMath
         int j, _originalBitNumber = _bitNumber;
         int up = (_firstBinaryNumber.length < _secondBinaryNumber.length) ? _secondBinaryNumber.length : _firstBinaryNumber.length;
         _bitNumber = (_bitNumber > up) ? _bitNumber : up;
+
+        if(_bitNumber <= up + 1)
+        {
+            @SuppressWarnings("unused")
+            boolean _thereIsZero = false;
+            if(_firstBinaryNumber.length > _secondBinaryNumber.length)
+            {
+                for(short i = 0; i < _firstBinaryNumber.length; i++)
+                {
+                    if(_firstBinaryNumber[i] == 0) _thereIsZero = true;
+                    if(_firstBinaryNumber[i] == _secondBinaryNumber[i]) { ++_bitNumber; break; }
+                }
+            }
+            else
+            {
+                for(short i = 0; i < _secondBinaryNumber.length; i++)
+                {
+                    if(_secondBinaryNumber[i] == 0) _thereIsZero = true;
+                    if(_firstBinaryNumber[i] == _secondBinaryNumber[i]) { ++_bitNumber; break; }
+                }
+            }
+        }
+
         byte result[] = new byte[_bitNumber];
         _firstBinaryNumber = _completeBinaryNumber(_firstBinaryNumber, _bitNumber);
         _secondBinaryNumber = _completeBinaryNumber(_secondBinaryNumber, _bitNumber);
+        System.out.println("_firstBinaryNumber.length = " + _firstBinaryNumber.length);
+        System.out.println("_secondBinaryNumber.length = " + _secondBinaryNumber.length);
 
         for(int i = _bitNumber - 1; i >= 0; i--)
         {
@@ -299,15 +324,49 @@ public abstract class BinaryMath
             else result[i] = 1;
         }
 
+        System.out.print("result  = ");
+            for(byte c: result)
+                System.out.print(c);
+            System.out.println();
+
+
         if(_bitNumber == _originalBitNumber) return result;
         else
         {
+            boolean proceed = false;
+            java.util.Scanner sc = new java.util.Scanner(java.lang.System.in);
+            if(_originalBitNumber < _bitNumber)
+                System.out.println("It's recommended to represent the result in " + _bitNumber + " bit(s)");
+            if(_originalBitNumber > _bitNumber)
+                System.out.println("The result can be reprensented in " + _bitNumber + " bit(s)");
+            System.out.println("Do you really want to represent the result in " + _originalBitNumber + " bit(s)");
+            
+            char response = 'n';
+            do
+            {
+                System.out.print("\t(y/n) -> ");
+                response = sc.nextLine().charAt(0);
+            }while(response != 'n' && response != 'y');
+            
+            proceed = (response == 'y') ? true : false;
+
+            if(!proceed){  sc.close(); return result; }
+
+            sc.close();
+
             result = mg.hr.Binary._reverseBinary(result);
             byte result1[] = new byte[_originalBitNumber];
             for(int i = 0; i < _originalBitNumber; i++)
                 result1[i] = result[i];
             return result1;
         }
+    }
+
+    public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber)
+    {
+        return (_firstBinaryNumber.length > _secondBinaryNumber.length)
+            ? _addBinary(_firstBinaryNumber, _secondBinaryNumber, _firstBinaryNumber.length)
+            : _addBinary(_firstBinaryNumber, _secondBinaryNumber, _secondBinaryNumber.length);
     }
 
 //============================================================================

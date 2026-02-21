@@ -187,7 +187,6 @@ public abstract class Binary
 
 //============================================================================
 
-
 /**
  * returns {@code 0} if {@code _number} is positive, returns {@code -1} otherwise
  * 

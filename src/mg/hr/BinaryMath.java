@@ -140,18 +140,21 @@ public abstract class BinaryMath
 //============================================================================
 
 /**
- * returns an array of byte with length defined in the param {@code _bitNumber}
+ * Add parameters {@code _firstBinaryNumber} to {@code _secondBinaryNumber}, 
+ * <p>Returns an array of byte with length defined in the param {@code _bitNumber}
  * 
  * if {@code _bitNumber} is inferior of {@code _firstBinaryNumber.length} or {@code _secondBinaryNumber.length},
  * <p>it will be set to the superior between _firstBinaryNumber.length and _secondBinaryNumber.length
  * 
- * @param _firstBinaryNumber {@code byte[]}
+ * @param _firstBinaryNumber  {@code byte[]}
  * @param _secondBinaryNumber {@code byte[]}
- * @param _bitNumber {@code int}
+ * @param _bitNumber          {@code int}
  * 
  * @return byte[]
+ * 
  * @see mg.hr.BinaryMath#_completeBinaryNumber(byte[], int)
  * @see mg.hr.Binary#_reverseBinary(byte[])
+ * 
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
@@ -205,6 +208,24 @@ public abstract class BinaryMath
 
 //============================================================================
 
+/**
+ * Subract parameters {@code _firstBinaryNumber} to {@code _secondBinaryNumber}, 
+ * <p>returns an array of byte with length defined in the param {@code _bitNumber}
+ * 
+ * if {@code _bitNumber} is inferior of {@code _firstBinaryNumber.length} or {@code _secondBinaryNumber.length},
+ * <p>it will be set to the superior between _firstBinaryNumber.length and _secondBinaryNumber.length
+ *
+ * 
+ * @param _firstBinaryNumber  {@code byte[]}
+ * @param _secondBinaryNumber {@code byte[]}
+ * @param _bitNumber          {@code int}
+ * @return byte[]
+ * 
+ * @see mg.hr.BinaryMath#_completeBinaryNumber(byte[], int)
+ * @see mg.hr.Binary#_reverseBinary(byte[])
+ * 
+ * @author {@see https://github.com/Herra-dev}
+ */
     public static byte[] _subtractBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
     {
         //transform first and second number in decimal

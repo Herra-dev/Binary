@@ -14,9 +14,9 @@ public abstract class BinaryMath
 /**
  * add _firstNumber to _secondNumber and returns result in binary.
  *  
- * @param _firstNumber {@code double}
+ * @param _firstNumber  {@code double}
  * @param _secondNumber {@code double}
- * @param _bitNumber {@code int} number of bit to be returned
+ * @param _bitNumber    {@code int} number of bit to be returned
  * 
  * @return byte[]
  * @see mg.hr.BinaryMath#_subtractBinary(byte[], byte[], int)
@@ -33,6 +33,32 @@ public abstract class BinaryMath
         try 
         {
             _binary = mg.hr.Binary.toBinary((_firstNumber + _secondNumber), _bitNumber);
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return _binary;
+    }
+
+//============================================================================
+
+/**
+ * Same as {@link mg.hr.BinaryMath#_addBinary(double, double, int)}, but,
+ * <p>the number of bit returned is automatically setted
+ * 
+ * @param _firstNumber  {@code double}
+ * @param _secondNumber {@code double}
+ * 
+ * @author {@see https://github.com/Herra-dev}
+ * 
+ */
+    public static byte[] _addBinary(double _firstNumber, double _secondNumber)
+    {
+        byte _binary[] = null;
+        try 
+        {
+            _binary = mg.hr.Binary.toBinary((_firstNumber + _secondNumber));
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -74,6 +100,32 @@ public abstract class BinaryMath
     }
     
 //============================================================================
+
+/**
+ * Same as {@link mg.hr.BinaryMath#_subtractBinary(double, double, int)}, but,
+ * <p>the number of bit returned is automatically setted
+ * 
+ * @param _firstNumber  {@code double}
+ * @param _secondNumber {@code double}
+ * 
+ * @author {@see https://github.com/Herra-dev}
+ * 
+ */
+    public static byte[] _subtractBinary(double _firstNumber, double _secondNumber)
+    {
+        byte _binary[] = null;
+        try 
+        {
+            _binary = mg.hr.Binary.toBinary((_firstNumber - _secondNumber));
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return _binary;
+    }
+
+//============================================================================
     
 /**
  * multiply _firstNumber to _secondNumber and returns result in binary.
@@ -108,6 +160,32 @@ public abstract class BinaryMath
 //============================================================================
 
 /**
+ * Same as {@link mg.hr.BinaryMath#_multiplyBinary(double, double, int)}, but,
+ * <p>the number of bit returned is automatically setted
+ * 
+ * @param _firstNumber  {@code double}
+ * @param _secondNumber {@code double}
+ * 
+ * @author {@see https://github.com/Herra-dev}
+ * 
+ */
+    public static byte[] _multiplyBinary(double _firstNumber, double _secondNumber)
+    {
+        byte _binary[] = null;
+        try 
+        {
+            _binary = mg.hr.Binary.toBinary((_firstNumber * _secondNumber));
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return _binary;
+    }
+
+//============================================================================
+
+/**
  * multiply _firstNumber to _secondNumber and returns result in binary.
  *  
  * @param _firstNumber {@code double}
@@ -129,6 +207,32 @@ public abstract class BinaryMath
         try 
         {
             _binary = mg.hr.Binary.toBinary((_firstNumber / _secondNumber), _bitNumber);
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return _binary;
+    }
+
+//============================================================================
+
+/**
+ * Same as {@link mg.hr.BinaryMath#_divideBinary(double, double, int)}, but,
+ * <p>the number of bit returned is automatically setted
+ * 
+ * @param _firstNumber  {@code double}
+ * @param _secondNumber {@code double}
+ * 
+ * @author {@see https://github.com/Herra-dev}
+ * 
+ */
+    public static byte[] _divideBinary(double _firstNumber, double _secondNumber)
+    {
+        byte _binary[] = null;
+        try 
+        {
+            _binary = mg.hr.Binary.toBinary((_firstNumber / _secondNumber));
         } 
         catch (Exception e) {
             e.printStackTrace();

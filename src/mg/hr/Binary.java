@@ -4,7 +4,7 @@
 //
 // THIS CLASS IS USED TO TRANSFORM A NUMBER IN DECIMAL REPRESENTATION INTO BINARY 
 // REPRESENTATION
-// ========================================================================================
+//========================================================================================
 
 package mg.hr;
 
@@ -17,9 +17,13 @@ public abstract class Binary
  *    
  * @param _number {@code double}
  * @param _bitNumber {@code int}
+ * 
  * @return {@code byte[] }
+ * 
  * @throws mg.hr.exception.BinaryException if {@code _bitNumber} is a negative value
+ * 
  * @see {@link mg.hr.Binary#toBinary(double)}
+ * 
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] toBinary(double _number, int _bitNumber) throws mg.hr.exception.BinaryException

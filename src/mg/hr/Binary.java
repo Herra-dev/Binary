@@ -23,7 +23,7 @@ public abstract class Binary
  */
     public static byte[] toBinary(double _number, int _bitNumber) throws mg.hr.exception.BinaryException
     {
-        if(_bitNumber < 0) throw new mg.hr.exception.BinaryException();
+        if(_bitNumber < 0) throw new mg.hr.exception.BinaryException(_bitNumber);
         if(_bitNumber == 0) return new byte[0];
 
         byte tab[] = new byte[_bitNumber];

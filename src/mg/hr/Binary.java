@@ -4,12 +4,9 @@
 //
 // THIS CLASS IS USED TO TRANSFORM A NUMBER IN DECIMAL REPRESENTATION INTO BINARY 
 // REPRESENTATION
-//========================================================================================
-package mg.hr;
+// ========================================================================================
 
-import mg.hr.exception.BinaryException;
-import mg.hr.exception.NotAnIntegerException;
-import mg.hr.exception.NotAnUnsignedInteger;
+package mg.hr;
 
 public abstract class Binary
 {
@@ -51,14 +48,17 @@ public abstract class Binary
             if(!_signed) {
                 try {
                     return _toBinaryUnsignedInteger(_number, _bitNumber); // unsigned integer 
-                } catch (BinaryException | NotAnIntegerException | NotAnUnsignedInteger e) {
+                } catch (mg.hr.exception.BinaryException | 
+                            mg.hr.exception.NotAnIntegerException | 
+                                mg.hr.exception.NotAnUnsignedInteger e) {
                     e.printStackTrace();
                 }   
             }   
             else {
                 try {
                     return _toBinarySignedInteger(_number, _bitNumber); // signed long
-                } catch (BinaryException | NotAnIntegerException e) {
+                } catch (mg.hr.exception.BinaryException | 
+                            mg.hr.exception.NotAnIntegerException e) {
                     e.printStackTrace();
                 }
             }
@@ -403,15 +403,19 @@ public abstract class Binary
  * 
  * @param _number {@code long}
  * @param _bitNumber {@code int}
+ * 
  * @return byte[]
+ * 
  * @see mg.hr.Binary#_toBinaryUnsignedInteger(long, int)
- * @author {@see https://github.com/Herra-dev}
- * @throws BinaryException 
+ * 
+ * @throws mg.hr.exception.BinaryException when {@code _bitNumber} is a negative number
+ * @throws mg.hr.exception.NotAnIntegerException when {@code _number} is a floating-point number
+ * 
+ * @author {@see https://github.com/Herra-dev} 
  */
     public static byte[] _toBinarySignedInteger(double _number, int _bitNumber) 
         throws  mg.hr.exception.BinaryException, 
-                    mg.hr.exception.NotAnIntegerException
-    {
+                    mg.hr.exception.NotAnIntegerException {
         //-----------------------------------------------------------------------
         //          EXCEPTIONS
 
@@ -423,6 +427,16 @@ public abstract class Binary
 
         //-----------------------------------------------------------------------
         
+        // if _number is a positive number, transform it with method _toBinaryUnsignedInteger
+        try {
+            if(_number >= 0)
+                return mg.hr.Binary._toBinaryUnsignedInteger(_number, _bitNumber);
+        } catch (mg.hr.exception.BinaryException |
+                    mg.hr.exception.NotAnIntegerException |
+                        mg.hr.exception.NotAnUnsignedInteger e) {
+            e.printStackTrace();
+        }
+
         byte tab[] = new byte[_bitNumber];
         byte tab1[] = new byte[_bitNumber];
         for(short j = 0; j < _bitNumber; j++)
@@ -431,12 +445,17 @@ public abstract class Binary
 
         try {
             tab = _toBinaryUnsignedInteger(-(_number), _bitNumber);
-        } catch (BinaryException | NotAnIntegerException | NotAnUnsignedInteger e) {
+        } catch (mg.hr.exception.BinaryException | 
+                    mg.hr.exception.NotAnIntegerException | 
+                        mg.hr.exception.NotAnUnsignedInteger e) {
             e.printStackTrace();
         }
         tab  = mg.hr.Binary._complementBinary(tab);
+        _displayBinaryNumber(tab);
+        _displayBinaryNumber(tab1);
 
         tab = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
+
         return tab;
     }
 
@@ -445,26 +464,32 @@ public abstract class Binary
 /**
  * returns array of byte with length defined in the param _bitNumber
  * 
- * exemple: 
+ * <p>exemple: 
  *      <p>* for 98 in decimal, 
  *      <p>* 98, 64 < 98 < 128, so 98 contains {@code 64} = pow(2, 6),    {@code [keep 6]}
  *      <p>* 98 - 64 = 34, 32 < 34 < 64,  ---> {@code 32} = pow(2, 5),    {@code [keep 5]}
- *      <p>* 34 - 32 = 2, ---> {@code 2} = pow(2, 1).                     {@code [keep 1]}
+ *      <p>* 34 - 32 = 2, --->                 {@code 2}  = pow(2, 1),    {@code [keep 1]}
  * <p><p>
  *      <p>** {@code result: 01100010 = 98}
  * 
- * @param _number {@code long}
- * @param _bitNumber {@code int}
+ * @param _number       {@code long}
+ * @param _bitNumber    {@code int}
+ * 
  * @return byte[]
+ * 
  * @see mg.hr.Binary#_powerOfTwoCloseBottom(long)
  * @see mg.hr.Binary#_reverseBinary(byte[])
+ * 
+ * @throws mg.hr.exception.BinaryException          when {@code _bitNumber} is a negative number
+ * @throws mg.hr.exception.NotAnIntegerException    when {@code _number} is not an integer valuee
+ * @throws mg.hr.exception.NotAnUnsignedInteger     when {@code _number} is a signed number
+ * 
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _toBinaryUnsignedInteger(double _number, int _bitNumber) 
         throws  mg.hr.exception.BinaryException, 
                     mg.hr.exception.NotAnIntegerException,
-                        mg.hr.exception.NotAnUnsignedInteger
-    {
+                        mg.hr.exception.NotAnUnsignedInteger {
         //-----------------------------------------------------------------------
         //          EXCEPTIONS
 
@@ -482,8 +507,7 @@ public abstract class Binary
         int j = 0;
         byte binaryReversed[] = new byte[_bitNumber];
 
-        while(_numberCopy > 0)
-        {
+        while(_numberCopy > 0) {
             j = _powerOfTwoCloseBottom(_numberCopy);
             if(j < binaryReversed.length)
                 binaryReversed[j] = 1;
@@ -496,6 +520,13 @@ public abstract class Binary
 
 //============================================================================
 
+/**
+ * display all values in the parameter {@code _bit}
+ * 
+ * @param _bit {@code byte[]}
+ * 
+ * @author {@see https://github.com/Herra-dev}
+ */
     public static void _displayBinaryNumber(byte[] _bit) {
         
         if(_bit == null)

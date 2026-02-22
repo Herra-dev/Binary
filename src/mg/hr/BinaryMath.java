@@ -268,27 +268,26 @@ public abstract class BinaryMath
         int up = (_firstBinaryNumber.length < _secondBinaryNumber.length) ? _secondBinaryNumber.length : _firstBinaryNumber.length;
         _bitNumber = (_bitNumber > up) ? _bitNumber : up;
 
+        _firstBinaryNumber = _completeBinaryNumber(_firstBinaryNumber, _bitNumber);
+        _secondBinaryNumber = _completeBinaryNumber(_secondBinaryNumber, _bitNumber);
+
+        boolean _thereIsZero = false;
+        boolean _addOneBit = false;
+
+        // 
         if(_bitNumber <= up + 1)
         {
-            @SuppressWarnings("unused")
-            boolean _thereIsZero = false;
-            if(_firstBinaryNumber.length > _secondBinaryNumber.length)
-            {
-                for(short i = 0; i < _firstBinaryNumber.length; i++)
+            for(short i = 0; i < _firstBinaryNumber.length; i++)
                 {
                     if(_firstBinaryNumber[i] == 0) _thereIsZero = true;
-                    if(_firstBinaryNumber[i] == _secondBinaryNumber[i]) { ++_bitNumber; break; }
+                    if(_firstBinaryNumber[i] == 1 &&  _firstBinaryNumber[i] == _secondBinaryNumber[i]) {
+                        _addOneBit = true; 
+                        break; 
+                    }
                 }
-            }
-            else
-            {
-                for(short i = 0; i < _secondBinaryNumber.length; i++)
-                {
-                    if(_secondBinaryNumber[i] == 0) _thereIsZero = true;
-                    if(_firstBinaryNumber[i] == _secondBinaryNumber[i]) { ++_bitNumber; break; }
-                }
-            }
         }
+
+        if(!_thereIsZero && _addOneBit) ++_bitNumber;
 
         byte result[] = new byte[_bitNumber];
         _firstBinaryNumber = _completeBinaryNumber(_firstBinaryNumber, _bitNumber);
@@ -325,7 +324,22 @@ public abstract class BinaryMath
         if(_bitNumber == _originalBitNumber) return result;
         else
         {
-            boolean proceed = false;
+            // if user accept to represent result in the recommanded bit number
+            if(!_askUserNbrOfBit(_originalBitNumber, _bitNumber)) return result; 
+
+            //if user want to keep the number of bit he/she gathered
+            result = mg.hr.Binary._reverseBinary(result);
+            byte result1[] = new byte[_originalBitNumber];
+            for(int i = 0; i < _originalBitNumber; i++)
+                result1[i] = result[i];
+            return result1;
+        }
+    }
+
+//============================================================================
+
+    private static boolean _askUserNbrOfBit(int _originalBitNumber, int _bitNumber) {
+        boolean proceed = false;
             java.util.Scanner sc = new java.util.Scanner(java.lang.System.in);
             if(_originalBitNumber < _bitNumber)
                 System.out.println("It's recommended to represent the result in " + _bitNumber + " bit(s)");
@@ -342,24 +356,19 @@ public abstract class BinaryMath
             
             proceed = (response == 'y') ? true : false;
 
-            if(!proceed){  sc.close(); return result; }
-
             sc.close();
 
-            result = mg.hr.Binary._reverseBinary(result);
-            byte result1[] = new byte[_originalBitNumber];
-            for(int i = 0; i < _originalBitNumber; i++)
-                result1[i] = result[i];
-            return result1;
-        }
+            return proceed;
     }
+
+//============================================================================
 
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber)
     {
-        String message = "Message: number of bit is automatically setted to: ";
+        String message = "Message: number of bit not given, so its automatically setted to: ";
         message += (_firstBinaryNumber.length > _secondBinaryNumber.length) 
-                    ? "" + _firstBinaryNumber.length 
-                    : "" + _secondBinaryNumber.length;
+                    ? "" + _firstBinaryNumber.length + ", length of _firstBinaryNumber"
+                    : "" + _secondBinaryNumber.length + ", length of _secondBinaryNumber";
         System.out.println(message);
         return (_firstBinaryNumber.length > _secondBinaryNumber.length)
             ? _addBinary(_firstBinaryNumber, _secondBinaryNumber, _firstBinaryNumber.length)

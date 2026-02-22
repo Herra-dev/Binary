@@ -14,20 +14,20 @@ public class App
         byte[] _bit2 = null;
 
 
-        _bit = mg.hr.Binary._toBinaryFloat(20.1, mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION);
+        //_bit = mg.hr.Binary._toBinaryFloat(20.1, mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION);
         
 
         try {
-            _bit1 = mg.hr.Binary.toBinary(20, -5);
-        } catch (Exception e) {
+            _bit1 = mg.hr.Binary._toBinarySignedInteger(20.50, 5);
+        } catch (mg.hr.exception.NotAnIntegerException | mg.hr.exception.BinaryException e) {
             e.printStackTrace();
         }
 
-        try {
-            _bit2 = mg.hr.Binary.toBinary(20, -5);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     _bit2 = mg.hr.Binary.toBinary(20, -5);
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
 
         System.out.println("hello world");
     }

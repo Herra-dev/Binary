@@ -44,10 +44,22 @@ public abstract class Binary
 
         if(!_isFloat)
         {
-            if(!_signed) return _toBinaryUnsignedInteger((long)_number, _bitNumber); // unsigned long
-            else         return _toBinarySignedInteger((long)_number, _bitNumber); // signed long
+            if(!_signed) {
+                return _toBinaryUnsignedInteger(_number, _bitNumber);   // unsigned long 
+            }   
+            else {
+                try {
+                    return _toBinarySignedInteger(_number, _bitNumber); // signed long
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        else             return _toBinaryFloat(_number, _askForPrecision(_number)); // floating number
+        else {
+            return _toBinaryFloat(_number, _askForPrecision(_number));  // floating number
+        }
+    
+        return tab; // if there is an error during before operations, return tab
     }
 
 //============================================================================
@@ -387,13 +399,20 @@ public abstract class Binary
  * @return byte[]
  * @see mg.hr.Binary#_toBinaryUnsignedInteger(long, int)
  * @author {@see https://github.com/Herra-dev}
+ * @throws BinaryException 
  */
-    public static byte[] _toBinarySignedInteger(double _number, int _bitNumber)
+    public static byte[] _toBinarySignedInteger(double _number, int _bitNumber) throws mg.hr.exception.BinaryException, mg.hr.exception.NotAnIntegerException
     {
+        if(_bitNumber < 0) throw new mg.hr.exception.BinaryException(_bitNumber);
+        
+        double i = _number - (int)_number;
+        boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
+        if(_isFloat) throw new mg.hr.exception.NotAnIntegerException(_number);
+        
         byte tab[] = new byte[_bitNumber];
         byte tab1[] = new byte[_bitNumber];
-        for(short i = 0; i < _bitNumber; i++)
-            tab1[i] = 0;
+        for(short j = 0; j < _bitNumber; j++)
+            tab1[j] = 0;
         tab1[_bitNumber - 1] = 1;
 
         tab = _toBinaryUnsignedInteger(-(_number), _bitNumber);

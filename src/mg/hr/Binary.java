@@ -319,7 +319,7 @@ public abstract class Binary
  * @see mg.hr.enumeration.FloatPrecision
  * @author {@see https://github.com/Herra-dev}
  */
-    private static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
+    public static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
     {
         byte tab[] = new byte[_Precision.getPrecision()];
 
@@ -388,7 +388,7 @@ public abstract class Binary
  * @see mg.hr.Binary#_toBinaryUnsignedInteger(long, int)
  * @author {@see https://github.com/Herra-dev}
  */
-    private static byte[] _toBinarySignedInteger(double _number, int _bitNumber)
+    public static byte[] _toBinarySignedInteger(double _number, int _bitNumber)
     {
         byte tab[] = new byte[_bitNumber];
         byte tab1[] = new byte[_bitNumber];
@@ -423,7 +423,7 @@ public abstract class Binary
  * @see mg.hr.Binary#_reverseBinary(byte[])
  * @author {@see https://github.com/Herra-dev}
  */
-    private static byte[] _toBinaryUnsignedInteger(double _number, int _bitNumber)
+    public static byte[] _toBinaryUnsignedInteger(double _number, int _bitNumber)
     {
         double _numberCopy = _number;
         int i = 0;

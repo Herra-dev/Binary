@@ -14,12 +14,9 @@ public class App
         byte[] _bit2 = null;
 
 
-        try{
-            _bit = mg.hr.Binary.toBinary(20.1, -1);
-        }catch(mg.hr.exception.BinaryException e){
-            e.printStackTrace();
-        }
+        _bit = mg.hr.Binary._toBinaryFloat(20.1, mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION);
         
+
         try {
             _bit1 = mg.hr.Binary.toBinary(20, -5);
         } catch (Exception e) {

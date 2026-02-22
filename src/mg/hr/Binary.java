@@ -7,6 +7,10 @@
 //========================================================================================
 package mg.hr;
 
+import mg.hr.exception.BinaryException;
+import mg.hr.exception.NotAnIntegerException;
+import mg.hr.exception.NotAnUnsignedInteger;
+
 public abstract class Binary
 {
 
@@ -45,12 +49,16 @@ public abstract class Binary
         if(!_isFloat)
         {
             if(!_signed) {
-                return _toBinaryUnsignedInteger(_number, _bitNumber);   // unsigned long 
+                try {
+                    return _toBinaryUnsignedInteger(_number, _bitNumber); // unsigned integer 
+                } catch (BinaryException | NotAnIntegerException | NotAnUnsignedInteger e) {
+                    e.printStackTrace();
+                }   
             }   
             else {
                 try {
                     return _toBinarySignedInteger(_number, _bitNumber); // signed long
-                } catch (Exception e) {
+                } catch (BinaryException | NotAnIntegerException e) {
                     e.printStackTrace();
                 }
             }
@@ -401,13 +409,20 @@ public abstract class Binary
  * @author {@see https://github.com/Herra-dev}
  * @throws BinaryException 
  */
-    public static byte[] _toBinarySignedInteger(double _number, int _bitNumber) throws mg.hr.exception.BinaryException, mg.hr.exception.NotAnIntegerException
+    public static byte[] _toBinarySignedInteger(double _number, int _bitNumber) 
+        throws  mg.hr.exception.BinaryException, 
+                    mg.hr.exception.NotAnIntegerException
     {
+        //-----------------------------------------------------------------------
+        //          EXCEPTIONS
+
         if(_bitNumber < 0) throw new mg.hr.exception.BinaryException(_bitNumber);
         
         double i = _number - (int)_number;
         boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
         if(_isFloat) throw new mg.hr.exception.NotAnIntegerException(_number);
+
+        //-----------------------------------------------------------------------
         
         byte tab[] = new byte[_bitNumber];
         byte tab1[] = new byte[_bitNumber];
@@ -415,7 +430,11 @@ public abstract class Binary
             tab1[j] = 0;
         tab1[_bitNumber - 1] = 1;
 
-        tab = _toBinaryUnsignedInteger(-(_number), _bitNumber);
+        try {
+            tab = _toBinaryUnsignedInteger(-(_number), _bitNumber);
+        } catch (BinaryException | NotAnIntegerException | NotAnUnsignedInteger e) {
+            e.printStackTrace();
+        }
         tab  = mg.hr.Binary._complementBinary(tab);
 
         tab = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
@@ -442,19 +461,35 @@ public abstract class Binary
  * @see mg.hr.Binary#_reverseBinary(byte[])
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte[] _toBinaryUnsignedInteger(double _number, int _bitNumber)
+    public static byte[] _toBinaryUnsignedInteger(double _number, int _bitNumber) 
+        throws  mg.hr.exception.BinaryException, 
+                    mg.hr.exception.NotAnIntegerException,
+                        mg.hr.exception.NotAnUnsignedInteger
     {
+        //-----------------------------------------------------------------------
+        //          EXCEPTIONS
+
+        if(_bitNumber < 0) throw new mg.hr.exception.BinaryException(_bitNumber);
+        
+        double i = _number - (int)_number;
+        boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
+        if(_isFloat) throw new mg.hr.exception.NotAnIntegerException(_number);
+
+        if(_number < 0) throw new mg.hr.exception.NotAnUnsignedInteger(_number);
+
+        //-----------------------------------------------------------------------
+
         double _numberCopy = _number;
-        int i = 0;
+        int j = 0;
         byte binaryReversed[] = new byte[_bitNumber];
 
         while(_numberCopy > 0)
         {
-            i = _powerOfTwoCloseBottom(_numberCopy);
-            if(i < binaryReversed.length)
-                binaryReversed[i] = 1;
+            j = _powerOfTwoCloseBottom(_numberCopy);
+            if(j < binaryReversed.length)
+                binaryReversed[j] = 1;
             
-            _numberCopy -= java.lang.StrictMath.pow(2, i);
+            _numberCopy -= java.lang.StrictMath.pow(2, j);
         }
 
         return _reverseBinary(binaryReversed);

@@ -293,8 +293,6 @@ public abstract class BinaryMath
         byte result[] = new byte[_bitNumber];
         _firstBinaryNumber = _completeBinaryNumber(_firstBinaryNumber, _bitNumber);
         _secondBinaryNumber = _completeBinaryNumber(_secondBinaryNumber, _bitNumber);
-        System.out.println("_firstBinaryNumber.length = " + _firstBinaryNumber.length);
-        System.out.println("_secondBinaryNumber.length = " + _secondBinaryNumber.length);
 
         for(int i = _bitNumber - 1; i >= 0; i--)
         {
@@ -323,12 +321,6 @@ public abstract class BinaryMath
             }
             else result[i] = 1;
         }
-
-        System.out.print("result  = ");
-            for(byte c: result)
-                System.out.print(c);
-            System.out.println();
-
 
         if(_bitNumber == _originalBitNumber) return result;
         else

@@ -39,7 +39,7 @@ public abstract class Binary
         boolean _signed = (_number < 0) ? true : false; 
         double i = (_number - (int)_number); 
 
-        // if i(result of the previous calcul) is between -1 and 1(both excluded) but not 0, _number is a floating number
+        // if i(result of the previous calcul) is between -1 and 1(both excluded) but not 0, _number is a floating-point number
         boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
 
         if(!_isFloat)
@@ -73,18 +73,22 @@ public abstract class Binary
             "\t128 - QUADRUPLE_PRECISION\n" + 
             "\t256 - OCTUPLE_PRECISION\n"
         );
-        java.util.Scanner sc = new java.util.Scanner(java.lang.System.in);
-        _choosenPrecision = sc.nextShort();
-
-        while(_choosenPrecision != 16 && _choosenPrecision != 32 && 
-                _choosenPrecision != 48 && _choosenPrecision != 64 && 
-                    _choosenPrecision != 79 && _choosenPrecision != 128 && 
-                        _choosenPrecision != 256)
-        {
-            System.out.println("Please, enter: 16, 32, 48, 64, 79, 128 or 256");
+        try (java.util.Scanner sc = new java.util.Scanner(java.lang.System.in)) {
             _choosenPrecision = sc.nextShort();
-        }
+            
+            // clean line before reading another one
+            sc.nextLine();
 
+            while(_choosenPrecision != 16 && _choosenPrecision != 32 && 
+                    _choosenPrecision != 48 && _choosenPrecision != 64 && 
+                        _choosenPrecision != 79 && _choosenPrecision != 128 && 
+                            _choosenPrecision != 256)
+            {
+                System.out.println("Please, enter: 16, 32, 48, 64, 79, 128 or 256");
+                _choosenPrecision = sc.nextShort();
+            }
+        }
+        
         switch (_choosenPrecision) {
             case 16:  _Precision = mg.hr.enumeration.FloatPrecision._HALF_PRECISION;            break;
             case 32:  _Precision = mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION;          break;
@@ -95,8 +99,6 @@ public abstract class Binary
             case 256: _Precision = mg.hr.enumeration.FloatPrecision._OCTUPLE_PRECISION;         break;
             default: break;
         }
-        
-        sc.close();
 
         return _Precision;
     }

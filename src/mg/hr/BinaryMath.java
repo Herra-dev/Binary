@@ -331,7 +331,7 @@ public abstract class BinaryMath
                 System.out.println("It's recommended to represent the result in " + _bitNumber + " bit(s)");
             if(_originalBitNumber > _bitNumber)
                 System.out.println("The result can be reprensented in " + _bitNumber + " bit(s)");
-            System.out.println("Do you really want to represent the result in " + _originalBitNumber + " bit(s)");
+            System.out.println("Do you  want to continue representing result in " + _originalBitNumber + " bit(s)");
             
             char response = 'n';
             do
@@ -356,6 +356,11 @@ public abstract class BinaryMath
 
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber)
     {
+        String message = "Message: number of bit is automatically setted to: ";
+        message += (_firstBinaryNumber.length > _secondBinaryNumber.length) 
+                    ? "" + _firstBinaryNumber.length 
+                    : "" + _secondBinaryNumber.length;
+        System.out.println(message);
         return (_firstBinaryNumber.length > _secondBinaryNumber.length)
             ? _addBinary(_firstBinaryNumber, _secondBinaryNumber, _firstBinaryNumber.length)
             : _addBinary(_firstBinaryNumber, _secondBinaryNumber, _secondBinaryNumber.length);

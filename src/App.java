@@ -2,33 +2,19 @@ public class App
 {
     public static void main(String[] args)
     {
-        // java.util.Scanner sc = new java.util.Scanner(java.lang.System.in);
-        // int a, b;
-        // System.out.print("enter one number : ");
-        // a = sc.nextInt();
-        // System.out.print("enter another number : ");
-        // b = sc.nextInt();
-        // System.out.println(a + " and " + b);
-        byte[] _bit = null;
         byte[] _bit1 = null;
-        byte[] _bit2 = null;
 
 
         //_bit = mg.hr.Binary._toBinaryFloat(20.1, mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION);
         
 
-        try {
-            _bit1 = mg.hr.Binary._toBinarySignedInteger(20.50, 5);
-        } catch (mg.hr.exception.NotAnIntegerException | mg.hr.exception.BinaryException e) {
-            e.printStackTrace();
-        }
-
         // try {
-        //     _bit2 = mg.hr.Binary.toBinary(20, -5);
-        // } catch (Exception e) {
+            _bit1 = mg.hr.Binary._toBinaryFloat(-1027.625, mg.hr.enumeration.FloatPrecision._HALF_PRECISION);
+            // _bit1 = mg.hr.Binary._toBinaryUnsignedInteger(-1027.625, 8);
+        // } catch (mg.hr.exception.NotAnIntegerException | mg.hr.exception.BinaryException | mg.hr.exception.NotAnUnsignedInteger e) {
         //     e.printStackTrace();
         // }
 
-        System.out.println("hello world");
+        mg.hr.Binary._displayBinaryNumber(_bit1);
     }
 }

@@ -358,7 +358,6 @@ public abstract class Binary
         {
             int l = exp + _Precision.getBiais();
             E = toBinary(l, _Precision.getExpNumber());
-            System.out.println("exposant = " + l);
         }
         catch(mg.hr.exception.BinaryException e)
         {
@@ -496,5 +495,18 @@ public abstract class Binary
     }
 
 //============================================================================
+
+    public static void _displayBinaryNumber(byte[] _bit) {
+        
+        if(_bit == null)
+        {
+            System.out.println("Cannot display _bit, because it's null");
+            return;
+        }
+            
+        for(byte b: _bit)
+            System.out.print(b);
+        System.out.println();
+    }
 
 }

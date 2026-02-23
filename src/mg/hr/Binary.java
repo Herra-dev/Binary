@@ -262,13 +262,18 @@ public abstract class Binary {
     private static byte[] _decimal(double _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
     {
         byte[] _decimalPartBinary = new byte[_precision.getPrecision()];
+        System.out.println("precision = " + _precision.getPrecision());
+        System.out.println("_decimalPartBinary.length = " + _decimalPartBinary.length);
         int i = 0;
-        while(_decimalPart != 0 && i < _decimalPartBinary.length)
+        while(_decimalPart != 0 && i++ < _decimalPartBinary.length)
         {
             _decimalPart *= 2;         
-            _decimalPartBinary[i++] = (byte)_decimalPart;
+            _decimalPartBinary[i] = (byte)_decimalPart;
             _decimalPart -= (int)_decimalPart;
         }
+
+        System.out.println("_devimalPart = " + _decimalPart);
+        System.out.println("i stop at = " + i);
 
         return _decimalPartBinary;
     }

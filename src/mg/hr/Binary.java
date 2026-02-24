@@ -53,7 +53,7 @@ public abstract class Binary {
                     return _toBinaryUnsignedInteger(_number, _bitNumber); // unsigned integer 
                 } catch (mg.hr.exception.BinaryException | 
                             mg.hr.exception.NotAnIntegerException | 
-                                mg.hr.exception.NotAnUnsignedInteger e) {
+                                mg.hr.exception.NotAnUnsignedIntegerException e) {
                     e.printStackTrace();
                 }   
             }   
@@ -270,7 +270,8 @@ public abstract class Binary {
             _decimalPart *= 2;         
             _decimalPartBinary[i++] = (byte)_decimalPart;
 
-            _decimalPart -= (int)_decimalPart;
+            d = _decimalPart;
+            _decimalPart = _decimalPart - (int)_decimalPart;
             
             System.out.println("_decimalPart = " + _decimalPart);
         }
@@ -444,7 +445,7 @@ public abstract class Binary {
                 return mg.hr.Binary._toBinaryUnsignedInteger(_number, _bitNumber);
         } catch (mg.hr.exception.BinaryException |
                     mg.hr.exception.NotAnIntegerException |
-                        mg.hr.exception.NotAnUnsignedInteger e) {
+                        mg.hr.exception.NotAnUnsignedIntegerException e) {
             e.printStackTrace();
         }
 
@@ -458,7 +459,7 @@ public abstract class Binary {
             tab = _toBinaryUnsignedInteger(-(_number), _bitNumber);
         } catch (mg.hr.exception.BinaryException | 
                     mg.hr.exception.NotAnIntegerException | 
-                        mg.hr.exception.NotAnUnsignedInteger e) {
+                        mg.hr.exception.NotAnUnsignedIntegerException e) {
             e.printStackTrace();
         }
         tab  = mg.hr.Binary._complementBinary(tab);
@@ -493,14 +494,14 @@ public abstract class Binary {
  * 
  * @throws mg.hr.exception.BinaryException          when {@code _bitNumber} is a negative number
  * @throws mg.hr.exception.NotAnIntegerException    when {@code _number} is not an integer valuee
- * @throws mg.hr.exception.NotAnUnsignedInteger     when {@code _number} is a signed number
+ * @throws mg.hr.exception.NotAnUnsignedIntegerException     when {@code _number} is a signed number
  * 
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _toBinaryUnsignedInteger(double _number, int _bitNumber) 
         throws  mg.hr.exception.BinaryException, 
                     mg.hr.exception.NotAnIntegerException,
-                        mg.hr.exception.NotAnUnsignedInteger {
+                        mg.hr.exception.NotAnUnsignedIntegerException {
         //-----------------------------------------------------------------------
         //          EXCEPTIONS
 
@@ -510,7 +511,7 @@ public abstract class Binary {
         boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
         if(_isFloat) throw new mg.hr.exception.NotAnIntegerException(_number);
 
-        if(_number < 0) throw new mg.hr.exception.NotAnUnsignedInteger(_number);
+        if(_number < 0) throw new mg.hr.exception.NotAnUnsignedIntegerException(_number);
 
         //-----------------------------------------------------------------------
 

@@ -11,12 +11,11 @@ public class App
         //     e.printStackTrace();
         // }
 
-        // byte[] _bit = mg.hr.Binary._toBinaryFloat(0.3, mg.hr.enumeration.FloatPrecision._EXTENDED_DUAL_PRECISION);
+        byte[] _bit = mg.hr.Binary._toBinaryFloat(0.3, mg.hr.enumeration.FloatPrecision._HALF_PRECISION);
         // mg.hr.Binary._displayBinaryNumber(_bit);
 
-        // System.out.println("0.6 * 2 = " + 0.6*2);
-        double d = 5.09999982222222d;
-        Float f = Float.parseFloat("0.9999999999999");
-        System.out.println(java.lang.Math.nextUp(d));
+
+        // java.lang.Double d = 0.3;
+        // System.out.println(d.intValue());
     }
 }

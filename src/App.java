@@ -18,8 +18,9 @@ public class App
         // java.lang.Double d = 0.3;
         // System.out.println(d.intValue());
 
-        double d = 1.2;
+        java.lang.Float d = 1.2f;
+        java.lang.Double f = 1.0d;
 
-        System.out.println(d - 1.0d); //why tf this return 0.19999999999999996
+        System.out.println(d - 1); //why tf this return 0.20000005
     }
 }

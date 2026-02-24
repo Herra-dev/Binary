@@ -18,6 +18,8 @@ public class App
         // java.lang.Double d = 0.3;
         // System.out.println(d.intValue());
 
-        System.out.println(1.2 - 1 + 0.00000000000000006); //why tf this return 0.19999999999999996
+        double d = 1.2;
+
+        System.out.println(d - 1.0d); //why tf this return 0.19999999999999996
     }
 }

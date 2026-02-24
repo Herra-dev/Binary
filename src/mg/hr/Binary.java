@@ -271,12 +271,13 @@ public abstract class Binary {
             _decimalPartBinary[i++] = (byte)_decimalPart;
 
             d = _decimalPart;
-            _decimalPart = _decimalPart - (int)_decimalPart;
+            
+            _decimalPart = _decimalPart - d.intValue();
             
             System.out.println("_decimalPart = " + _decimalPart);
         }
 
-        System.out.println("_devimalPart = " + _decimalPart);
+        System.out.println("_devimalPart = " + (1.2 - 1));
         System.out.println("i stop at = " + i);
 
         return _decimalPartBinary;

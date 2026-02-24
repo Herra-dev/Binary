@@ -11,11 +11,13 @@ public class App
         //     e.printStackTrace();
         // }
 
-        byte[] _bit = mg.hr.Binary._toBinaryFloat(0.3, mg.hr.enumeration.FloatPrecision._HALF_PRECISION);
+        // byte[] _bit = mg.hr.Binary._toBinaryFloat(0.3, mg.hr.enumeration.FloatPrecision._HALF_PRECISION);
         // mg.hr.Binary._displayBinaryNumber(_bit);
 
 
         // java.lang.Double d = 0.3;
         // System.out.println(d.intValue());
+
+        System.out.println(1.2 - 1 + 0.00000000000000006); //why tf this return 0.19999999999999996
     }
 }

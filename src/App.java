@@ -22,7 +22,8 @@ public class App
 
         // int a = 5;
         // java.math.BigDecimal bd = new java.math.BigDecimal("5.2");
+        // String s = "string" + 1;
 
-        // System.out.println(bd.byteValue());
+        // System.out.println(s);
     }
 }

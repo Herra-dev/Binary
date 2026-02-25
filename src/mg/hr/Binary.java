@@ -267,22 +267,23 @@ public abstract class Binary {
         java.math.BigDecimal limit = new java.math.BigDecimal("0.0");
         java.math.BigDecimal multiplier = new java.math.BigDecimal("2");
 
-
         byte[] _decimalPartBinary = new byte[_precision.getPrecision()];
         System.out.println("precision = " + _decimalPartBinary.length);
         int i = 0;
         int j = 0;
+        String s = "";
         
         while(bd.compareTo(limit) != 0.0 && i < _decimalPartBinary.length)
         {
             bd = bd.multiply(multiplier);       
             _decimalPartBinary[i++] = bd.byteValue();
 
-            bd = bd.subtract(new BigDecimal(bd.intValue()));
-            
             j = i - 1;
-            System.out.println("i = " + _decimalPartBinary[j] + ", bd = " + bd.doubleValue());
+            System.out.println("i = " + _decimalPartBinary[j] + ", bd = " + bd.doubleValue() +  ", bd int = " + bd.intValue());
 
+            s = bd.intValue() + "";
+            bd = bd.subtract(new BigDecimal(s));
+            
         }
 
         System.out.println();

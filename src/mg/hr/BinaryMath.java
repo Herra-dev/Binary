@@ -469,7 +469,7 @@ public abstract class BinaryMath
  * @return array of byte with length defined by param length
  * @author {@see https://github.com/Herra-dev}
  */
-    private static byte[] _completeBinaryNumber(byte[] _number, int length)
+    public static byte[] _completeBinaryNumber(byte[] _number, int length)
     {
         byte tab[] = new byte[length]; // array to stock the reverse of the  parameter binary _number to complete
         byte tab1[] = new byte[length]; // array to stock the binary number completed

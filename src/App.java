@@ -1,9 +1,8 @@
-
 public class App
 {
     public static void main(String[] args)
     {
-        byte[] _bit = mg.hr.Binary._toBinaryFloat(-0.625, mg.hr.enumeration.FloatPrecision._HALF_PRECISION);
+        byte[] _bit = {1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
         mg.hr.Binary._displayBinaryNumber(_bit);
         System.out.println(mg.hr.decimal.Decimal._toDecimalFloat(_bit));
     }

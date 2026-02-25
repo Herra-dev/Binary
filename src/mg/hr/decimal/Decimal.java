@@ -112,7 +112,12 @@ public abstract class Decimal
             System.out.println("_bit.length must be: ");
             for(short s: availableRepresentation)
                 System.out.println("\t- " + s);
-            System.out.println();
+            System.out.println("trying to resolve problem......");
+            System.out.println("trying to apply solution: transform _bit into bit of 64 bits");
+            
+            _bit = mg.hr.BinaryMath._completeBinaryNumber(_bit, 64);
+            _toDecimalFloat(_bit);
+            mg.hr.Binary._displayBinaryNumber(_bit);
             return 0;
         }
     }

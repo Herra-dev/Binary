@@ -484,9 +484,25 @@ public abstract class BinaryMath
 
 //============================================================================
 
-    // public static byte[] _completeBinaryNumberInRight(byte[] _number, int length)
-    // {
+    public static byte[] _completeBinaryNumberInRight(byte[] _number)
+    {
+        int _length = 0;
+
+        if(_number.length < 16)                                 _length = 16;
+        else if(_number.length > 16 && _number.length <= 32)    _length = 32;
+        else if(_number.length > 32 && _number.length <= 64)    _length = 64;
+        else if(_number.length > 64 && _number.length <= 128)   _length = 128;
+        else if(_number.length > 128 && _number.length <= 256)  _length = 256;
+        else                                                    _length = 256;
+        System.out.println(_length + " bits...");
         
-    // }
+        byte[] _bit = new byte[_length];
+        for(short i = 0; i < _number.length; i++)               _bit[i] = _number[i];
+        for(short i = (short)_number.length; i < _length; i++)   _bit[i] = 0;
+
+        return _bit;
+    }
+
+//============================================================================
 
 }

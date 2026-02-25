@@ -275,16 +275,18 @@ public abstract class Binary {
         
         while(bd.compareTo(limit) != 0.0 && i < _decimalPartBinary.length)
         {
-            bd = bd.multiply(multiplier);       
+            bd = bd.multiply(multiplier, java.math.MathContext.DECIMAL32);       
             _decimalPartBinary[i++] = bd.byteValue();
 
             j = i - 1;
-            System.out.println("i = " + _decimalPartBinary[j] + ", bd = " + bd.doubleValue() +  ", bd int = " + bd.intValue());
+            System.out.println("i = " + _decimalPartBinary[j] + ", bd = " + bd +  ", bd int = " + bd.intValue());
 
             s = bd.intValue() + "";
-            bd = bd.subtract(new BigDecimal(s));
+            bd = bd.subtract(new BigDecimal(s), java.math.MathContext.DECIMAL32);
             
         }
+
+        _displayBinaryNumber(_decimalPartBinary);
 
         System.out.println();
         System.out.println("i stop at = " + i);

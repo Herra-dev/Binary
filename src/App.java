@@ -14,6 +14,7 @@ public class App
         // }
 
         byte[] _bit = mg.hr.Binary._toBinaryFloat(0.3, mg.hr.enumeration.FloatPrecision._DUAL_PRECISION);
+        System.out.println(mg.hr.decimal.Decimal._toDecimalFloat(_bit));
         // mg.hr.Binary._displayBinaryNumber(_bit);
 
 
@@ -21,9 +22,9 @@ public class App
         // System.out.println(d.intValue());
 
         // int a = 5;
-        // java.math.BigDecimal bd = new java.math.BigDecimal("5.2");
-        // String s = "string" + 1;
+        // java.math.BigDecimal bd = new java.math.BigDecimal("5.7");
+        // bd = bd.subtract(new java.math.BigDecimal("1.5"), java.math.MathContext.UNLIMITED);
 
-        // System.out.println(s);
+        // System.out.println(bd);
     }
 }

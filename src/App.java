@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+
 public class App
 {
     public static void main(String[] args)
@@ -11,16 +13,16 @@ public class App
         //     e.printStackTrace();
         // }
 
-        // byte[] _bit = mg.hr.Binary._toBinaryFloat(0.3, mg.hr.enumeration.FloatPrecision._HALF_PRECISION);
+        byte[] _bit = mg.hr.Binary._toBinaryFloat(0.3, mg.hr.enumeration.FloatPrecision._DUAL_PRECISION);
         // mg.hr.Binary._displayBinaryNumber(_bit);
 
 
         // java.lang.Double d = 0.3;
         // System.out.println(d.intValue());
 
-        java.lang.Float d = 1.93f - 1.0f;
-        java.lang.Double f = 1.0d;
+        // int a = 5;
+        // java.math.BigDecimal bd = new java.math.BigDecimal("5.2");
 
-        System.out.println(d); //why tf this returns 0.20000005
+        // System.out.println(bd.byteValue());
     }
 }

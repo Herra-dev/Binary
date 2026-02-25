@@ -8,6 +8,8 @@
 
 package mg.hr;
 
+import java.math.BigDecimal;
+
 public abstract class Binary {
 
 /**
@@ -261,23 +263,29 @@ public abstract class Binary {
  */
     private static byte[] _decimal(double _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
     {
-        java.lang.Double d = _decimalPart;
+        java.math.BigDecimal bd = new java.math.BigDecimal(_decimalPart);
+        java.math.BigDecimal limit = new java.math.BigDecimal("0.0");
+        java.math.BigDecimal multiplier = new java.math.BigDecimal("2");
+
+
         byte[] _decimalPartBinary = new byte[_precision.getPrecision()];
+        System.out.println("precision = " + _decimalPartBinary.length);
         int i = 0;
-
-        while(_decimalPart != 0 && i < _decimalPartBinary.length)
+        int j = 0;
+        
+        while(bd.compareTo(limit) != 0.0 && i < _decimalPartBinary.length)
         {
-            _decimalPart *= 2;         
-            _decimalPartBinary[i++] = (byte)_decimalPart;
+            bd = bd.multiply(multiplier);       
+            _decimalPartBinary[i++] = bd.byteValue();
 
-            d = _decimalPart;
+            bd = bd.subtract(new BigDecimal(bd.intValue()));
             
-            _decimalPart = _decimalPart - d.intValue();
-            
-            System.out.println("_decimalPart = " + _decimalPart);
+            j = i - 1;
+            System.out.println("i = " + _decimalPartBinary[j] + ", bd = " + bd.doubleValue());
+
         }
 
-        System.out.println("_devimalPart = " + (1.2 - 1));
+        System.out.println();
         System.out.println("i stop at = " + i);
 
         return _decimalPartBinary;

@@ -112,7 +112,7 @@ public abstract class Decimal
             System.out.println("_bit.length must be: ");
             for(short s: availableRepresentation)
                 System.out.println("\t- " + s);
-            System.out.println("trying to resolve problem......");
+            System.out.println("trying to resolve problem...");
             System.out.print("trying to apply solution: transform _bit into bit of ");
             
             _bit = mg.hr.BinaryMath._completeBinaryNumberInRight(_bit);

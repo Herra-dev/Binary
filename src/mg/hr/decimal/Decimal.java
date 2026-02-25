@@ -90,7 +90,10 @@ public abstract class Decimal
 
         for(short i: availableRepresentation)
             if(i == _bitNumber)
-                proceed = true;
+            {
+                proceed = true;     break;
+            }
+                
 
         //IF _bit.length IS AVAILABLE: PROCEED TRANSFORMATION
         if(proceed)
@@ -126,7 +129,6 @@ public abstract class Decimal
     private static mg.hr.enumeration.FloatPrecision _getBinaryNumberPrecision(byte[] _bit)
     {
         short _bitNumber = (short)_bit.length;
-        System.out.println("bit number = " + _bitNumber);
         mg.hr.enumeration.FloatPrecision _nbrPrecision = mg.hr.enumeration.FloatPrecision._HALF_PRECISION;
         switch (_bitNumber) {
             case 16:  _nbrPrecision = mg.hr.enumeration.FloatPrecision._HALF_PRECISION;              break;

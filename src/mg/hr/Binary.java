@@ -223,7 +223,7 @@ public abstract class Binary {
  */
     private static byte _binarySign(double _number)
     {
-        return ((int)_number >= 0) ? (byte)0 : (byte)1;
+        return (_number >= 0) ? (byte)0 : (byte)1;
     }
 
 //============================================================================
@@ -270,7 +270,6 @@ public abstract class Binary {
         byte[] _decimalPartBinary = new byte[_precision.getPrecision()];
         System.out.println("precision = " + _decimalPartBinary.length);
         int i = 0;
-        int j = 0;
         String s = "";
         
         while(bd.compareTo(limit) != 0.0 && i < _decimalPartBinary.length)
@@ -278,18 +277,9 @@ public abstract class Binary {
             bd = bd.multiply(multiplier, java.math.MathContext.DECIMAL32);       
             _decimalPartBinary[i++] = bd.byteValue();
 
-            j = i - 1;
-            System.out.println("i = " + _decimalPartBinary[j] + ", bd = " + bd +  ", bd int = " + bd.intValue());
-
             s = bd.intValue() + "";
             bd = bd.subtract(new BigDecimal(s), java.math.MathContext.DECIMAL32);
-            
         }
-
-        _displayBinaryNumber(_decimalPartBinary);
-
-        System.out.println();
-        System.out.println("i stop at = " + i);
 
         return _decimalPartBinary;
     }
@@ -368,6 +358,7 @@ public abstract class Binary {
         byte tab[] = new byte[_Precision.getPrecision()];
 
         byte _sign = _binarySign(_number); // SIGN
+        System.out.println("sign = " + _sign);
         byte _floorBinary[] = _floor(_number); // FLOOR
         byte[] _decimalPartBinary = _decimal(java.lang.StrictMath.abs(_number - (int)_number), _Precision); //DECIMAL PART
 

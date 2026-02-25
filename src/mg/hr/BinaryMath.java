@@ -484,4 +484,9 @@ public abstract class BinaryMath
 
 //============================================================================
 
+    // public static byte[] _completeBinaryNumberInRight(byte[] _number, int length)
+    // {
+        
+    // }
+
 }

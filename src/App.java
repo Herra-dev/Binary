@@ -1,4 +1,3 @@
-import java.math.BigDecimal;
 
 public class App
 {
@@ -13,7 +12,7 @@ public class App
         //     e.printStackTrace();
         // }
 
-        byte[] _bit = mg.hr.Binary._toBinaryFloat(-0.3, mg.hr.enumeration.FloatPrecision._OCTUPLE_PRECISION);
+        byte[] _bit = mg.hr.Binary._toBinaryFloat(-1027.625, mg.hr.enumeration.FloatPrecision._OCTUPLE_PRECISION);
         mg.hr.Binary._displayBinaryNumber(_bit);
         System.out.println(mg.hr.decimal.Decimal._toDecimalFloat(_bit));
         // mg.hr.Binary._displayBinaryNumber(_bit);

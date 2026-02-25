@@ -13,7 +13,7 @@ public class App
         //     e.printStackTrace();
         // }
 
-        byte[] _bit = mg.hr.Binary._toBinaryFloat(0.3, mg.hr.enumeration.FloatPrecision._DUAL_PRECISION);
+        byte[] _bit = mg.hr.Binary._toBinaryFloat(0.3, mg.hr.enumeration.FloatPrecision._OCTUPLE_PRECISION);
         System.out.println(mg.hr.decimal.Decimal._toDecimalFloat(_bit));
         // mg.hr.Binary._displayBinaryNumber(_bit);
 

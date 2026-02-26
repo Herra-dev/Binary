@@ -115,8 +115,7 @@ public abstract class Decimal
             System.out.println("trying to resolve problem...");
             System.out.print("trying to apply solution: transform _bit into bit of ");
             
-            _bit = mg.hr.BinaryMath._completeBinaryNumberInRight(_bit);
-            return _toDecimalFloat(_bit);
+            return _toDecimalFloat(mg.hr.BinaryMath._completeBinaryNumberInRight(_bit));
         }
     }
 

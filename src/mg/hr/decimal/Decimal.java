@@ -9,7 +9,6 @@ package mg.hr.decimal;
 
 public abstract class Decimal 
 {
-//========================================================================================
 
 /**
  * {@code NB:} The parameter {@code _bit} will be {@code treated} as an {@code unsigned integer}<p>

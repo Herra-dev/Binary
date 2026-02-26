@@ -258,6 +258,7 @@ public abstract class BinaryMath
  * 
  * @see mg.hr.BinaryMath#_completeBinaryNumberInLeft(byte[], int)
  * @see mg.hr.Binary#_reverseBinary(byte[])
+ * @see mg.hr.BinaryMath#_addBinary(byte[], byte[])
  * 
  * @author {@see https://github.com/Herra-dev}
  */
@@ -372,6 +373,18 @@ public abstract class BinaryMath
 
 //============================================================================
 
+/**
+ * Same as {@link mg.hr.BinaryMath#_addBinary(byte[], byte[], int)} but without the last parameter {@code _bitNumber}  
+ * 
+ * @param _firstBinaryNumber        {@code byte[]}
+ * @param _secondBinaryNumber       {@code byte[]}
+ * 
+ * @return {@code byte[]}
+ * 
+ * @see mg.hr.BinaryMath#_addBinary(byte[], byte[], int)
+ * 
+ * @author {@see https://github.com/Herra-dev}
+ */
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber)
     {
         String message = "Message: number of bit not given, so its automatically setted to: ";

@@ -4,6 +4,7 @@
 //
 // THIS CLASS IS USED TO TRANSFORM A NUMBER IN DECIMAL REPRESENTATION INTO BINARY 
 // REPRESENTATION
+// FOR A FLOATING POINT NUMBER: NUMBER OF BIT WILL BE ASKED
 //============================================================================
 
 package mg.hr;
@@ -355,6 +356,7 @@ public abstract class Binary {
  */
     public static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
     {
+        if(_Precision == null) _Precision = _askForPrecision(_number);
         byte tab[] = new byte[_Precision.getPrecision()];
 
         byte _sign = _binarySign(_number); // SIGN

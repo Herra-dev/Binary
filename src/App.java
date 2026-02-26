@@ -9,10 +9,6 @@
 public class App {
     public static void main(String[] args) {
         
-        double d = 0.1;
-        
-        while(d != 1.0) d += 0.1;
-        
-        System.out.println(d);
+        mg.hr.Binary._toBinaryFloat(-5, null);
     }
 }

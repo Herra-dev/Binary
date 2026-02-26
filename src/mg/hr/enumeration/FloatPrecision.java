@@ -1,3 +1,5 @@
+//ENUMERATION USED TO PRECISE FLOAT REPRESENTATION
+
 package mg.hr.enumeration;
 
 public enum FloatPrecision

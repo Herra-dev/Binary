@@ -256,7 +256,7 @@ public abstract class BinaryMath
  * 
  * @return byte[]
  * 
- * @see mg.hr.BinaryMath#_completeBinaryNumber(byte[], int)
+ * @see mg.hr.BinaryMath#_completeBinaryNumberInLeft(byte[], int)
  * @see mg.hr.Binary#_reverseBinary(byte[])
  * 
  * @author {@see https://github.com/Herra-dev}
@@ -268,8 +268,8 @@ public abstract class BinaryMath
         int up = (_firstBinaryNumber.length < _secondBinaryNumber.length) ? _secondBinaryNumber.length : _firstBinaryNumber.length;
         _bitNumber = (_bitNumber > up) ? _bitNumber : up;
 
-        _firstBinaryNumber = _completeBinaryNumber(_firstBinaryNumber, _bitNumber);
-        _secondBinaryNumber = _completeBinaryNumber(_secondBinaryNumber, _bitNumber);
+        _firstBinaryNumber = _completeBinaryNumberInLeft(_firstBinaryNumber, _bitNumber);
+        _secondBinaryNumber = _completeBinaryNumberInLeft(_secondBinaryNumber, _bitNumber);
 
         boolean _thereIsZero = false;
         boolean _addOneBit = false;
@@ -290,8 +290,8 @@ public abstract class BinaryMath
         if(!_thereIsZero && _addOneBit) ++_bitNumber;
 
         byte result[] = new byte[_bitNumber];
-        _firstBinaryNumber = _completeBinaryNumber(_firstBinaryNumber, _bitNumber);
-        _secondBinaryNumber = _completeBinaryNumber(_secondBinaryNumber, _bitNumber);
+        _firstBinaryNumber = _completeBinaryNumberInLeft(_firstBinaryNumber, _bitNumber);
+        _secondBinaryNumber = _completeBinaryNumberInLeft(_secondBinaryNumber, _bitNumber);
 
         for(int i = _bitNumber - 1; i >= 0; i--)
         {
@@ -390,7 +390,7 @@ public abstract class BinaryMath
  * @param _bitNumber          {@code int}
  * @return byte[]
  * 
- * @see mg.hr.BinaryMath#_completeBinaryNumber(byte[], int)
+ * @see mg.hr.BinaryMath#_completeBinaryNumberInLeft(byte[], int)
  * @see mg.hr.Binary#_reverseBinary(byte[])
  * 
  * @author {@see https://github.com/Herra-dev}
@@ -408,8 +408,8 @@ public abstract class BinaryMath
         int _originalBitNumber = _bitNumber;
         int up = (_firstBinaryNumber.length < _secondBinaryNumber.length) ? _secondBinaryNumber.length : _firstBinaryNumber.length;
         _bitNumber = (_bitNumber > up) ? _bitNumber : up;
-        _firstBinaryNumber = _completeBinaryNumber(_firstBinaryNumber, _bitNumber);
-        _secondBinaryNumber = _completeBinaryNumber(_secondBinaryNumber, _bitNumber);
+        _firstBinaryNumber = _completeBinaryNumberInLeft(_firstBinaryNumber, _bitNumber);
+        _secondBinaryNumber = _completeBinaryNumberInLeft(_secondBinaryNumber, _bitNumber);
 
         
         for(int i = _bitNumber - 1; i >= 0; i--)
@@ -468,7 +468,7 @@ public abstract class BinaryMath
  * @param length {@code int} number of bit
  * @return array of byte with length defined by param length
  * @author {@see https://github.com/Herra-dev}
- * @deprecated
+ * @Deprecated
  */
     public static byte[] _completeBinaryNumber(byte[] _number, int length)
     {

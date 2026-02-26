@@ -339,11 +339,13 @@ public abstract class BinaryMath
 //============================================================================
 
 /**
- * Used 
+ * Sometimes, user want to represent the result's number of bit superior or inferior of 
+ * necessary bit to represent it. This function ask user to change number of bits as recommended<p>
+ * Returns {@code true} if user 
  * 
- * @param _originalBitNumber
- * @param _bitNumber
- * @return
+ * @param _originalBitNumber    {@code int}
+ * @param _bitNumber            {@code int}
+ * @return {@code boolean}
  */
     private static boolean _askUserNbrOfBit(int _originalBitNumber, int _bitNumber) {
         boolean proceed = false;
@@ -352,7 +354,7 @@ public abstract class BinaryMath
                 System.out.println("It's recommended to represent the result in " + _bitNumber + " bit(s)");
             if(_originalBitNumber > _bitNumber)
                 System.out.println("The result can be reprensented in " + _bitNumber + " bit(s)");
-            System.out.println("Do you  want to continue representing result in " + _originalBitNumber + " bit(s)");
+            System.out.println("Do you  want to continue representing result in = " + _originalBitNumber + " bit(s) as recommanded?");
             
             char response = 'n';
             do

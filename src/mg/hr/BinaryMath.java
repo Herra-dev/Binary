@@ -338,6 +338,13 @@ public abstract class BinaryMath
 
 //============================================================================
 
+/**
+ * Used 
+ * 
+ * @param _originalBitNumber
+ * @param _bitNumber
+ * @return
+ */
     private static boolean _askUserNbrOfBit(int _originalBitNumber, int _bitNumber) {
         boolean proceed = false;
             java.util.Scanner sc = new java.util.Scanner(java.lang.System.in);

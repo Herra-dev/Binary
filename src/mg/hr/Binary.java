@@ -4,7 +4,8 @@
 //
 // THIS CLASS IS USED TO TRANSFORM A NUMBER IN DECIMAL REPRESENTATION INTO BINARY REPRESENTATION
 // 
-// FOR A FLOATING POINT NUMBER(METHOD :_toBinaryFloat(double, FloatPrecision)): FloatPrecision WILL BE ASKED AFTER IF IT'S EQUAL TO NULL
+// ____ FOR A FLOATING POINT NUMBER(METHOD :_toBinaryFloat(double, FloatPrecision)): FloatPrecision WILL BE ASKED AFTER IF IT'S EQUAL TO NULL
+//     |____ REPRESENTATION: IEEE 754
 //============================================================================
 
 package mg.hr;
@@ -361,7 +362,6 @@ public abstract class Binary {
         byte tab[] = new byte[_Precision.getPrecision()];
 
         byte _sign = _binarySign(_number); // SIGN
-        System.out.println("sign = " + _sign);
         byte _floorBinary[] = _floor(_number); // FLOOR
         byte[] _decimalPartBinary = _decimal(java.lang.StrictMath.abs(_number - (int)_number), _Precision); //DECIMAL PART
 

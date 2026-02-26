@@ -24,6 +24,8 @@ public class Test_Decimal {
         _bit = null;
     }
 
+//====================================================================
+
     @Test
     public void test_toDecimalUnsignedInteger()
     {
@@ -51,6 +53,8 @@ public class Test_Decimal {
         } 
     }
     
+//====================================================================
+
     @Test
     public void test_toDecimalSignedInteger()
     {
@@ -78,4 +82,20 @@ public class Test_Decimal {
             e.printStackTrace();
         } 
     }
+
+//====================================================================
+
+    @Test 
+    public void test_toDecimalFloat()
+    {
+        java.math.BigDecimal _excepted = new java.math.BigDecimal("25.265");
+        java.math.BigDecimal _result = new java.math.BigDecimal("0");
+        _bit = mg.hr.Binary._toBinaryFloat(_excepted.doubleValue(), mg.hr.enumeration.FloatPrecision._OCTUPLE_PRECISION);
+        _result = new java.math.BigDecimal(mg.hr.decimal.Decimal._toDecimalFloat(_bit) + "");
+        assertEquals(_excepted.doubleValue(), _result.doubleValue(), "message");
+
+    }   
+
+//====================================================================    
+
 }

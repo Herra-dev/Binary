@@ -325,7 +325,7 @@ public abstract class BinaryMath
         else
         {
             // if user accept to represent result in the recommanded bit number
-            if(!_askUserNbrOfBit(_originalBitNumber, _bitNumber)) return result; 
+            if(_askUserNbrOfBit(_originalBitNumber, _bitNumber)) return result; 
 
             //if user want to keep the number of bit he/she gathered
             result = mg.hr.Binary._reverseBinary(result);
@@ -354,7 +354,7 @@ public abstract class BinaryMath
                 System.out.println("It's recommended to represent the result in " + _bitNumber + " bit(s)");
             if(_originalBitNumber > _bitNumber)
                 System.out.println("The result can be reprensented in " + _bitNumber + " bit(s)");
-            System.out.println("Do you  want to continue representing result in = " + _originalBitNumber + " bit(s) as recommanded?");
+            System.out.println("Do you  want to represent result in = " + _bitNumber + " bit(s) as recommanded?");
             
             char response = 'n';
             do

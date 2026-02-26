@@ -468,6 +468,7 @@ public abstract class BinaryMath
  * @param length {@code int} number of bit
  * @return array of byte with length defined by param length
  * @author {@see https://github.com/Herra-dev}
+ * @deprecated
  */
     public static byte[] _completeBinaryNumber(byte[] _number, int length)
     {
@@ -484,10 +485,49 @@ public abstract class BinaryMath
 
 //============================================================================
 
+/**
+ * used to complete a binary number with 0 in the left, example:<p>
+ * for a number in {@code 8} bits:
+ * <p> - {@code 1011} becomes {@code 00001011}, 
+ * <p> - {@code 1} becomes {@code 00000001}
+ * 
+ * @param _number {@code byte}
+ * @param length {@code int} number of bit
+ * @return array of byte with length defined by param length
+ * @author {@see https://github.com/Herra-dev}
+ */
+    public static byte[] _completeBinaryNumberInLeft(byte[] _number, int length)
+    {
+        byte tab[] = new byte[length]; // array to stock the reverse of the  parameter binary _number to complete
+        byte tab1[] = new byte[length]; // array to stock the binary number completed
+
+        int j = 0, k = 0;
+        for(int i = _number.length -1; i >= 0; i--) tab[j++] = _number[i]; // reversing the binary number and stock it into tab
+        for(int i = _number.length; i < length; i++) tab[i] = 0; // adding 0 in tab starting from last bit reversed index until length - 1 
+        for(int i = tab.length - 1; i >= 0; i--) tab1[k++] = tab[i]; // reversing tab and stock it to tab1
+
+        return tab1;
+    }
+
+//============================================================================
+
+/**
+ * used to complete a binary number with 0 in the right, example:<p>
+ * for a number in {@code 8} bits:
+ * <p> - {@code 1011} becomes {@code 10110000}, 
+ * <p> - {@code 1} becomes {@code 10000000}
+ * 
+ * @param _number {@code byte}
+ * 
+ * @return {@code byte[]} array of byte with length close or equal to {@code _number.length}
+ * 
+ * @author {@see https://github.com/Herra-dev}
+ */
     public static byte[] _completeBinaryNumberInRight(byte[] _number)
     {
         int _length = 0;
 
+        // search for length close of _number.length
         if(_number.length < 16)                                 _length = 16;
         else if(_number.length > 16 && _number.length <= 32)    _length = 32;
         else if(_number.length > 32 && _number.length <= 64)    _length = 64;

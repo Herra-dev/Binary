@@ -2,9 +2,9 @@
 // Decimal
 //============================================================================
 //
-// THIS CLASS IS USED TO TRANSFORM A NUMBER IN DECIMAL REPRESENTATION INTO BINARY 
-// REPRESENTATION
-// FOR A FLOATING POINT NUMBER: NUMBER OF BIT WILL BE ASKED
+// THIS CLASS IS USED TO TRANSFORM A NUMBER IN DECIMAL REPRESENTATION INTO BINARY REPRESENTATION
+// 
+// FOR A FLOATING POINT NUMBER(METHOD :_toBinaryFloat(double, FloatPrecision)): FloatPrecision WILL BE ASKED AFTER IF IT'S EQUAL TO NULL
 //============================================================================
 
 package mg.hr;
@@ -336,6 +336,7 @@ public abstract class Binary {
 //============================================================================
 
 /**
+ * {@code IEEE 754}<p>
  * returns an array of byte representing {@code _number} in {@code binary}
  * <p><p>
  * For floating number, number of bit is usually represented in:
@@ -346,7 +347,7 @@ public abstract class Binary {
  *      <p>- extended dual precision   = {@code 79 bits}
  *      <p>- quadruple precision       = {@code 128 bits}
  *      <p>- octuple precision         = {@code 256 bits}
- * 
+ * <p>{@code if _precision is null, user will be asked to set it before proceeding transformation}
  * 
  * @param _number {@code double}
  * @param _precision {@code mg.hr.enumeration.FloatPrecision}

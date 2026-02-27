@@ -340,40 +340,6 @@ public abstract class BinaryMath
 //============================================================================
 
 /**
- * Sometimes, user want to represent the result's number of bit superior or inferior of 
- * necessary bit to represent it. This function ask user to change number of bits as recommended<p>
- * Returns {@code true} if user 
- * 
- * @param _originalBitNumber    {@code int}
- * @param _bitNumber            {@code int}
- * @return {@code boolean}
- */
-    private static boolean _askUserNbrOfBit(int _originalBitNumber, int _bitNumber) {
-        boolean proceed = false;
-            java.util.Scanner sc = new java.util.Scanner(java.lang.System.in);
-            if(_originalBitNumber < _bitNumber)
-                System.out.println("It's recommended to represent the result in " + _bitNumber + " bit(s)");
-            if(_originalBitNumber > _bitNumber)
-                System.out.println("The result can be reprensented in " + _bitNumber + " bit(s)");
-            System.out.println("Do you  want to represent result in = " + _bitNumber + " bit(s) as recommanded?");
-            
-            char response = 'n';
-            do
-            {
-                System.out.print("\t(y/n) -> ");
-                response = sc.nextLine().charAt(0);
-            }while(response != 'n' && response != 'y');
-            
-            proceed = (response == 'y') ? true : false;
-
-            sc.close();
-
-            return proceed;
-    }
-
-//============================================================================
-
-/**
  * Same as {@link mg.hr.BinaryMath#_addBinary(byte[], byte[], int)} but without the last parameter {@code _bitNumber}  
  * 
  * @param _firstBinaryNumber        {@code byte[]}
@@ -397,7 +363,7 @@ public abstract class BinaryMath
             : _addBinary(_firstBinaryNumber, _secondBinaryNumber, _secondBinaryNumber.length);
     }
 
-//============================================================================
+//============================================================================    
 
 /**
  * Subract parameters {@code _firstBinaryNumber} to {@code _secondBinaryNumber}, 
@@ -480,6 +446,70 @@ public abstract class BinaryMath
 
 //============================================================================
 
+    public static byte[] _multiplyBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
+    {
+        byte[] finalResult = new byte[_firstBinaryNumber.length + _secondBinaryNumber.length];
+        for(short i = 0; i < finalResult.length; i++)
+            finalResult[i] = 0;
+
+        byte[] _fitstBinaryNumberCopy = _secondBinaryNumber;
+        short j = 0;
+        for(short i = (short)(_secondBinaryNumber.length - 1); i >= 0; i--)
+        {
+            if((_secondBinaryNumber[i] != 1 && _secondBinaryNumber[i] != 0) ||
+                (_firstBinaryNumber[i] != 1 && _secondBinaryNumber[i] != 0)) {System.out.println("Unaccepted binary number"); return new byte[0];}
+            
+            if(_secondBinaryNumber[i] == 1)
+            {
+                _fitstBinaryNumberCopy = mg.hr.BinaryMath._completeBinaryNumberInRight(_firstBinaryNumber, _firstBinaryNumber.length+j);
+                finalResult = mg.hr.BinaryMath._addBinary(finalResult, _fitstBinaryNumberCopy);
+                System.out.println("j = " + j);
+                mg.hr.Binary._displayBinaryNumber(_fitstBinaryNumberCopy);
+            }
+            j++;
+        }
+        mg.hr.Binary._displayBinaryNumber(finalResult);
+
+        return finalResult;
+    }
+
+//============================================================================
+
+/**
+ * Sometimes, user want to represent the result's number of bit superior or inferior of 
+ * necessary bit to represent it. This function ask user to change number of bits as recommended<p>
+ * Returns {@code true} if user 
+ * 
+ * @param _originalBitNumber    {@code int}
+ * @param _bitNumber            {@code int}
+ * @return {@code boolean}
+ */
+    private static boolean _askUserNbrOfBit(int _originalBitNumber, int _bitNumber) {
+        boolean proceed = false;
+            java.util.Scanner sc = new java.util.Scanner(java.lang.System.in);
+            if(_originalBitNumber < _bitNumber)
+                System.out.println("It's recommended to represent the result in " + _bitNumber + " bit(s)");
+            if(_originalBitNumber > _bitNumber)
+                System.out.println("The result can be reprensented in " + _bitNumber + " bit(s)");
+            System.out.println("Do you  want to represent result in = " + _bitNumber + " bit(s) as recommanded?");
+            
+            char response = 'n';
+            do
+            {
+                System.out.print("\t(y/n) -> ");
+                response = sc.nextLine().charAt(0);
+            }while(response != 'n' && response != 'y');
+            
+            proceed = (response == 'y') ? true : false;
+
+            sc.close();
+
+            return proceed;
+    }
+
+//============================================================================
+
+
 /**
  * used to complete a binary number with 0 in the left, example:<p>
  * for a number in {@code 8} bits:
@@ -520,15 +550,37 @@ public abstract class BinaryMath
  */
     public static byte[] _completeBinaryNumberInLeft(byte[] _number, int length)
     {
+        if(_number.length > length)
+        {
+            System.out.println("Cannot complete _number because: _number.length > length");
+            return new byte[0];
+        }
         byte tab[] = new byte[length]; // array to stock the reverse of the  parameter binary _number to complete
         byte tab1[] = new byte[length]; // array to stock the binary number completed
 
         int j = 0, k = 0;
-        for(int i = _number.length -1; i >= 0; i--) tab[j++] = _number[i]; // reversing the binary number and stock it into tab
-        for(int i = _number.length; i < length; i++) tab[i] = 0; // adding 0 in tab starting from last bit reversed index until length - 1 
-        for(int i = tab.length - 1; i >= 0; i--) tab1[k++] = tab[i]; // reversing tab and stock it to tab1
+        for(int i = _number.length -1; i >= 0; i--)     tab[j++] = _number[i]; // reversing the binary number and stock it into tab
+        for(int i = _number.length; i < length; i++)    tab[i] = 0; // adding 0 in tab starting from last bit reversed index until length - 1 
+        for(int i = tab.length - 1; i >= 0; i--)        tab1[k++] = tab[i]; // reversing tab and stock it to tab1
 
         return tab1;
+    }
+
+//============================================================================
+
+    public static byte[] _completeBinaryNumberInRight(byte[] _number, int length)
+    {
+        if(_number.length > length)
+        {
+            System.out.println("Cannot complete _number because: _number.length > length");
+            return new byte[0];
+        }
+
+        byte[] tab = new byte[length];
+        for(short i = 0; i < _number.length; i++)               tab[i] = _number[i];
+        for(short i = (short)_number.length; i < length; i++)   tab[i] = 0;
+
+        return tab;
     }
 
 //============================================================================

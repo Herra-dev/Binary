@@ -447,7 +447,12 @@ public abstract class BinaryMath
 //============================================================================
 
     public static byte[] _multiplyBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
+    throws mg.hr.exception.NotABinaryNumber
     {
+        for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+        for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+        
+
         byte[] finalResult = new byte[_firstBinaryNumber.length + _secondBinaryNumber.length];
         for(short i = 0; i < finalResult.length; i++)
             finalResult[i] = 0;

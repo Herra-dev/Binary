@@ -1,4 +1,5 @@
 import mg.hr.exception.BinaryException;
+import mg.hr.exception.NotABinaryNumber;
 import mg.hr.exception.NotAnIntegerException;
 import mg.hr.exception.NotAnUnsignedIntegerException;
 
@@ -11,7 +12,7 @@ public class App {
             byte[] _bit1 = mg.hr.Binary._toBinaryUnsignedInteger(5, 3);
             byte[] _bit2 = mg.hr.BinaryMath._multiplyBinary(_bit, _bit1, 3);
             
-        } catch (BinaryException | NotAnIntegerException  | NotAnUnsignedIntegerException e) {
+        } catch (BinaryException | NotAnIntegerException  | NotAnUnsignedIntegerException | NotABinaryNumber e) {
             e.printStackTrace();
         }
     }

@@ -357,7 +357,10 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber)
-    {
+    throws mg.hr.exception.NotABinaryNumber {
+        for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+        for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+        
         String message = "Message: number of bit not given, so its automatically setted to: ";
         message += (_firstBinaryNumber.length > _secondBinaryNumber.length) 
                     ? "" + _firstBinaryNumber.length + ", length of _firstBinaryNumber"
@@ -394,7 +397,10 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _subtractBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
-    {
+    throws mg.hr.exception.NotABinaryNumber {
+        for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+        for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+
         //transform first and second number in decimal
         //if first or second number is a floating number:
         //------------- use _subtractBinary(double, double, int)
@@ -499,6 +505,7 @@ public abstract class BinaryMath
  * @return {@code boolean}
  */
     private static boolean _askUserNbrOfBit(int _originalBitNumber, int _bitNumber) {
+
         boolean proceed = false;
             java.util.Scanner sc = new java.util.Scanner(java.lang.System.in);
             if(_originalBitNumber < _bitNumber)
@@ -523,7 +530,6 @@ public abstract class BinaryMath
 
 //============================================================================
 
-
 /**
  * used to complete a binary number with 0 in the left, example:<p>
  * for a number in {@code 8} bits:
@@ -537,7 +543,8 @@ public abstract class BinaryMath
  * @Deprecated
  */
     public static byte[] _completeBinaryNumber(byte[] _number, int length)
-    {
+    throws mg.hr.exception.NotABinaryNumber {
+        for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
         byte tab[] = new byte[length]; // array to stock the reverse of the  parameter binary _number to complete
         byte tab1[] = new byte[length]; // array to stock the binary number completed
 
@@ -563,7 +570,9 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _completeBinaryNumberInLeft(byte[] _number, int length)
-    {
+    throws mg.hr.exception.NotABinaryNumber {
+        for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+        
         if(_number.length > length)
         {
             System.out.println("Cannot complete _number because: _number.length > length");
@@ -583,7 +592,8 @@ public abstract class BinaryMath
 //============================================================================
 
     public static byte[] _completeBinaryNumberInRight(byte[] _number, int length)
-    {
+    throws mg.hr.exception.NotABinaryNumber {
+        for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
         if(_number.length > length)
         {
             System.out.println("Cannot complete _number because: _number.length > length");
@@ -612,7 +622,8 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _completeBinaryNumberInRight(byte[] _number)
-    {
+    throws mg.hr.exception.NotABinaryNumber {
+        for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
         int _length = 0;
 
         // search for length close of _number.length

@@ -23,18 +23,9 @@ public enum FloatPrecision
         this._biais = (int)(java.lang.StrictMath.pow(2, this._expNumber - 1) - 1);
     }
 
-    public int getPrecision()
-    {
-        return this._precision;
-    }
+    public int getPrecision() { return this._precision; }
 
-    public int getExpNumber()
-    {
-        return this._expNumber;
-    }
+    public int getExpNumber() { return this._expNumber; }
 
-    public int getBiais()
-    {
-        return this._biais;
-    }
+    public int getBiais() { return this._biais; }
 }

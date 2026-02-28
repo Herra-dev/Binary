@@ -504,9 +504,9 @@ public abstract class Binary {
  * @see mg.hr.Binary#_powerOfTwoCloseBottom(long)
  * @see mg.hr.Binary#_reverseBinary(byte[])
  * 
- * @throws mg.hr.exception.BinaryException          when {@code _bitNumber} is a negative number
- * @throws mg.hr.exception.NotAnIntegerException    when {@code _number} is not an integer valuee
- * @throws mg.hr.exception.NotAnUnsignedIntegerException     when {@code _number} is a signed number
+ * @throws mg.hr.exception.BinaryException                  when {@code _bitNumber} is a negative number
+ * @throws mg.hr.exception.NotAnIntegerException            when {@code _number} is not an integer valuee
+ * @throws mg.hr.exception.NotAnUnsignedIntegerException    when {@code _number} is a signed number
  * 
  * @author {@see https://github.com/Herra-dev}
  */

@@ -7,6 +7,8 @@
 
 package mg.hr.decimal;
 
+import mg.hr.exception.NotABinaryNumber;
+
 public abstract class Decimal 
 {
 
@@ -56,7 +58,11 @@ public abstract class Decimal
         _bitOne[_bitOne.length - 1] = 1;
 
         _bit = mg.hr.Binary._complementBinary(_bit);
-        _bit = mg.hr.BinaryMath._addBinary(_bit, _bitOne, _bit.length);
+        try {
+            _bit = mg.hr.BinaryMath._addBinary(_bit, _bitOne, _bit.length);
+        } catch (NotABinaryNumber e) {
+            e.printStackTrace();
+        }
 
         double _SInteger = _toDecimalUnsignedInteger(_bit);
         

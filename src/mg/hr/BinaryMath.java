@@ -8,6 +8,8 @@
 
 package mg.hr;
 
+import mg.hr.exception.NotABinaryNumber;
+
 public abstract class BinaryMath
 {
 
@@ -263,7 +265,10 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
-    {
+    throws mg.hr.exception.NotABinaryNumber {
+        for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+        for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+        
         byte a, b;
         int j, _originalBitNumber = _bitNumber;
         int up = (_firstBinaryNumber.length < _secondBinaryNumber.length) ? _secondBinaryNumber.length : _firstBinaryNumber.length;
@@ -358,9 +363,14 @@ public abstract class BinaryMath
                     ? "" + _firstBinaryNumber.length + ", length of _firstBinaryNumber"
                     : "" + _secondBinaryNumber.length + ", length of _secondBinaryNumber";
         System.out.println(message);
-        return (_firstBinaryNumber.length > _secondBinaryNumber.length)
-            ? _addBinary(_firstBinaryNumber, _secondBinaryNumber, _firstBinaryNumber.length)
-            : _addBinary(_firstBinaryNumber, _secondBinaryNumber, _secondBinaryNumber.length);
+        try {
+            return (_firstBinaryNumber.length > _secondBinaryNumber.length)
+                ? _addBinary(_firstBinaryNumber, _secondBinaryNumber, _firstBinaryNumber.length)
+                : _addBinary(_firstBinaryNumber, _secondBinaryNumber, _secondBinaryNumber.length);
+        } catch (NotABinaryNumber e) {
+            e.printStackTrace();
+        }
+        return new byte[0];
     }
 
 //============================================================================    
@@ -447,8 +457,7 @@ public abstract class BinaryMath
 //============================================================================
 
     public static byte[] _multiplyBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
-    throws mg.hr.exception.NotABinaryNumber
-    {
+    throws mg.hr.exception.NotABinaryNumber {
         for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
         for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
         

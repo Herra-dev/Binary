@@ -12,6 +12,8 @@ package mg.hr;
 
 import java.math.BigDecimal;
 
+import mg.hr.exception.NotABinaryNumber;
+
 public abstract class Binary {
 
 /**
@@ -472,7 +474,11 @@ public abstract class Binary {
         _displayBinaryNumber(tab);
         _displayBinaryNumber(tab1);
 
-        tab = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
+        try {
+            tab = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
+        } catch (NotABinaryNumber e) {
+            e.printStackTrace();
+        }
 
         return tab;
     }

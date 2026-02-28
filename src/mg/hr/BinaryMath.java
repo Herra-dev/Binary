@@ -483,8 +483,6 @@ public abstract class BinaryMath
             {
                 _fitstBinaryNumberCopy = mg.hr.BinaryMath._completeBinaryNumberInRight(_firstBinaryNumber, _firstBinaryNumber.length+j);
                 finalResult = mg.hr.BinaryMath._addBinary(finalResult, _fitstBinaryNumberCopy);
-                System.out.println("j = " + j);
-                mg.hr.Binary._displayBinaryNumber(_fitstBinaryNumberCopy);
             }
             j++;
         }
@@ -566,7 +564,9 @@ public abstract class BinaryMath
  * 
  * @param _number {@code byte}
  * @param length {@code int} number of bit
+ * 
  * @return array of byte with length defined by param length
+ * 
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _completeBinaryNumberInLeft(byte[] _number, int length)
@@ -591,13 +591,28 @@ public abstract class BinaryMath
 
 //============================================================================
 
+/**
+ * used to complete a binary number with 0 in the right, example:<p>
+ * for a number in {@code 8} bits:
+ * <p> - {@code 1011} becomes {@code 10110000}, 
+ * <p> - {@code 1} becomes {@code 10000000}
+ * 
+ * @param _number {@code byte[]}
+ * @param length  {@code int} 
+ * 
+ * @return {@code byte[]}
+ * 
+ * @throws mg.hr.exception.NotABinaryNumber if {@code _number} contains something else that 0 or 1
+ * 
+ * @authro {@see https://github.com/Herra-dev}
+ */
     public static byte[] _completeBinaryNumberInRight(byte[] _number, int length)
     throws mg.hr.exception.NotABinaryNumber {
         for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
         if(_number.length > length)
         {
             System.out.println("Cannot complete _number because: _number.length > length");
-            return new byte[0];
+            return _number;
         }
 
         byte[] tab = new byte[length];
@@ -611,32 +626,44 @@ public abstract class BinaryMath
 
 /**
  * used to complete a binary number with 0 in the right, example:<p>
- * for a number in {@code 8} bits:
- * <p> - {@code 1011} becomes {@code 10110000}, 
- * <p> - {@code 1} becomes {@code 10000000}
+ * <p> - {@code 1011}(number of bits < 16) becomes {@code 1011_0000_0000_0000}, 
+ * <p> - {@code 1}(number of bits < 16) becomes {@code 1000_0000_0000_0000}
  * 
- * @param _number {@code byte}
+ * @param _number {@code byte[]}
  * 
- * @return {@code byte[]} array of byte with length close or equal to {@code _number.length}
+ * @return {@code byte[]} array of byte with length: 16, 32, 48, 64, 79, 128 or 256 
  * 
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte[] _completeBinaryNumberInRight(byte[] _number)
+    public static byte[] _autoCompleteBinaryNumberInRight(byte[] _number)
     throws mg.hr.exception.NotABinaryNumber {
         for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
         int _length = 0;
 
         // search for length close of _number.length
-        if(_number.length < 16)                                 _length = 16;
-        else if(_number.length > 16 && _number.length <= 32)    _length = 32;
-        else if(_number.length > 32 && _number.length <= 64)    _length = 64;
-        else if(_number.length > 64 && _number.length <= 128)   _length = 128;
-        else if(_number.length > 128 && _number.length <= 256)  _length = 256;
-        else                                                    _length = 256;
+        int _listPrecision[] = {
+            mg.hr.enumeration.FloatPrecision._HALF_PRECISION.getPrecision(),
+            mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION.getPrecision(),
+            mg.hr.enumeration.FloatPrecision._EXTENDED_DUAL_PRECISION.getPrecision(),
+            mg.hr.enumeration.FloatPrecision._DUAL_PRECISION.getPrecision(),
+            mg.hr.enumeration.FloatPrecision._EXTENDED_DUAL_PRECISION.getPrecision(),
+            mg.hr.enumeration.FloatPrecision._QUADRUPLE_PRECISION.getPrecision(),
+            mg.hr.enumeration.FloatPrecision._OCTUPLE_PRECISION.getPrecision()
+        };
+
+        if(_number.length < _listPrecision[0])                                              _length = _listPrecision[0];
+        else if(_number.length > _listPrecision[0] && _number.length <= _listPrecision[1])  _length = _listPrecision[1];
+        else if(_number.length > _listPrecision[1] && _number.length <= _listPrecision[2])  _length = _listPrecision[2];
+        else if(_number.length > _listPrecision[2] && _number.length <= _listPrecision[3])  _length = _listPrecision[3];
+        else if(_number.length > _listPrecision[3] && _number.length <= _listPrecision[4])  _length = _listPrecision[4];
+        else if(_number.length > _listPrecision[4] && _number.length <= _listPrecision[5])  _length = _listPrecision[5];
+        else if(_number.length > _listPrecision[5] && _number.length <= _listPrecision[6])  _length = _listPrecision[6];
+        else                                                                                _length = _listPrecision[6];
+
         System.out.println(_length + " bits...");
         
         byte[] _bit = new byte[_length];
-        for(short i = 0; i < _number.length; i++)               _bit[i] = _number[i];
+        for(short i = 0; i < _number.length; i++)                _bit[i] = _number[i];
         for(short i = (short)_number.length; i < _length; i++)   _bit[i] = 0;
 
         return _bit;

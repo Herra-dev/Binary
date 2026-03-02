@@ -571,10 +571,10 @@ public abstract class Binary {
         System.out.println();
     }
 
-    /**
+/**
  * function used to clear terminal
  * 
- * @author Heriniaina
+ * @author {@see https://github.com/Herra-dev}
  */
     public static void clearScreen()
     {
@@ -594,5 +594,4 @@ public abstract class Binary {
             System.err.println("Error: " + e.getMessage());
         }
     }
-
 }

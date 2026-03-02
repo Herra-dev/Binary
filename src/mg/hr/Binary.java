@@ -12,8 +12,6 @@ package mg.hr;
 
 import java.math.BigDecimal;
 
-import mg.hr.exception.NotABinaryNumber;
-
 public abstract class Binary {
 
 /**
@@ -52,7 +50,7 @@ public abstract class Binary {
         // if i(result of the previous calcul) is between -1 and 1(both excluded) but not 0, _number is a floating-point number
         boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
 
-        if(!_isFloat)
+        if(!_isFloat) // if _number is not a floating-point number
         {
             if(!_signed) {
                 try {
@@ -76,7 +74,7 @@ public abstract class Binary {
             return _toBinaryFloat(_number, _askForPrecision(_number));  // floating number
         }
     
-        return tab; // if there is an error during before operations, return tab
+        return tab; // if there is an error occured during before operations, return tab
     }
 
 //============================================================================
@@ -113,6 +111,8 @@ public abstract class Binary {
                         _choosenPrecision != 79 && _choosenPrecision != 128 && 
                             _choosenPrecision != 256)
             {
+                
+
                 System.out.println("Please, enter: 16, 32, 48, 64, 79, 128 or 256");
                 _choosenPrecision = sc.nextShort();
             }
@@ -476,7 +476,7 @@ public abstract class Binary {
 
         try {
             tab = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
-        } catch (NotABinaryNumber e) {
+        } catch (mg.hr.exception.NotABinaryNumber e) {
             e.printStackTrace();
         }
 

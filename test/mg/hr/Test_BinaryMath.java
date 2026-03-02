@@ -22,7 +22,7 @@ public class Test_BinaryMath
         } 
         catch (Exception e) 
         {
-            
+            e.printStackTrace();
         }
 
         byte _excepted[] = {0, 0, 0, 0, 1, 1, 1, 1};

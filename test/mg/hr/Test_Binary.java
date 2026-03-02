@@ -223,7 +223,7 @@ public class Test_Binary
         byte[] _excepted = new byte[8];
         for(byte i = 0; i < _excepted.length; i++)
         {
-            if(i < 5){ _excepted[i] = 1;    continue;}
+            if(i < 5){ _excepted[i] = 1;    continue; }
             _excepted[i] = 0;
         }
         byte[] _bit = {0, 0, 0, 1, 1, 1, 1, 1};

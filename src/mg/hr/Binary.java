@@ -6,11 +6,8 @@
 // 
 // ____ FOR A FLOATING POINT NUMBER(METHOD :_toBinaryFloat(double, FloatPrecision)): FloatPrecision WILL BE ASKED AFTER IF IT'S EQUAL TO NULL
 //     |____ REPRESENTATION: IEEE 754
-//============================================================================
 
 package mg.hr;
-
-import java.math.BigDecimal;
 
 public abstract class Binary {
 
@@ -137,8 +134,6 @@ public abstract class Binary {
         return _Precision;
     }
 
-
-
 //============================================================================
 
 /**
@@ -198,7 +193,7 @@ public abstract class Binary {
         return b;
     }
 
-//============================================================================
+//============================================================================    
 
 /**
  * returns {@code _number} in reverse.
@@ -222,8 +217,6 @@ public abstract class Binary {
 
         return reversedBinary;
     }
-
-//============================================================================
 
 /**
  * returns {@code 0} if {@code _number} is positive, returns {@code -1} otherwise
@@ -289,13 +282,12 @@ public abstract class Binary {
             _decimalPartBinary[i++] = bd.byteValue();
 
             s = bd.intValue() + "";
-            bd = bd.subtract(new BigDecimal(s), java.math.MathContext.DECIMAL32);
+            bd = bd.subtract(new java.math.BigDecimal(s), java.math.MathContext.DECIMAL32);
         }
 
         return _decimalPartBinary;
     }
 
-//============================================================================
 
 /**
  * returns an array of short exponent information is stored
@@ -343,7 +335,7 @@ public abstract class Binary {
         return exp;
     }
 
-//============================================================================
+//============================================================================    
 
 /**
  * {@code IEEE 754}<p>
@@ -374,7 +366,7 @@ public abstract class Binary {
         byte _floorBinary[] = _floor(_number); // FLOOR
         byte[] _decimalPartBinary = _decimal(java.lang.StrictMath.abs(_number - (int)_number), _Precision); //DECIMAL PART
 
-        //============================================================================
+        //----------------------------------------------------------------------
         
         short[] __ = _exp(_number, _floorBinary, _decimalPartBinary);
         short exp = __[0];
@@ -390,7 +382,7 @@ public abstract class Binary {
         {
             e.printStackTrace();
         }
-        //=========================================================================
+        //----------------------------------------------------------------------
 
         int j = 0;
         tab[j] = _sign; // ============================== SIGN =============
@@ -420,7 +412,6 @@ public abstract class Binary {
         return tab;
     }
 
-//============================================================================
 
 /**
  * return an array of byte representing {@code _number} who is: 
@@ -490,7 +481,7 @@ public abstract class Binary {
         return tab;
     }
 
-//============================================================================
+//============================================================================    
 
 /**
  * returns array of byte with length defined in the param _bitNumber
@@ -570,6 +561,8 @@ public abstract class Binary {
             System.out.print(b);
         System.out.println();
     }
+
+//============================================================================
 
 /**
  * function used to clear terminal

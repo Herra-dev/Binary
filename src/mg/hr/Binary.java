@@ -83,56 +83,61 @@ public abstract class Binary {
  * ask user for precision to represent number in {@code the parameter _number}<p>
  * 
  * @param _number {@code double}
+ * 
  * @return {@link mg.hr.enumeration.FloatPrecision}
+ * 
  * @see mg.hr.enumeration.FloatPrecision
+ * 
  * @author {@see https://github.com/Herra-dev}
  */
     private static mg.hr.enumeration.FloatPrecision _askForPrecision(double _number)
     {
-        
+        mg.hr.enumeration.FloatPrecision[] _available = mg.hr.enumeration.FloatPrecision.getAvailablePrecision();
 
         mg.hr.enumeration.FloatPrecision _Precision = mg.hr.enumeration.FloatPrecision._HALF_PRECISION;
         short _choosenPrecision = 0;
-        System.out.println(_number + " is a floating point number, choose how to represent it = \n" + 
-            "\t16  - HALF_PRECISION\n" + 
-            "\t32  - SIMPLE_PRECISION\n" + 
-            "\t48  - EXTENDED_SIMPLE_PRECISION\n" + 
-            "\t64  - DUAL_PRECISION\n" +
-            "\t79  - EXTENDED_DUAL_PRECISION\n" +
-            "\t128 - QUADRUPLE_PRECISION\n" + 
-            "\t256 - OCTUPLE_PRECISION\n"
-        );
+        System.out.println(_number + " is a floating point number, choose how to represent it = \n");
+        
+        mg.hr.enumeration.FloatPrecision.seeAvailablePrecision();
+
         try (java.util.Scanner sc = new java.util.Scanner(java.lang.System.in)) {
             _choosenPrecision = sc.nextShort();
             
             // clean line before reading another one
             sc.nextLine();
 
-            while(_choosenPrecision != 16 && _choosenPrecision != 32 && 
-                    _choosenPrecision != 48 && _choosenPrecision != 64 && 
-                        _choosenPrecision != 79 && _choosenPrecision != 128 && 
-                            _choosenPrecision != 256)
-            {
+            boolean in = false;
+            for(short i = 0; i < _available.length; i++) {
+                if(_choosenPrecision == _available[i].getPrecision()) {
+                    in = true;
+                    break;
+                }
+            }
 
-
-                System.out.println("Please, enter: 16, 32, 48, 64, 79, 128 or 256");
+            while(!in) {
+                clearScreen();
+                System.out.println("Please enter: ");
+                mg.hr.enumeration.FloatPrecision.seeAvailablePrecision();
                 _choosenPrecision = sc.nextShort();
+
+                for(short i = 0; i < _available.length; i++) {
+                    if(_choosenPrecision == _available[i].getPrecision()) {
+                        in = true;
+                        break;
+                    }
+                }
             }
         }
         
-        switch (_choosenPrecision) {
-            case 16:  _Precision = mg.hr.enumeration.FloatPrecision._HALF_PRECISION;            break;
-            case 32:  _Precision = mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION;          break;
-            case 48:  _Precision = mg.hr.enumeration.FloatPrecision._EXTENDED_SIMPLE_PRECISION; break;
-            case 64:  _Precision = mg.hr.enumeration.FloatPrecision._DUAL_PRECISION;            break;
-            case 79:  _Precision = mg.hr.enumeration.FloatPrecision._EXTENDED_DUAL_PRECISION;   break;
-            case 128: _Precision = mg.hr.enumeration.FloatPrecision._QUADRUPLE_PRECISION;       break;
-            case 256: _Precision = mg.hr.enumeration.FloatPrecision._OCTUPLE_PRECISION;         break;
-            default: break;
+        for(short i = 0; i < _available.length; i++) {
+            if(_choosenPrecision == _available[i].getPrecision())
+                _Precision = _available[i];
         }
 
         return _Precision;
     }
+
+
 
 //============================================================================
 
@@ -564,6 +569,30 @@ public abstract class Binary {
         for(byte b: _bit)
             System.out.print(b);
         System.out.println();
+    }
+
+    /**
+ * function used to clear terminal
+ * 
+ * @author Heriniaina
+ */
+    public static void clearScreen()
+    {
+        try
+        {
+            if(java.lang.System.getProperty("os.name").startsWith("Windows"))
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            else
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+        }
+        catch(java.lang.SecurityException |
+                java.lang.NullPointerException |
+                    java.lang.IllegalArgumentException |
+                        java.io.IOException |
+                            java.lang.InterruptedException e)
+        {
+            System.err.println("Error: " + e.getMessage());
+        }
     }
 
 }

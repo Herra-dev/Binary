@@ -89,6 +89,8 @@ public abstract class Binary {
  */
     private static mg.hr.enumeration.FloatPrecision _askForPrecision(double _number)
     {
+        
+
         mg.hr.enumeration.FloatPrecision _Precision = mg.hr.enumeration.FloatPrecision._HALF_PRECISION;
         short _choosenPrecision = 0;
         System.out.println(_number + " is a floating point number, choose how to represent it = \n" + 
@@ -111,7 +113,7 @@ public abstract class Binary {
                         _choosenPrecision != 79 && _choosenPrecision != 128 && 
                             _choosenPrecision != 256)
             {
-                
+
 
                 System.out.println("Please, enter: 16, 32, 48, 64, 79, 128 or 256");
                 _choosenPrecision = sc.nextShort();

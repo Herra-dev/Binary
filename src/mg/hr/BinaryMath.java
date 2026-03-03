@@ -8,7 +8,7 @@
 
 package mg.hr;
 
-import mg.hr.exception.NotABinaryNumber;
+import mg.hr.exception.NotABinaryNumberException;
 
 public abstract class BinaryMath
 {
@@ -265,9 +265,9 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
-    throws mg.hr.exception.NotABinaryNumber {
-        for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
-        for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+    throws mg.hr.exception.NotABinaryNumberException {
+        for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
+        for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
         
         byte a, b;
         int j, _originalBitNumber = _bitNumber;
@@ -357,9 +357,9 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _addBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber)
-    throws mg.hr.exception.NotABinaryNumber {
-        for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
-        for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+    throws mg.hr.exception.NotABinaryNumberException {
+        for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
+        for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
         
         String message = "Message: number of bit not given, so its automatically setted to: ";
         message += (_firstBinaryNumber.length > _secondBinaryNumber.length) 
@@ -370,7 +370,7 @@ public abstract class BinaryMath
             return (_firstBinaryNumber.length > _secondBinaryNumber.length)
                 ? _addBinary(_firstBinaryNumber, _secondBinaryNumber, _firstBinaryNumber.length)
                 : _addBinary(_firstBinaryNumber, _secondBinaryNumber, _secondBinaryNumber.length);
-        } catch (NotABinaryNumber e) {
+        } catch (NotABinaryNumberException e) {
             e.printStackTrace();
         }
         return new byte[0];
@@ -397,9 +397,9 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _subtractBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
-    throws mg.hr.exception.NotABinaryNumber {
-        for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
-        for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+    throws mg.hr.exception.NotABinaryNumberException {
+        for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
+        for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
 
         //transform first and second number in decimal
         //if first or second number is a floating number:
@@ -463,9 +463,9 @@ public abstract class BinaryMath
 //============================================================================
 
     public static byte[] _multiplyBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
-    throws mg.hr.exception.NotABinaryNumber {
-        for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
-        for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+    throws mg.hr.exception.NotABinaryNumberException {
+        for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
+        for(byte b: _secondBinaryNumber) if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
         
 
         byte[] finalResult = new byte[_firstBinaryNumber.length + _secondBinaryNumber.length];
@@ -541,8 +541,8 @@ public abstract class BinaryMath
  * @Deprecated
  */
     public static byte[] _completeBinaryNumber(byte[] _number, int length)
-    throws mg.hr.exception.NotABinaryNumber {
-        for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+    throws mg.hr.exception.NotABinaryNumberException {
+        for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
         byte tab[] = new byte[length]; // array to stock the reverse of the  parameter binary _number to complete
         byte tab1[] = new byte[length]; // array to stock the binary number completed
 
@@ -570,8 +570,8 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _completeBinaryNumberInLeft(byte[] _number, int length)
-    throws mg.hr.exception.NotABinaryNumber {
-        for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+    throws mg.hr.exception.NotABinaryNumberException {
+        for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
         
         if(_number.length > length)
         {
@@ -602,13 +602,13 @@ public abstract class BinaryMath
  * 
  * @return {@code byte[]}
  * 
- * @throws mg.hr.exception.NotABinaryNumber if {@code _number} contains something else that 0 or 1
+ * @throws mg.hr.exception.NotABinaryNumberException if {@code _number} contains something else that 0 or 1
  * 
  * @authro {@see https://github.com/Herra-dev}
  */
     public static byte[] _completeBinaryNumberInRight(byte[] _number, int length)
-    throws mg.hr.exception.NotABinaryNumber {
-        for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+    throws mg.hr.exception.NotABinaryNumberException {
+        for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
         if(_number.length > length)
         {
             System.out.println("Cannot complete _number because: _number.length > length");
@@ -636,8 +636,8 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  */
     public static byte[] _autoCompleteBinaryNumberInRight(byte[] _number)
-    throws mg.hr.exception.NotABinaryNumber {
-        for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumber(b);
+    throws mg.hr.exception.NotABinaryNumberException {
+        for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
         int _length = 0;
 
         // search for length close of _number.length

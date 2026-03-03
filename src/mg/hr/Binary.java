@@ -479,7 +479,7 @@ public abstract class Binary {
 
         try {
             tab = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
-        } catch (mg.hr.exception.NotABinaryNumber e) {
+        } catch (mg.hr.exception.NotABinaryNumberException e) {
             e.printStackTrace();
         }
 
@@ -538,7 +538,7 @@ public abstract class Binary {
             j = _powerOfTwoCloseBottom(_numberCopy);
             if(j < binaryReversed.length)
                 binaryReversed[j] = 1;
-            
+            System.out.println("j = " + j);
             _numberCopy -= java.lang.StrictMath.pow(2, j);
         }
 

@@ -7,7 +7,7 @@
 
 package mg.hr.decimal;
 
-import mg.hr.exception.NotABinaryNumber;
+import mg.hr.exception.NotABinaryNumberException;
 
 public abstract class Decimal 
 {
@@ -60,7 +60,7 @@ public abstract class Decimal
         _bit = mg.hr.Binary._complementBinary(_bit);
         try {
             _bit = mg.hr.BinaryMath._addBinary(_bit, _bitOne, _bit.length);
-        } catch (NotABinaryNumber e) {
+        } catch (NotABinaryNumberException e) {
             e.printStackTrace();
         }
 
@@ -123,7 +123,7 @@ public abstract class Decimal
             try {
                 // trying to complete binary
                 return _toDecimalFloat(mg.hr.BinaryMath._autoCompleteBinaryNumberInRight(_bit));
-            } catch (NotABinaryNumber e) {
+            } catch (NotABinaryNumberException e) {
                 e.printStackTrace();
                 return 0.0d;
             }

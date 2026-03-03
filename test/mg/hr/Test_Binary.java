@@ -1,5 +1,6 @@
 package test.mg.hr;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -248,8 +249,19 @@ public class Test_Binary
     @Test
     public void _test_toBinaryFloat()
     {
-        byte[] _bit = new byte[32];
-        
+        byte[] _bit = {1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        assertArrayEquals(_bit, mg.hr.Binary._toBinaryFloat(-1027.625, mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION));
+
+        _bit[0] = 0;
+        assertArrayEquals(_bit, mg.hr.Binary._toBinaryFloat(1027.625, mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION));
+        _bit = null;
+    
+        byte[] _bit1 = {0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1};
+        assertArrayEquals(_bit1, mg.hr.Binary._toBinaryFloat(0.3, mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION));
+    
+        _bit1[0] = 1;
+        assertArrayEquals(_bit1, mg.hr.Binary._toBinaryFloat(-0.3, mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION));
+        _bit1 = null;
     }
 
 }

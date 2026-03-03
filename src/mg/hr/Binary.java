@@ -459,12 +459,14 @@ public abstract class Binary {
         }
 
         byte tab[] = new byte[_bitNumber];
+        
         byte tab1[] = new byte[_bitNumber];
-        for(short j = 0; j < _bitNumber; j++)
+        for(short j = 0; j < _bitNumber; j++) // Stock 0 in every index in tab1
             tab1[j] = 0;
-        tab1[_bitNumber - 1] = 1;
+        tab1[_bitNumber - 1] = 1; // Stock 1 in last index of tab1
 
         try {
+            // IF _number IS A NEGATIVE VALUE, TRANSFORM THE ABS OF THIS LAST INTO BINARY
             tab = _toBinaryUnsignedInteger(-(_number), _bitNumber);
         } catch (mg.hr.exception.BinaryException | 
                     mg.hr.exception.NotAnIntegerException | 

@@ -543,6 +543,13 @@ public abstract class BinaryMath
     public static byte[] _completeBinaryNumber(byte[] _number, int length)
     throws mg.hr.exception.NotABinaryNumberException {
         for(byte b: _number)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);
+        
+        if(_number.length > length)
+        {
+            System.out.println("Cannot complete _number because: _number.length > length");
+            return _number;
+        }
+
         byte tab[] = new byte[length]; // array to stock the reverse of the  parameter binary _number to complete
         byte tab1[] = new byte[length]; // array to stock the binary number completed
 
@@ -576,7 +583,7 @@ public abstract class BinaryMath
         if(_number.length > length)
         {
             System.out.println("Cannot complete _number because: _number.length > length");
-            return new byte[0];
+            return _number;
         }
         byte tab[] = new byte[length]; // array to stock the reverse of the  parameter binary _number to complete
         byte tab1[] = new byte[length]; // array to stock the binary number completed

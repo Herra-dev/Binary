@@ -474,8 +474,6 @@ public abstract class Binary {
             e.printStackTrace();
         }
         tab  = mg.hr.Binary._complementBinary(tab);
-        _displayBinaryNumber(tab);
-        _displayBinaryNumber(tab1);
 
         try {
             tab = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);

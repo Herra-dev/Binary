@@ -218,6 +218,8 @@ public abstract class Binary {
         return reversedBinary;
     }
 
+//============================================================================
+
 /**
  * returns {@code 0} if {@code _number} is positive, returns {@code -1} otherwise
  * 
@@ -225,7 +227,7 @@ public abstract class Binary {
  * @return {@code byte}
  * @author {@see https://github.com/Herra-dev}
  */
-    private static byte _binarySign(double _number)
+    public static byte _binarySign(double _number)
     {
         return (_number >= 0) ? (byte)0 : (byte)1;
     }
@@ -288,6 +290,7 @@ public abstract class Binary {
         return _decimalPartBinary;
     }
 
+//============================================================================    
 
 /**
  * returns an array of short exponent information is stored
@@ -412,6 +415,7 @@ public abstract class Binary {
         return tab;
     }
 
+//============================================================================    
 
 /**
  * return an array of byte representing {@code _number} who is: 

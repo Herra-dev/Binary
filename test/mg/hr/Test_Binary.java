@@ -1,17 +1,13 @@
 package test.mg.hr;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class Test_Binary
 {
-    @BeforeAll
-    public static void setUpBeforeClass() 
-    {
-        System.out.println("before all");
-    }
 
 //========================================================================================
 
@@ -231,6 +227,29 @@ public class Test_Binary
 
         for(byte i = 0; i < 8; i++)
             assertEquals(_excepted[i], _bit[i]);
+    }
+
+//========================================================================================
+
+    @Test
+    public void _test_binarySign()
+    {
+        assertEquals(0, mg.hr.Binary._binarySign(6));
+        assertEquals(0, mg.hr.Binary._binarySign(999999999999999999999999999999999999999d));
+        assertEquals(0, mg.hr.Binary._binarySign(5555*999999999999999999999d));
+        assertEquals(1, mg.hr.Binary._binarySign(-6));
+        assertEquals(1, mg.hr.Binary._binarySign(6*-9));
+        assertEquals(1, mg.hr.Binary._binarySign(6-9999999999999999999999999999999999999999d));
+        assertEquals(1, mg.hr.Binary._binarySign(-1));
+    }
+
+//========================================================================================
+
+    @Test
+    public void _test_toBinaryFloat()
+    {
+        byte[] _bit = new byte[32];
+        
     }
 
 }

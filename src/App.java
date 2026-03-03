@@ -27,7 +27,7 @@ public class App {
         // }
             
         try {
-            mg.hr.Binary._displayBinaryNumber(mg.hr.Binary._toBinaryUnsignedInteger(15, 2));
+            mg.hr.Binary._displayBinaryNumber(mg.hr.Binary._toBinaryUnsignedInteger(16, 2));
         } catch (NotAnIntegerException | NotAnUnsignedIntegerException | BinaryException e) {
             e.printStackTrace();
         }

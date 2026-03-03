@@ -418,10 +418,9 @@ public abstract class Binary {
 //============================================================================    
 
 /**
- * return an array of byte representing {@code _number} who is: 
+ * return an array of byte representing {@code _number}: 
  * <p> - {@code signed}
  * <p> - {@code not a floating number}
- * in binary
  * 
  * @param _number {@code long}
  * @param _bitNumber {@code int}

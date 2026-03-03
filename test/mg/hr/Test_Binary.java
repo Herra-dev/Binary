@@ -4,7 +4,6 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class Test_Binary
@@ -12,17 +11,18 @@ public class Test_Binary
 
 //========================================================================================
 
-    public void test(double nbr, byte[] _bit_, int length)
+    public void test(double nbr, byte[] _bit_)
     {
         try
         {
-            for(short i = 0; i < length; i++)
-                assertEquals(_bit_[i], mg.hr.Binary.toBinary(nbr)[i]);
+            for(short i = 0; i < _bit_.length; i++)
+                assertEquals(_bit_[i], mg.hr.Binary.toBinary(nbr, _bit_.length)[i]);
         }
         catch(mg.hr.exception.BinaryException e)
         {
             e.printStackTrace();
         }
+        
     }
     @Test
     public void _test_toBinaryWithBitNumber() throws mg.hr.exception.BinaryException
@@ -81,18 +81,17 @@ public class Test_Binary
 
 //========================================================================================
 
-    public void test(double nbr, byte[] _bit_)
+    public void test(double nbr, byte[] _bit_, int length)
     {
         try
         {
-            for(short i = 0; i < _bit_.length; i++)
-                assertEquals(_bit_[i], mg.hr.Binary.toBinary(nbr, _bit_.length)[i]);
+            for(short i = 0; i < length; i++)
+                assertEquals(_bit_[i], mg.hr.Binary.toBinary(nbr)[i]);
         }
         catch(mg.hr.exception.BinaryException e)
         {
             e.printStackTrace();
         }
-        
     }
     @Test
     public void _test_toBinaryNoBitNumber()
@@ -173,11 +172,6 @@ public class Test_Binary
 
 //========================================================================================
 
-    public void test(byte[] _excepted, byte[] _result)
-    {
-        for(byte i = 0; i < _excepted.length; i++)
-            assertEquals(_excepted[i], _result[i]);
-    }
     @Test
     public void _test_complementBinary()
     {
@@ -189,14 +183,14 @@ public class Test_Binary
         for(byte i = 0; i < _length; i++)
             _bit_[i] = 0;
         
-        test(_excepted, mg.hr.Binary._complementBinary(_bit_));
+        assertArrayEquals(_excepted, mg.hr.Binary._complementBinary(_bit_));
 
         _excepted[0] = 0; _bit_[0] = 1;
-        test(_excepted, mg.hr.Binary._complementBinary(_bit_));
+        assertArrayEquals(_excepted, mg.hr.Binary._complementBinary(_bit_));
 
         _excepted[5] = 0; _bit_[5] = 1;
         _excepted[7] = 0; _bit_[7] = 1;
-        test(_excepted, mg.hr.Binary._complementBinary(_bit_));
+        assertArrayEquals(_excepted, mg.hr.Binary._complementBinary(_bit_));
 
         for(byte i = 0; i < _length; i++)
         {
@@ -209,7 +203,7 @@ public class Test_Binary
             _excepted[i] = 0;
             _bit_[i] = 1;
         }
-        test(_excepted, mg.hr.Binary._complementBinary(_bit_));
+        assertArrayEquals(_excepted, mg.hr.Binary._complementBinary(_bit_));
     }
 
 //========================================================================================
@@ -262,6 +256,14 @@ public class Test_Binary
         _bit1[0] = 1;
         assertArrayEquals(_bit1, mg.hr.Binary._toBinaryFloat(-0.3, mg.hr.enumeration.FloatPrecision._SIMPLE_PRECISION));
         _bit1 = null;
+    }
+
+//========================================================================================
+
+    @Test
+    public void _test_toBinarySignedInteger()
+    {
+        
     }
 
 }

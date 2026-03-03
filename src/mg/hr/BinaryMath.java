@@ -504,26 +504,23 @@ public abstract class BinaryMath
  */
     private static boolean _askUserNbrOfBit(int _originalBitNumber, int _bitNumber) {
 
-        boolean proceed = false;
-            java.util.Scanner sc = new java.util.Scanner(java.lang.System.in);
-            if(_originalBitNumber < _bitNumber)
-                System.out.println("It's recommended to represent the result in " + _bitNumber + " bit(s)");
-            if(_originalBitNumber > _bitNumber)
-                System.out.println("The result can be reprensented in " + _bitNumber + " bit(s)");
-            System.out.println("Do you  want to represent result in = " + _bitNumber + " bit(s) as recommanded?");
-            
-            char response = 'n';
-            do
-            {
-                System.out.print("\t(y/n) -> ");
-                response = sc.nextLine().charAt(0);
-            }while(response != 'n' && response != 'y');
-            
-            proceed = (response == 'y') ? true : false;
+        java.util.Scanner sc = new java.util.Scanner(java.lang.System.in);
+        if(_originalBitNumber < _bitNumber)
+            System.out.println("It's recommended to represent the result in " + _bitNumber + " bit(s)");
+        if(_originalBitNumber > _bitNumber)
+            System.out.println("The result can be reprensented in " + _bitNumber + " bit(s)");
+        System.out.println("Do you  want to represent result in = " + _bitNumber + " bit(s) as recommanded?");
+        
+        char response = 'n';
+        do
+        {
+            System.out.print("\t(y/n) -> ");
+            response = sc.nextLine().charAt(0);
+        }while(response != 'n' && response != 'y');
 
-            sc.close();
+        sc.close();
 
-            return proceed;
+        return (response == 'y');
     }
 
 //============================================================================

@@ -418,7 +418,7 @@ public abstract class Binary {
 //============================================================================    
 
 /**
- * return an array of byte representing {@code _number}: 
+ * return an array of byte representing {@code _number} with length equal to {@code _bit_number}: 
  * <p> - {@code signed}
  * <p> - {@code not a floating number}
  * 

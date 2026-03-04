@@ -227,20 +227,6 @@ public class Test_Binary
 //========================================================================================
 
     @Test
-    public void _test_binarySign()
-    {
-        assertEquals(0, mg.hr.Binary._binarySign(6));
-        assertEquals(0, mg.hr.Binary._binarySign(999999999999999999999999999999999999999d));
-        assertEquals(0, mg.hr.Binary._binarySign(5555*999999999999999999999d));
-        assertEquals(1, mg.hr.Binary._binarySign(-6));
-        assertEquals(1, mg.hr.Binary._binarySign(6*-9));
-        assertEquals(1, mg.hr.Binary._binarySign(6-9999999999999999999999999999999999999999d));
-        assertEquals(1, mg.hr.Binary._binarySign(-1));
-    }
-
-//========================================================================================
-
-    @Test
     public void _test_toBinaryFloat()
     {
         byte[] _bit = {1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -276,6 +262,8 @@ public class Test_Binary
 
             _bit[_bit.length-1] = 0;
             assertArrayEquals(_bit, mg.hr.Binary._toBinarySignedInteger(-2, 7));
+        
+            
         } catch (mg.hr.exception.BinaryException |
                     mg.hr.exception.NotAnIntegerException e) {
             e.printStackTrace();

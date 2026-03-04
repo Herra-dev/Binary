@@ -227,7 +227,7 @@ public abstract class Binary {
  * @return {@code byte}
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte _binarySign(double _number)
+    private static byte _binarySign(double _number)
     {
         return (_number >= 0) ? (byte)0 : (byte)1;
     }

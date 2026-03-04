@@ -263,7 +263,23 @@ public class Test_Binary
     @Test
     public void _test_toBinarySignedInteger()
     {
-        
+        byte[] _bit = {0, 0, 0, 0, 0, 0, 0};
+        try {
+            assertArrayEquals(_bit, mg.hr.Binary._toBinarySignedInteger(0, 7));
+            
+            _bit[6] = 1;
+            assertArrayEquals(_bit, mg.hr.Binary._toBinarySignedInteger(1, 7));
+            
+            for(byte b = 0; b < _bit.length; b++)
+                _bit[b] = 1;
+            assertArrayEquals(_bit, mg.hr.Binary._toBinarySignedInteger(-1, 7));
+
+            _bit[_bit.length-1] = 0;
+            assertArrayEquals(_bit, mg.hr.Binary._toBinarySignedInteger(-2, 7));
+        } catch (mg.hr.exception.BinaryException |
+                    mg.hr.exception.NotAnIntegerException e) {
+            e.printStackTrace();
+        }
     }
 
 }

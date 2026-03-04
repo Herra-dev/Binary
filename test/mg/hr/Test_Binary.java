@@ -262,8 +262,31 @@ public class Test_Binary
 
             _bit[_bit.length-1] = 0;
             assertArrayEquals(_bit, mg.hr.Binary._toBinarySignedInteger(-2, 7));
-        
+            _bit = null;
+
+            byte[] _bit0 = {1, 1, 1, 0, 0, 0, 1};
+            assertArrayEquals(_bit0, mg.hr.Binary._toBinarySignedInteger(-15, 7));
+            _bit0 = null;
+
+            byte[] _bit1 = {0, 0, 0, 1};
+            assertArrayEquals(_bit1, mg.hr.Binary._toBinarySignedInteger(-15, 4));
+            _bit1 = null;
+
+            byte[] _bit2 = {1, 1, 1, 0, 0, 0, 0, 1};
+            assertArrayEquals(_bit2, mg.hr.Binary._toBinarySignedInteger(-31, 8));
+            _bit2 = null;
+
+            byte[] _bit3 = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            assertArrayEquals(_bit3, mg.hr.Binary._toBinarySignedInteger(1024, 11));
+            assertArrayEquals(_bit3, mg.hr.Binary._toBinarySignedInteger(-1024, 11));
+            _bit3 = null;
+
+            byte[] _bit4 = {0, 1, 1, 1, 1, 1, 1, 1, 1};
+            assertArrayEquals(_bit4, mg.hr.Binary._toBinarySignedInteger(-257, 9));
+            _bit4 = null;
+
             
+
         } catch (mg.hr.exception.BinaryException |
                     mg.hr.exception.NotAnIntegerException e) {
             e.printStackTrace();

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import mg.hr.exception.NotABinaryNumber;
+import mg.hr.exception.NotABinaryNumberException;
 
 public class Test_BinaryMath
 {
@@ -31,7 +31,7 @@ public class Test_BinaryMath
         {
             try {
                 assertEquals(_excepted[i], mg.hr.BinaryMath._addBinary(_tab, _tab1, length)[i]);
-            } catch (NotABinaryNumber e) {
+            } catch (NotABinaryNumberException e) {
                 e.printStackTrace();
             }
         }

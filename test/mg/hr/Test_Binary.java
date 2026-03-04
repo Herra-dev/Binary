@@ -285,8 +285,8 @@ public class Test_Binary
             assertArrayEquals(_bit4, mg.hr.Binary._toBinarySignedInteger(-257, 9));
             _bit4 = null;
 
-            
-
+            byte[] _bit5 = {0, 0, 0, 1, 0};
+            assertArrayEquals(_bit5, mg.hr.Binary._toBinarySignedInteger(-30, 5));
         } catch (mg.hr.exception.BinaryException |
                     mg.hr.exception.NotAnIntegerException e) {
             e.printStackTrace();

@@ -324,7 +324,15 @@ public class Test_Binary
         
             _bit[9] = 1;
             assertArrayEquals(_bit, mg.hr.Binary._toBinaryUnsignedInteger(1026, 11));
-        
+            _bit = null;
+
+            byte[] _bit0 = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+            assertArrayEquals(_bit0, mg.hr.Binary._toBinaryUnsignedInteger(1023, 10));
+
+            _bit0[8] = 0;
+            _bit0[9] = 0;
+            assertArrayEquals(_bit0, mg.hr.Binary._toBinaryUnsignedInteger(1020, 10));
+
         } catch (mg.hr.exception.BinaryException |
                     mg.hr.exception.NotAnIntegerException | 
                         mg.hr.exception.NotAnUnsignedIntegerException e) {

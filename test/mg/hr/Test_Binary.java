@@ -318,8 +318,15 @@ public class Test_Binary
         assertThrowsExactly(mg.hr.exception.NotAnIntegerException.class, ()->mg.hr.Binary._toBinaryUnsignedInteger(2.564, 2));
         assertThrowsExactly(mg.hr.exception.NotAnUnsignedIntegerException.class, ()->mg.hr.Binary._toBinaryUnsignedInteger(-2, 2));
         
+        byte[] _bit = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        try {
+            assertArrayEquals(_bit, mg.hr.Binary._toBinaryUnsignedInteger(1024, 11));
+        } catch (mg.hr.exception.BinaryException |
+                    mg.hr.exception.NotAnIntegerException | 
+                        mg.hr.exception.NotAnUnsignedIntegerException e) {
+            e.printStackTrace();
+        }
 
-        
     }
 
 }

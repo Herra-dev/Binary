@@ -314,7 +314,12 @@ public class Test_Binary
     @Test
     public void _test_toBinaryUnsignedInteger()
     {
+        assertThrowsExactly(mg.hr.exception.BinaryException.class, ()->mg.hr.Binary._toBinaryUnsignedInteger(2, -2));
+        assertThrowsExactly(mg.hr.exception.NotAnIntegerException.class, ()->mg.hr.Binary._toBinaryUnsignedInteger(2.564, 2));
+        assertThrowsExactly(mg.hr.exception.NotAnUnsignedIntegerException.class, ()->mg.hr.Binary._toBinaryUnsignedInteger(-2, 2));
+        
 
+        
     }
 
 }

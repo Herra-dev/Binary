@@ -3,6 +3,7 @@ package test.mg.hr;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import org.junit.jupiter.api.Test;
 
@@ -299,10 +300,21 @@ public class Test_Binary
             assertArrayEquals(_bit7, mg.hr.Binary._toBinarySignedInteger(15, 4));
             assertArrayEquals(_bit7, mg.hr.Binary._toBinarySignedInteger(31, 4));
 
+            assertThrowsExactly(mg.hr.exception.BinaryException.class, ()->mg.hr.Binary._toBinarySignedInteger(2, -2));
+            assertThrowsExactly(mg.hr.exception.NotAnIntegerException.class, ()->mg.hr.Binary._toBinarySignedInteger(2.25, 2));
+        
         } catch (mg.hr.exception.BinaryException |
                     mg.hr.exception.NotAnIntegerException e) {
             e.printStackTrace();
         }
+    }
+
+//========================================================================================
+
+    @Test
+    public void _test_toBinaryUnsignedInteger()
+    {
+
     }
 
 }

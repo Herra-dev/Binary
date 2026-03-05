@@ -379,7 +379,7 @@ public abstract class BinaryMath
 //============================================================================    
 
 /**
- * Subract parameters {@code _firstBinaryNumber} to {@code _secondBinaryNumber}, 
+ * Subract parameter {@code _firstBinaryNumber} to parameter {@code _secondBinaryNumber}, 
  * <p>returns an array of byte with length defined in the param {@code _bitNumber}
  * 
  * if {@code _bitNumber} is inferior of {@code _firstBinaryNumber.length} or {@code _secondBinaryNumber.length},
@@ -462,6 +462,18 @@ public abstract class BinaryMath
 
 //============================================================================
 
+/**
+ * multiply parameter {@code _firstBinaryNumber} to parameter {@code _secondBinaryNumber}, 
+ * <p>returns an array of byte with length defined in the param {@code _bitNumber}
+ * 
+ * @param _firstBinaryNumber    {@code byte[]}
+ * @param _secondBinaryNumber   {@code byte[]}
+ * @param _bitNumber            {@code int}
+ * 
+ * @return                      {@code byte[]}
+ * 
+ * @throws mg.hr.exception.NotABinaryNumberException if {@code _firstBinaryNumber} and {@code _secomdBinaryNumber} contains another number than 0 or 1
+ */
     public static byte[] _multiplyBinary(byte[] _firstBinaryNumber, byte[] _secondBinaryNumber, int _bitNumber)
     throws mg.hr.exception.NotABinaryNumberException {
         for(byte b: _firstBinaryNumber)  if(b != 1 && b != 0) throw new mg.hr.exception.NotABinaryNumberException(b);

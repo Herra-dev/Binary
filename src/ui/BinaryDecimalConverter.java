@@ -256,13 +256,13 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Fo
 
 //======================================================================================
 
-    @Override public void focusGained(FocusEvent event) {
-        System.out.println("Focus gained");
-    }
+    // @Override public void focusGained(FocusEvent event) {
+    //     System.out.println("Focus gained");
+    // }
 
-    @Override public void focusLost(FocusEvent event) {
-        System.out.println("Focus lost");
-    }
+    // @Override public void focusLost(FocusEvent event) {
+    //     System.out.println("Focus lost");
+    // }
 
 
     @Override public void actionPerformed(ActionEvent event) {

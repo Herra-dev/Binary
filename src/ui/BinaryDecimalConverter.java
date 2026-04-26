@@ -12,4 +12,6 @@ public class BinaryDecimalConverter extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
+    
 }

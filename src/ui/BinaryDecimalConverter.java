@@ -11,17 +11,21 @@ import ui.com.displayer.InputDisplayer;
 import ui.com.displayer.OutputDisplayer;
 import ui.enumeration.BinaryMod;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 public class BinaryDecimalConverter extends JFrame {
-    protected BinaryMod _mod = BinaryMod._BDConv;
     protected JPanel _mainPanel = new JPanel(new GridLayout(5, 2));
+    protected BinaryMod[] _availableMod = {BinaryMod.Binary_Decimal_Convertor, BinaryMod.Binary_Calculator};
+    protected JComboBox<BinaryMod> _modChoice = new JComboBox<BinaryMod>(_availableMod);
 
 //======================================================================================
 
     public BinaryDecimalConverter() {
         this.setBDCProperties();
-        this.loadBDC();
+        _modChoice.setSize(new Dimension(this.getWidth(), 500));
+        this._mainPanel.add(_modChoice);
+        if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
     }
 
 //======================================================================================
@@ -36,11 +40,7 @@ public class BinaryDecimalConverter extends JFrame {
 
 //======================================================================================
 
-    public void loadBDC() {
-        if(!(this._mod.getModNumber() == 0)) return; // if this._mod is different to 0, quit function (Note: mod == 0 -> Binary Decimal Converter
-                                                                                                    //     : mod == 1 -> Binary Calculator)
-
-        
+    public void loadBDC() {  
         JPanel _displayerPanel = new JPanel(new GridLayout(2, 2));
         InputDisplayer _inputDisplayer = new InputDisplayer();
         OutputDisplayer _outputDisplayer = new OutputDisplayer();

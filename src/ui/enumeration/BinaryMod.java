@@ -1,8 +1,8 @@
 package ui.enumeration;
 
 public enum BinaryMod {
-    _BDConv("Binary Decimal Convertor", 0),
-    _BCalculator("Binary Calculator", 1);
+    Binary_Decimal_Convertor("Binary Decimal Convertor", 0),
+    Binary_Calculator("Binary Calculator", 1);
 
     protected String _modName;
     protected int _modNumber;

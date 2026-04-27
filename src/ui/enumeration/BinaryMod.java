@@ -11,4 +11,7 @@ public enum BinaryMod {
         this._modName = name;
         this._modNumber = number;
     }
+
+    public String getModName() { return this._modName; }
+    public int getModNumber() { return this._modNumber; }
 }

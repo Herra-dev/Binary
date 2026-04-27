@@ -6,6 +6,10 @@ import interfaces.Observable;
 import interfaces.Observer;
 
 public class InputDisplayer extends JTextField implements Observable{
+    public InputDisplayer() {
+        // this.setFocusable(false);
+    }
+
     public boolean _addObserver(Observer _observer) {
         return true;
     }

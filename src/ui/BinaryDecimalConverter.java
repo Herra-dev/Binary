@@ -130,4 +130,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
         System.out.println("caret position changed = " + this.inputCaretPosition);
     }
 
+//======================================================================================
+
+
+
 }

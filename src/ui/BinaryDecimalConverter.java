@@ -11,16 +11,17 @@ import javax.swing.plaf.DimensionUIResource;
 
 import ui.enumeration.BinaryMod;
 
-import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 
 public class BinaryDecimalConverter extends JFrame implements ActionListener {
-    protected JPanel _mainPanel = new JPanel(new BorderLayout());
-    protected JPanel IODisplayerPanel = new JPanel(new GridLayout(2, 2));
+    protected JPanel _mainPanel = new JPanel(new GridLayout(3, 1));
+    protected JPanel IODisplayerPanel = new JPanel(new GridLayout(3, 2));
 
+    protected JLabel _modChoiceLabel = new JLabel("make your choice");
     protected BinaryMod[] _availableMod = {BinaryMod.Binary_Decimal_Convertor, BinaryMod.Binary_Calculator};
     protected JComboBox<BinaryMod> _modChoice = new JComboBox<BinaryMod>(_availableMod);
     protected JLabel inputLabel = new JLabel("Input");
@@ -33,11 +34,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     public BinaryDecimalConverter() {
         this.setBDCProperties();
         this.loadIODisplayer();
-        this.setIODisplayerProperties();
-
-        this._mainPanel.add(this._modChoice, BorderLayout.NORTH);
-        this._mainPanel.add(this.IODisplayerPanel, BorderLayout.CENTER);
-
+        this.setIODisplayerProperties();      
+        this._mainPanel.add(this.IODisplayerPanel);
 
         if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
     }
@@ -55,6 +53,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     public void loadIODisplayer() {
+        IODisplayerPanel.add(this._modChoiceLabel);
+        IODisplayerPanel.add(this._modChoice);
         IODisplayerPanel.add(this.inputLabel);
         IODisplayerPanel.add(this.input);
         IODisplayerPanel.add(this.outputLabel);
@@ -65,6 +65,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
     public void setIODisplayerProperties() {
         this.input.setHorizontalAlignment(JTextField.RIGHT);
+        this._modChoice.setPreferredSize(new Dimension(30, 20));
+        this._modChoice.setSize(30, 20);
         this.output.setHorizontalAlignment(JTextField.RIGHT);
     }
 
@@ -85,7 +87,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
         JButton buttonNull = new JButton("0");
         buttonNull.addActionListener(this);
-        notNullNumberPanel.add(buttonNull);
+        nullNumberPanel.add(buttonNull);
+        nullNumberPanel.setSize(new Dimension(this.getWidth(), 20));
 
         JButton convertButton = new JButton("Convert");
         convertButton.addActionListener(this);
@@ -96,7 +99,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         InputPanel.add(convertPanel);
 
 
-        _mainPanel.add(InputPanel, BorderLayout.SOUTH);
+        _mainPanel.add(InputPanel);
     }
 
 //======================================================================================

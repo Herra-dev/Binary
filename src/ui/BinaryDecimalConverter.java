@@ -15,11 +15,9 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.text.NumberFormat;
 
-public class BinaryDecimalConverter extends JFrame implements ActionListener, KeyListener {
+public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JPanel _mainPanel = new JPanel(new BorderLayout());
     protected JPanel IODisplayerPanel = new JPanel(new GridLayout(2, 2));
 
@@ -74,38 +72,39 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ke
 
 
     public void loadBDC() {
-        JPanel notNullNumber = new JPanel();
-        notNullNumber.setLayout(new GridLayout(3, 3));
+        JPanel InputPanel = new JPanel(new GridLayout(3, 1));
+        JPanel notNullNumberPanel = new JPanel(new GridLayout(3, 3));
+        JPanel nullNumberPanel = new JPanel(new GridLayout(1, 1));
+        JPanel convertPanel = new JPanel(new GridLayout(1, 1));
+
         for(int i = 9; i > 0; i--) {
             JButton button = new JButton(""+i);
-            // button.setFocusable(false);
-            button.addKeyListener(this);
-            notNullNumber.add(button);
+            button.addActionListener(this);
+            notNullNumberPanel.add(button);
         }
-        _mainPanel.add(notNullNumber, BorderLayout.SOUTH);
+
+        JButton buttonNull = new JButton("0");
+        buttonNull.addActionListener(this);
+        notNullNumberPanel.add(buttonNull);
+
+        JButton convertButton = new JButton("Convert");
+        convertButton.addActionListener(this);
+        convertPanel.add(convertButton);
+
+        InputPanel.add(notNullNumberPanel);
+        InputPanel.add(nullNumberPanel);
+        InputPanel.add(convertPanel);
+
+
+        _mainPanel.add(InputPanel, BorderLayout.SOUTH);
     }
 
 //======================================================================================
 
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("text");
+    @Override public void actionPerformed(ActionEvent event) {
+        System.out.println("text : " + event.getActionCommand());
     }
 
 //======================================================================================
 
-    public void keyPressed(KeyEvent event) {
-        System.out.println("You just pressed : " + event.getKeyChar());
-    }
-
-//======================================================================================
-
-    public void keyTyped(KeyEvent event) {
-        System.out.println("You just pressed : " + event.getKeyChar());
-    }
-
-//======================================================================================
-
-    public void keyReleased(KeyEvent event) {
-        System.out.println("You just pressed : " + event.getKeyChar());
-    }
 }

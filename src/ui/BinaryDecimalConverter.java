@@ -9,24 +9,33 @@ import javax.swing.plaf.DimensionUIResource;
 
 import ui.enumeration.BinaryMod;
 
-import java.awt.Dimension;
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 
-public class BinaryDecimalConverter extends JFrame implements ActionListener{
-    protected JPanel _mainPanel = new JPanel(new GridLayout(5, 2));
+public class BinaryDecimalConverter extends JFrame implements ActionListener {
+    protected JPanel _mainPanel = new JPanel(new BorderLayout());
     protected BinaryMod[] _availableMod = {BinaryMod.Binary_Decimal_Convertor, BinaryMod.Binary_Calculator};
     protected JComboBox<BinaryMod> _modChoice = new JComboBox<BinaryMod>(_availableMod);
+    protected JPanel IODisplayerPanel = new JPanel(new GridLayout(2, 2));
+    protected JLabel inputLabel = new JLabel("Input");
+    protected JLabel outputLabel = new JLabel("Output");
+    protected JLabel output = new JLabel();
+    protected JFormattedTextField input = new JFormattedTextField(NumberFormat.getCompactNumberInstance());
 
 //======================================================================================
 
     public BinaryDecimalConverter() {
         this.setBDCProperties();
-        _modChoice.setSize(new Dimension(this.getWidth(), 500));
-        this._mainPanel.add(_modChoice);
-        if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
+        this.loadIODisplayer();
+
+        this._mainPanel.add(_modChoice, BorderLayout.NORTH);
+        this._mainPanel.add(IODisplayerPanel, BorderLayout.CENTER);
+
+
+        // if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
     }
 
 //======================================================================================
@@ -41,16 +50,15 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener{
 
 //======================================================================================
 
-    public void loadBDC() {  
-        JPanel _displayerPanel = new JPanel(new GridLayout(2, 2));
-        JFormattedTextField _inputDisplayer = new JFormattedTextField(NumberFormat.getNumberInstance());
-        JLabel _outputDisplayer = new JLabel();
+    public void loadIODisplayer() {
+        IODisplayerPanel.add(inputLabel);
+        IODisplayerPanel.add(input);
+        IODisplayerPanel.add(outputLabel);
+        IODisplayerPanel.add(output);
+    }
 
-        _inputDisplayer.addActionListener(this);
+    public void loadBDC() {
         
-        _displayerPanel.add(_inputDisplayer);
-        _displayerPanel.add(_outputDisplayer);
-        this._mainPanel.add(_displayerPanel);
     }
 
 //======================================================================================

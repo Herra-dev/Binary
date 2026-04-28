@@ -11,7 +11,6 @@ import javax.swing.plaf.DimensionUIResource;
 
 import ui.enumeration.BinaryMod;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -65,8 +64,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
     public void setIODisplayerProperties() {
         this.input.setHorizontalAlignment(JTextField.RIGHT);
-        this._modChoice.setPreferredSize(new Dimension(30, 20));
-        this._modChoice.setSize(30, 20);
         this.output.setHorizontalAlignment(JTextField.RIGHT);
     }
 

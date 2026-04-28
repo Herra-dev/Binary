@@ -18,9 +18,10 @@ import java.text.NumberFormat;
 
 public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JPanel _mainPanel = new JPanel(new BorderLayout());
+    protected JPanel IODisplayerPanel = new JPanel(new GridLayout(2, 2));
+    
     protected BinaryMod[] _availableMod = {BinaryMod.Binary_Decimal_Convertor, BinaryMod.Binary_Calculator};
     protected JComboBox<BinaryMod> _modChoice = new JComboBox<BinaryMod>(_availableMod);
-    protected JPanel IODisplayerPanel = new JPanel(new GridLayout(2, 2));
     protected JLabel inputLabel = new JLabel("Input");
     protected JLabel outputLabel = new JLabel("Output");
     protected JLabel output = new JLabel("OUTPUT");

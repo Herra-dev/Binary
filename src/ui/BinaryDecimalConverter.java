@@ -88,7 +88,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         JButton buttonNull = new JButton("0");
         buttonNull.addActionListener(this);
         nullNumberPanel.add(buttonNull);
-        nullNumberPanel.setSize(new Dimension(this.getWidth(), 20));
 
         JButton convertButton = new JButton("Convert");
         convertButton.addActionListener(this);

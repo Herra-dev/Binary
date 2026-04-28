@@ -91,7 +91,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         InputPanel.add(NumberPanel);
         InputPanel.add(nullNumberPanel);
 
-
         _mainPanel.add(InputPanel);
     }
 

@@ -97,8 +97,21 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
     @Override public void actionPerformed(ActionEvent event) {
         if((this.input.getText().contains(".")) && (event.getActionCommand().matches("[.]{1}"))) return;
-        this.input.getCursor();
-        if(!(event.getActionCommand().matches("Convert"))) this.input.setText(this.input.getText()+event.getActionCommand());
+
+        int caretPosition = this.input.getCaretPosition();
+        String currentInput = this.input.getText();
+        String output = new String();
+        String firstString = new String();
+        String lastString = new String();
+
+        for(int i = 0; i < caretPosition; i++) firstString += currentInput.charAt(i);
+        for(int i = caretPosition; i < currentInput.length(); i++) lastString += currentInput.charAt(i);
+
+        output += firstString;
+        output += event.getActionCommand();
+        output += lastString;
+        
+        if(!(event.getActionCommand().matches("Convert"))) this.input.setText(output);
         
         System.out.println("text : " + event.getActionCommand());
     }

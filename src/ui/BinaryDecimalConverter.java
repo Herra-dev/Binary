@@ -60,6 +60,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener{
         this._mainPanel.add(_displayerPanel);
     }
 
+//======================================================================================
+
     public void actionPerformed(ActionEvent e) {
         System.out.println("text");
     }

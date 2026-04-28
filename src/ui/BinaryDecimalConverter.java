@@ -127,7 +127,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
 
     public void caretUpdate(CaretEvent event) {
         this.inputCaretPosition = event.getDot();
-        System.out.println("caret position changed = " + event.getDot());
+        System.out.println("caret position changed = " + event.getMark());
     }
 
 //======================================================================================

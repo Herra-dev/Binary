@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 
 public class BinaryDecimalConverter extends JFrame implements ActionListener {
-    protected JPanel _mainPanel = new JPanel(new GridLayout(3, 1));
+    protected JPanel _mainPanel = new JPanel(new GridLayout(2, 1));
     protected JPanel IODisplayerPanel = new JPanel(new GridLayout(3, 2));
 
     protected JLabel _modChoiceLabel = new JLabel("make your choice");

@@ -5,9 +5,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.plaf.DimensionUIResource;
-import javax.swing.SpinnerNumberModel;
 
 import ui.enumeration.BinaryMod;
 
@@ -47,16 +45,11 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener{
         JPanel _displayerPanel = new JPanel(new GridLayout(2, 2));
         JFormattedTextField _inputDisplayer = new JFormattedTextField(NumberFormat.getNumberInstance());
         JLabel _outputDisplayer = new JLabel();
-        JSpinner _bitNumber = new JSpinner(new SpinnerNumberModel(4, 1, 256, 1));
-        String[] _precision = {"16", "32", "64", "79", "128", "256"};
-        JComboBox<String> _decimalPrecision = new JComboBox<String>(_precision);
 
         _inputDisplayer.addActionListener(this);
         
         _displayerPanel.add(_inputDisplayer);
-        _displayerPanel.add(_bitNumber);
         _displayerPanel.add(_outputDisplayer);
-        _displayerPanel.add(_decimalPrecision);
         this._mainPanel.add(_displayerPanel);
     }
 

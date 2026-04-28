@@ -5,6 +5,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.plaf.DimensionUIResource;
 
 import ui.enumeration.BinaryMod;
@@ -22,7 +23,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JPanel IODisplayerPanel = new JPanel(new GridLayout(2, 2));
     protected JLabel inputLabel = new JLabel("Input");
     protected JLabel outputLabel = new JLabel("Output");
-    protected JLabel output = new JLabel();
+    protected JLabel output = new JLabel("OUTPUT");
     protected JFormattedTextField input = new JFormattedTextField(NumberFormat.getCompactNumberInstance());
 
 //======================================================================================
@@ -30,9 +31,10 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     public BinaryDecimalConverter() {
         this.setBDCProperties();
         this.loadIODisplayer();
+        this.setIODisplayerProperties();
 
-        this._mainPanel.add(_modChoice, BorderLayout.NORTH);
-        this._mainPanel.add(IODisplayerPanel, BorderLayout.CENTER);
+        this._mainPanel.add(this._modChoice, BorderLayout.NORTH);
+        this._mainPanel.add(this.IODisplayerPanel, BorderLayout.CENTER);
 
 
         // if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
@@ -45,17 +47,27 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(new DimensionUIResource(500, 500));
-        this.setContentPane(_mainPanel);
+        this.setContentPane(this._mainPanel);
     }
 
 //======================================================================================
 
     public void loadIODisplayer() {
-        IODisplayerPanel.add(inputLabel);
-        IODisplayerPanel.add(input);
-        IODisplayerPanel.add(outputLabel);
-        IODisplayerPanel.add(output);
+        IODisplayerPanel.add(this.inputLabel);
+        IODisplayerPanel.add(this.input);
+        IODisplayerPanel.add(this.outputLabel);
+        IODisplayerPanel.add(this.output);
     }
+
+//======================================================================================
+
+    public void setIODisplayerProperties() {
+        this.input.setHorizontalAlignment(JTextField.RIGHT);
+        this.output.setHorizontalAlignment(JTextField.RIGHT);
+    }
+
+//======================================================================================
+
 
     public void loadBDC() {
         

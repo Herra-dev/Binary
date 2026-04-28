@@ -1,5 +1,6 @@
 package ui;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -14,9 +15,11 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.NumberFormat;
 
-public class BinaryDecimalConverter extends JFrame implements ActionListener {
+public class BinaryDecimalConverter extends JFrame implements ActionListener, KeyListener {
     protected JPanel _mainPanel = new JPanel(new BorderLayout());
     protected JPanel IODisplayerPanel = new JPanel(new GridLayout(2, 2));
 
@@ -38,7 +41,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         this._mainPanel.add(this.IODisplayerPanel, BorderLayout.CENTER);
 
 
-        // if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
+        if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
     }
 
 //======================================================================================
@@ -71,12 +74,38 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
 
     public void loadBDC() {
-        
+        JPanel notNullNumber = new JPanel();
+        notNullNumber.setLayout(new GridLayout(3, 3));
+        for(int i = 9; i > 0; i--) {
+            JButton button = new JButton(""+i);
+            // button.setFocusable(false);
+            button.addKeyListener(this);
+            notNullNumber.add(button);
+        }
+        _mainPanel.add(notNullNumber, BorderLayout.SOUTH);
     }
 
 //======================================================================================
 
     public void actionPerformed(ActionEvent e) {
         System.out.println("text");
+    }
+
+//======================================================================================
+
+    public void keyPressed(KeyEvent event) {
+        System.out.println("You just pressed : " + event.getKeyChar());
+    }
+
+//======================================================================================
+
+    public void keyTyped(KeyEvent event) {
+        System.out.println("You just pressed : " + event.getKeyChar());
+    }
+
+//======================================================================================
+
+    public void keyReleased(KeyEvent event) {
+        System.out.println("You just pressed : " + event.getKeyChar());
     }
 }

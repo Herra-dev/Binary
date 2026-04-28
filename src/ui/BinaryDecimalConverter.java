@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.plaf.DimensionUIResource;
 
 import ui.enumeration.BinaryMod;
@@ -16,7 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 
-public class BinaryDecimalConverter extends JFrame implements ActionListener {
+public class BinaryDecimalConverter extends JFrame implements ActionListener, CaretListener {
     protected JPanel _mainPanel = new JPanel(new GridLayout(2, 1));
     protected JPanel IODisplayerPanel = new JPanel(new GridLayout(3, 2));
 
@@ -27,6 +29,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JLabel outputLabel = new JLabel("Output");
     protected JLabel output = new JLabel("OUTPUT");
     protected JFormattedTextField input = new JFormattedTextField(NumberFormat.getNumberInstance());
+    protected int inputCaretPosition = 0;
 
 //======================================================================================
 
@@ -47,6 +50,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(new DimensionUIResource(500, 500));
         this.setContentPane(this._mainPanel);
+        this.input.addCaretListener(this);
     }
 
 //======================================================================================
@@ -98,7 +102,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     @Override public void actionPerformed(ActionEvent event) {
         if((this.input.getText().contains(".")) && (event.getActionCommand().matches("[.]{1}"))) return;
 
-        int caretPosition = this.input.getCaretPosition();
+        int caretPosition = this.inputCaretPosition;
         String currentInput = this.input.getText();
         String output = new String();
         String firstString = new String();
@@ -110,12 +114,20 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         output += firstString;
         output += event.getActionCommand();
         output += lastString;
-        
+
+        System.out.println("first : " + firstString);
+        System.out.println("last : " + lastString);
+
         if(!(event.getActionCommand().matches("Convert"))) this.input.setText(output);
         
         System.out.println("text : " + event.getActionCommand());
     }
 
 //======================================================================================
+
+    public void caretUpdate(CaretEvent event) {
+        this.inputCaretPosition = event.getMark();
+        System.out.println("caret position changed = " + this.inputCaretPosition);
+    }
 
 }

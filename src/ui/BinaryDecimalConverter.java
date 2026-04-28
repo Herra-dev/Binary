@@ -99,6 +99,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     @Override public void actionPerformed(ActionEvent event) {
+        if(!(event.getActionCommand().matches("Convert"))) this.input.setText(this.input.getText()+event.getActionCommand());
         System.out.println("text : " + event.getActionCommand());
     }
 

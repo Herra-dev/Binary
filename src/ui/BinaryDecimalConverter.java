@@ -123,7 +123,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
             System.out.println("error: IllegalArgumentException");
         }
 
-        
         this.input.setCaretColor(Color.RED);
         
 

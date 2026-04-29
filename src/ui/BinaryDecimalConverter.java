@@ -71,7 +71,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     public void loadBDC() {
         JPanel InputPanel = new JPanel(new GridLayout(2, 1));
         JPanel NumberPanel = new JPanel(new GridLayout(4, 3));
-        JPanel nullNumberPanel = new JPanel(new GridLayout(1, 1));
+        JPanel controlNumberPanel = new JPanel(new GridLayout(1, 4));
 
         for(int i = 9; i >= 0; i--) {
             JButton button = new JButton(""+i);
@@ -82,12 +82,16 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         commaButton.addActionListener(this);
         NumberPanel.add(commaButton);
 
-        JButton convertButton = new JButton("Convert");
-        convertButton.addActionListener(this);
-        nullNumberPanel.add(convertButton);
+        String controlArray[] = {"test Input", "Delete", "Backspace", "Clear"};
+
+        for(int i = 0; i < controlArray.length; i++) {
+            JButton convertButton = new JButton(controlArray[i]);
+            convertButton.addActionListener(this);
+            controlNumberPanel.add(convertButton);
+        }
 
         InputPanel.add(NumberPanel);
-        InputPanel.add(nullNumberPanel);
+        InputPanel.add(controlNumberPanel);
 
         _mainPanel.add(InputPanel);
     }

@@ -27,6 +27,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JLabel _outputLabel = new JLabel("_output");
     protected JLabel _output = new JLabel("_output");
     protected JTextField _input = new JTextField();
+    protected JTextField _secInput = new JTextField();
+    protected JComboBox<String> _sign = new JComboBox<String>();
 
 //======================================================================================
 
@@ -42,7 +44,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     public void setBDCProperties() {
-        this.setTitle("Binary Decimal Converter");
+        this.setTitle("Decimal Binary Converter");
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(new DimensionUIResource(500, 500));
@@ -53,8 +55,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     public void loadIODisplayer() {
-        _userInputPanel.add(_input);
-
         IODisplayerPanel.add(this._modChoiceLabel);
         IODisplayerPanel.add(this._modChoice);
         IODisplayerPanel.add(this._inputLabel);
@@ -73,6 +73,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     public void loadBDC() {
+        _userInputPanel.add(_input); // A JTextField to get user input
+
         JPanel InputPanel = new JPanel(new GridLayout(2, 1));
         JPanel NumberPanel = new JPanel(new GridLayout(4, 3));
         JPanel controlNumberPanel = new JPanel(new GridLayout(1, 4));
@@ -98,6 +100,12 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         InputPanel.add(controlNumberPanel);
 
         _mainPanel.add(InputPanel);
+    }
+
+//======================================================================================
+
+    public void loadBCalculator() {
+
     }
 
 //======================================================================================

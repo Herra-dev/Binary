@@ -10,6 +10,7 @@ import javax.swing.plaf.DimensionUIResource;
 
 import ui.enumeration.BinaryMod;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,10 +22,11 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JLabel _modChoiceLabel = new JLabel("make your choice");
     protected BinaryMod[] _availableMod = {BinaryMod.Binary_Decimal_Convertor, BinaryMod.Binary_Calculator};
     protected JComboBox<BinaryMod> _modChoice = new JComboBox<BinaryMod>(_availableMod);
-    protected JLabel inputLabel = new JLabel("Input");
-    protected JLabel outputLabel = new JLabel("Output");
-    protected JLabel output = new JLabel("OUTPUT");
-    protected JTextField input = new JTextField();
+    protected JPanel _userInputPanel = new JPanel(new BorderLayout());
+    protected JLabel _inputLabel = new JLabel("Input");
+    protected JLabel _outputLabel = new JLabel("_output");
+    protected JLabel _output = new JLabel("_output");
+    protected JTextField _input = new JTextField();
 
 //======================================================================================
 
@@ -50,19 +52,21 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     public void loadIODisplayer() {
+        _userInputPanel.add(_input);
+
         IODisplayerPanel.add(this._modChoiceLabel);
         IODisplayerPanel.add(this._modChoice);
-        IODisplayerPanel.add(this.inputLabel);
-        IODisplayerPanel.add(this.input);
-        IODisplayerPanel.add(this.outputLabel);
-        IODisplayerPanel.add(this.output);
+        IODisplayerPanel.add(this._inputLabel);
+        IODisplayerPanel.add(this._userInputPanel);
+        IODisplayerPanel.add(this._outputLabel);
+        IODisplayerPanel.add(this._output);
     }
 
 //======================================================================================
 
     public void setIODisplayerProperties() {
-        this.input.setHorizontalAlignment(JTextField.RIGHT);
-        this.output.setHorizontalAlignment(JTextField.RIGHT);
+        this._input.setHorizontalAlignment(JTextField.RIGHT);
+        this._output.setHorizontalAlignment(JTextField.RIGHT);
     }
 
 //======================================================================================
@@ -98,26 +102,26 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     @Override public void actionPerformed(ActionEvent event) {
-        if((this.input.getText().contains(".")) && (event.getActionCommand().matches("[.]{1}"))) return;
+        if((this._input.getText().contains(".")) && (event.getActionCommand().matches("[.]{1}"))) return;
         if(!(event.getActionCommand().matches("[0-9]++|[.]{1}"))) return;
 
-        int caretPosition = this.input.getCaretPosition();
-        String currentInput = this.input.getText();
-        String output = new String();
+        int caretPosition = this._input.getCaretPosition();
+        String currentInput = this._input.getText();
+        String _output = new String();
         String firstString = new String();
         String lastString = new String();
 
         firstString = currentInput.substring(0, caretPosition);
         lastString = currentInput.substring(caretPosition, currentInput.length());
 
-        output += firstString;
-        output += event.getActionCommand();
-        output += lastString;
+        _output += firstString;
+        _output += event.getActionCommand();
+        _output += lastString;
 
-        this.input.setText(output); // Write 
+        this._input.setText(_output); // Write 
 
         try {
-            this.input.moveCaretPosition(caretPosition+1); // Move caret position to its current position + 1
+            this._input.moveCaretPosition(caretPosition+1); // Move caret position to its current position + 1
         }catch(IllegalArgumentException e) {
             e.printStackTrace();
         }

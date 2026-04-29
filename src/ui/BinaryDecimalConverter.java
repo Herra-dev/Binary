@@ -6,8 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
 import javax.swing.plaf.DimensionUIResource;
 
 import ui.enumeration.BinaryMod;
@@ -17,7 +15,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BinaryDecimalConverter extends JFrame implements ActionListener, CaretListener {
+public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JPanel _mainPanel = new JPanel(new GridLayout(2, 1));
     protected JPanel IODisplayerPanel = new JPanel(new GridLayout(3, 2));
 
@@ -28,7 +26,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
     protected JLabel outputLabel = new JLabel("Output");
     protected JLabel output = new JLabel("OUTPUT");
     protected JTextField input = new JTextField();
-    protected int inputCaretPosition = 0;
 
 //======================================================================================
 
@@ -37,7 +34,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
         this.loadIODisplayer();
         this.setIODisplayerProperties();      
         this._mainPanel.add(this.IODisplayerPanel);
-        this.input.addCaretListener(this);
         if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
     }
 
@@ -102,13 +98,10 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
         if((this.input.getText().contains(".")) && (event.getActionCommand().matches("[.]{1}"))) return;
 
         int caretPosition = this.input.getCaretPosition();
-        System.out.println("caret position = " + caretPosition);
         String currentInput = this.input.getText();
         String output = new String();
         String firstString = new String();
         String lastString = new String();
-
-        // System.out.println("Before------ caret position changed = " + inputCaretPosition + ", position = " + input.getCaretPosition());
 
         firstString = currentInput.substring(0, caretPosition);
         lastString = currentInput.substring(caretPosition, currentInput.length());
@@ -118,28 +111,14 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
         output += lastString;
 
         this.input.setCaretColor(Color.RED);
-        
-        // System.out.println("first : " + firstString);
-        // System.out.println("last : " + lastString);
 
         if(!(event.getActionCommand().matches("Convert"))) this.input.setText(output);
 
         try {
-            int pos = caretPosition+1;
-            this.input.moveCaretPosition(pos);
-            System.out.println("Caret position moved to = " + pos + "length = " + this.input.getText().length());
+            this.input.moveCaretPosition(caretPosition+1);
         }catch(IllegalArgumentException e) {
-            System.out.println("error: IllegalArgumentException");
+            e.printStackTrace();
         }
-
-        // System.out.println("After------ caret position changed = " + inputCaretPosition + ", position = " + input.getCaretPosition());
-    }
-
-//======================================================================================
-
-    public void caretUpdate(CaretEvent event) {
-        this.inputCaretPosition = event.getDot();
-        // System.out.println("inputCaretPosition = " + this.inputCaretPosition);
     }
 
 //======================================================================================

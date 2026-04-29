@@ -82,7 +82,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         commaButton.addActionListener(this);
         NumberPanel.add(commaButton);
 
-        String controlArray[] = {"test Input", "Delete", "Backspace", "Clear"};
+        String controlArray[] = {"test Input", "Supp -->", "<-- supp", "Clear"};
 
         for(int i = 0; i < controlArray.length; i++) {
             JButton convertButton = new JButton(controlArray[i]);

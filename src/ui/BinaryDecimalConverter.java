@@ -11,6 +11,7 @@ import javax.swing.plaf.DimensionUIResource;
 import ui.enumeration.BinaryMod;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,8 +40,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         this.setIODisplayerProperties();      
         this._mainPanel.add(this.IODisplayerPanel);
 
-        if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
-        // this.loadBCalculator();
+        // if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
+        this.loadBCalculator();
     }
 
 //======================================================================================
@@ -110,6 +111,16 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         _userInputPanel.add(_input, BorderLayout.NORTH);
         _userInputPanel.add(_sign, BorderLayout.WEST);
         _userInputPanel.add(_secInput, BorderLayout.SOUTH);
+
+        JPanel container = new JPanel(new GridLayout(2, 3));
+        String[] str = {"0", "1", "=", "Backspace", "Delete", "Clear"};
+        for(int i = 0; i < str.length; i++) {
+            JButton button = new JButton(str[i]);
+            button.addActionListener(this);
+            button.setFont(new Font("Z003", 1, 30));
+            container.add(button);
+        }
+        _mainPanel.add(container);
     }
 
 //======================================================================================

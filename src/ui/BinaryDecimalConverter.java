@@ -130,10 +130,18 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         }
 
         if(event.getActionCommand().matches("Delete")) {
-
+            firstString = currentInput.substring(0, caretPosition);
+            lastString = currentInput.substring(caretPosition+1, currentInput.length());
+            _output = firstString + lastString;
+            this._input.setText(_output);
         }
         
-        
+        if(event.getActionCommand().matches("Backspace")) {
+            firstString = currentInput.substring(0, caretPosition-1);
+            lastString = currentInput.substring(caretPosition, currentInput.length());
+            _output = firstString + lastString;
+            this._input.setText(_output);
+        }
     }
 
 //======================================================================================

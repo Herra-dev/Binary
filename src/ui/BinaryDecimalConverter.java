@@ -108,6 +108,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
         String firstString = new String();
         String lastString = new String();
 
+        System.out.println("Before------ caret position changed = " + inputCaretPosition + ", position = " + input.getCaretPosition());
+
         for(int i = 0; i < caretPosition; i++) firstString += currentInput.charAt(i);
         for(int i = caretPosition; i < currentInput.length(); i++) lastString += currentInput.charAt(i);
 
@@ -115,20 +117,20 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
         output += event.getActionCommand();
         output += lastString;
 
+        
+
         System.out.println("first : " + firstString);
         System.out.println("last : " + lastString);
 
         if(!(event.getActionCommand().matches("Convert"))) this.input.setText(output);
-        this.input.setCaretPosition(inputCaretPosition+1);
         
-        System.out.println("text : " + event.getActionCommand());
+        System.out.println("After------ caret position changed = " + inputCaretPosition + ", position = " + input.getCaretPosition());
     }
 
 //======================================================================================
 
     public void caretUpdate(CaretEvent event) {
         this.inputCaretPosition = event.getDot();
-        System.out.println("caret position changed = " + event.getMark());
     }
 
 //======================================================================================

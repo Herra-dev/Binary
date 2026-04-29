@@ -116,13 +116,16 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
         this.input.setCaretColor(Color.RED);
 
-        if(!(event.getActionCommand().matches("Convert"))) this.input.setText(output);
+        if(event.getActionCommand().matches("[0-9]++|[.]{1}")) {
+            this.input.setText(output);
 
-        try {
-            this.input.moveCaretPosition(caretPosition+1);
-        }catch(IllegalArgumentException e) {
-            e.printStackTrace();
-        }
+            try {
+                this.input.moveCaretPosition(caretPosition+1); // Move caret position to its current position +1
+            }catch(IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        } 
+        
     }
 
 //======================================================================================

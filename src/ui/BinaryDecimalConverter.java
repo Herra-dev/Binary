@@ -13,6 +13,7 @@ import javax.swing.plaf.DimensionUIResource;
 
 import ui.enumeration.BinaryMod;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -116,7 +117,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
         output += firstString;
         output += event.getActionCommand();
         output += lastString;
-
+        // this.input.moveCaretPosition(this.inputCaretPosition+1);
+        this.input.setCaretColor(Color.RED);
         
 
         System.out.println("first : " + firstString);

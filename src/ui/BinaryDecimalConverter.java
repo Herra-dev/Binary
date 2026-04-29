@@ -35,6 +35,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         this.loadIODisplayer();
         this.setIODisplayerProperties();      
         this._mainPanel.add(this.IODisplayerPanel);
+
         if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
     }
 
@@ -102,7 +103,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     @Override public void actionPerformed(ActionEvent event) {
-        if((this._input.getText().contains(".")) && (event.getActionCommand().matches("[.]{1}"))) return;
+        if((this._input.getText().contains(".")) && (event.getActionCommand().matches("[.]{1}"))) return; // if input contains already a comma (".") and user enter comma, quit function
+        if(event.getActionCommand().matches("Clear")) { this._input.setText(new String()); return; } // Clear input and quit function
 
         int caretPosition = this._input.getCaretPosition();
         String currentInput = this._input.getText();

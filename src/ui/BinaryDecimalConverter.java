@@ -10,7 +10,6 @@ import javax.swing.plaf.DimensionUIResource;
 
 import ui.enumeration.BinaryMod;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -100,6 +99,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
     @Override public void actionPerformed(ActionEvent event) {
         if((this.input.getText().contains(".")) && (event.getActionCommand().matches("[.]{1}"))) return;
+        if(!(event.getActionCommand().matches("[0-9]++|[.]{1}"))) return;
 
         int caretPosition = this.input.getCaretPosition();
         String currentInput = this.input.getText();
@@ -114,17 +114,13 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         output += event.getActionCommand();
         output += lastString;
 
-        this.input.setCaretColor(Color.RED);
+        this.input.setText(output); // Write 
 
-        if(event.getActionCommand().matches("[0-9]++|[.]{1}")) { 
-            this.input.setText(output); // Write 
-
-            try {
-                this.input.moveCaretPosition(caretPosition+1); // Move caret position to its current position + 1
-            }catch(IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        } 
+        try {
+            this.input.moveCaretPosition(caretPosition+1); // Move caret position to its current position + 1
+        }catch(IllegalArgumentException e) {
+            e.printStackTrace();
+        }
         
     }
 

@@ -117,20 +117,21 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
         output += event.getActionCommand();
         output += lastString;
 
-        try {
-            this.input.moveCaretPosition(caretPosition+1);
-        }catch(IllegalArgumentException e) {
-            System.out.println("error: IllegalArgumentException");
-        }
-
         this.input.setCaretColor(Color.RED);
         
-
         // System.out.println("first : " + firstString);
         // System.out.println("last : " + lastString);
 
         if(!(event.getActionCommand().matches("Convert"))) this.input.setText(output);
-        
+
+        try {
+            int pos = caretPosition+1;
+            this.input.moveCaretPosition(pos);
+            System.out.println("Caret position moved to = " + pos + "length = " + this.input.getText().length());
+        }catch(IllegalArgumentException e) {
+            System.out.println("error: IllegalArgumentException");
+        }
+
         // System.out.println("After------ caret position changed = " + inputCaretPosition + ", position = " + input.getCaretPosition());
     }
 

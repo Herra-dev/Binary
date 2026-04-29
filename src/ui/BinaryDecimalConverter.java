@@ -38,7 +38,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
         this.loadIODisplayer();
         this.setIODisplayerProperties();      
         this._mainPanel.add(this.IODisplayerPanel);
-
+        this.input.addCaretListener(this);
         if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
     }
 
@@ -50,7 +50,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(new DimensionUIResource(500, 500));
         this.setContentPane(this._mainPanel);
-        this.input.addCaretListener(this);
+        
     }
 
 //======================================================================================
@@ -108,10 +108,10 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
         String firstString = new String();
         String lastString = new String();
 
-        System.out.println("Before------ caret position changed = " + inputCaretPosition + ", position = " + input.getCaretPosition());
+        // System.out.println("Before------ caret position changed = " + inputCaretPosition + ", position = " + input.getCaretPosition());
 
-        for(int i = 0; i < caretPosition; i++) firstString += currentInput.charAt(i);
-        for(int i = caretPosition; i < currentInput.length(); i++) lastString += currentInput.charAt(i);
+        firstString = currentInput.substring(0, caretPosition);
+        lastString = currentInput.substring(caretPosition, currentInput.length());
 
         output += firstString;
         output += event.getActionCommand();
@@ -124,13 +124,14 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener, Ca
 
         if(!(event.getActionCommand().matches("Convert"))) this.input.setText(output);
         
-        System.out.println("After------ caret position changed = " + inputCaretPosition + ", position = " + input.getCaretPosition());
+        // System.out.println("After------ caret position changed = " + inputCaretPosition + ", position = " + input.getCaretPosition());
     }
 
 //======================================================================================
 
     public void caretUpdate(CaretEvent event) {
         this.inputCaretPosition = event.getDot();
+        System.out.println(event.getDot());
     }
 
 //======================================================================================

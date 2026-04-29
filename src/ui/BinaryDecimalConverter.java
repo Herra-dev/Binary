@@ -135,6 +135,12 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
             lastString = currentInput.substring(caretPosition+1, currentInput.length());
             _output = firstString + lastString;
             this._input.setText(_output);
+
+            try {
+                this._input.moveCaretPosition(caretPosition); // Do not move caret position
+            }catch(IllegalArgumentException e) {
+                e.printStackTrace();
+            }
         }
         
         if(event.getActionCommand().matches("Backspace")) {
@@ -143,6 +149,12 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
             lastString = currentInput.substring(caretPosition, currentInput.length());
             _output = firstString + lastString;
             this._input.setText(_output);
+
+            try {
+                this._input.moveCaretPosition(caretPosition-1); // Move caret position to its current position - 1
+            }catch(IllegalArgumentException e) {
+                e.printStackTrace();
+            }
         }
     }
 

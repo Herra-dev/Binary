@@ -103,7 +103,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
     @Override public void actionPerformed(ActionEvent event) {
         if((this._input.getText().contains(".")) && (event.getActionCommand().matches("[.]{1}"))) return;
-        if(!(event.getActionCommand().matches("[0-9]++|[.]{1}"))) return;
 
         int caretPosition = this._input.getCaretPosition();
         String currentInput = this._input.getText();
@@ -118,13 +117,16 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         _output += event.getActionCommand();
         _output += lastString;
 
-        this._input.setText(_output); // Write 
+        if((event.getActionCommand().matches("[0-9]++|[.]{1}"))) {
+            this._input.setText(_output);
 
-        try {
-            this._input.moveCaretPosition(caretPosition+1); // Move caret position to its current position + 1
-        }catch(IllegalArgumentException e) {
-            e.printStackTrace();
+            try {
+                this._input.moveCaretPosition(caretPosition+1); // Move caret position to its current position + 1
+            }catch(IllegalArgumentException e) {
+                e.printStackTrace();
+            }
         }
+        
         
     }
 

@@ -28,7 +28,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JLabel _output = new JLabel("_output");
     protected JTextField _input = new JTextField();
     protected JTextField _secInput = new JTextField();
-    protected JComboBox<String> _sign = new JComboBox<String>();
+    protected String[] _availableSign = {"+", "-", "*", "/"};
+    protected JComboBox<String> _sign = new JComboBox<String>(_availableSign);
 
 //======================================================================================
 
@@ -39,6 +40,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         this._mainPanel.add(this.IODisplayerPanel);
 
         if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
+        // this.loadBCalculator();
     }
 
 //======================================================================================
@@ -105,7 +107,9 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     public void loadBCalculator() {
-
+        _userInputPanel.add(_input, BorderLayout.NORTH);
+        _userInputPanel.add(_sign, BorderLayout.WEST);
+        _userInputPanel.add(_secInput, BorderLayout.SOUTH);
     }
 
 //======================================================================================

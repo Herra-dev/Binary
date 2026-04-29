@@ -130,6 +130,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         }
 
         if(event.getActionCommand().matches("Delete")) {
+            if(caretPosition >= currentInput.length()) return;
             firstString = currentInput.substring(0, caretPosition);
             lastString = currentInput.substring(caretPosition+1, currentInput.length());
             _output = firstString + lastString;
@@ -137,6 +138,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         }
         
         if(event.getActionCommand().matches("Backspace")) {
+            if(caretPosition <= 0) return;
             firstString = currentInput.substring(0, caretPosition-1);
             lastString = currentInput.substring(caretPosition, currentInput.length());
             _output = firstString + lastString;

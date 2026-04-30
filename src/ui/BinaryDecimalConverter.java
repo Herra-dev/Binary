@@ -12,6 +12,7 @@ import javax.swing.plaf.DimensionUIResource;
 
 import mg.hr.Binary;
 import mg.hr.enumeration.FloatPrecision;
+import mg.hr.exception.BinaryException;
 import ui.enumeration.BinaryMod;
 
 import java.awt.BorderLayout;
@@ -116,7 +117,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
             controlNumberPanel.add(convertButton);
         }
 
-        testerPanel.add(_errorLabel); _errorLabel.setEnabled(false);
+        testerPanel.add(_errorLabel);
         testerPanel.add(_bitNumber); _bitNumber.setEnabled(false);
         testerPanel.add(_floatPrecision); _floatPrecision.setEnabled(false);
         testerPanel.add(_convert); _convert.setEnabled(false);
@@ -222,6 +223,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                         byte[] arrayResult = Binary._toBinaryFloat(number, (FloatPrecision)_floatPrecision.getSelectedItem());
                         String result = Binary.byteArrayToString(arrayResult);
                         System.out.println("result = " + result);
+                        this._output.setText(result);
                     }catch(NullPointerException | NumberFormatException e) {
                         e.printStackTrace();
                     }
@@ -232,10 +234,19 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                     _bitNumber.setEnabled(true);
                     _floatPrecision.setEnabled(false);
                     _convert.setEnabled(true);
+
+                    try {
+                        int number  = java.lang.Integer.parseInt(currentInput);
+                        byte[] arrayResult = Binary.toBinary(number, (int)_bitNumber.getValue());
+                        String result = Binary.byteArrayToString(arrayResult);
+                        System.out.println("result = " + result);
+                        this._output.setText(result);
+                    } catch (NumberFormatException | BinaryException e) {
+                        e.printStackTrace();
+                    }
                 }
                 
             } else {
-                _errorLabel.setEnabled(true);
                 _errorLabel.setText("Invalid input");
                 _errorLabel.setForeground(Color.RED);
 

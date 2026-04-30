@@ -221,31 +221,25 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                 _errorLabel.setForeground(Color.GREEN);
 
                 if(currentInput.matches("[0-9]*+[.]{1}[0-9]*+")) { // if input contains a comma '.', it is a floating point number
-                    System.out.println("floating");
                     _bitNumber.setEnabled(false);
                     _floatPrecision.setEnabled(true);
                     _convert.setEnabled(true);
 
                     try {
                         this.number = java.lang.Double.parseDouble(currentInput);
-                        byte[] arrayResult = Binary._toBinaryFloat(number, (FloatPrecision)_floatPrecision.getSelectedItem());
-                        this.result = Binary.byteArrayToString(arrayResult);
                     }catch(NullPointerException | NumberFormatException e) {
                         e.printStackTrace();
                     }
 
                 }
-                if(!(currentInput.matches("[0-9]*+[.]{1}[0-9]*+"))) {
-                    
+                if(!(currentInput.matches("[0-9]*+[.]{1}[0-9]*+"))) {                    
                     _bitNumber.setEnabled(true);
                     _floatPrecision.setEnabled(false);
                     _convert.setEnabled(true);
 
                     try {
                         this.number  = java.lang.Integer.parseInt(currentInput);
-                        byte[] arrayResult = Binary.toBinary(number, (int)_bitNumber.getValue());
-                        this.result = Binary.byteArrayToString(arrayResult);
-                    } catch (NumberFormatException | BinaryException e) {
+                    } catch (NumberFormatException e) {
                         e.printStackTrace();
                     }
                 }
@@ -261,6 +255,18 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         }
 
         if(event.getActionCommand().matches("Convert")) {
+            byte[] arrayResult;
+            try {
+                if(currentInput.matches("[0-9]*+[.]{1}[0-9]*+")) {
+                    arrayResult = Binary._toBinaryFloat(number, (FloatPrecision)_floatPrecision.getSelectedItem());
+                } else {
+                    arrayResult = Binary.toBinary(number, (int)_bitNumber.getValue());
+                }
+                this.result = Binary.byteArrayToString(arrayResult);
+            } catch (BinaryException e) {
+                e.printStackTrace();
+            }
+
             this._output.setFont(new Font("Arial", 1, 40));
             this._output.setText(this.result);
             this._convert.setEnabled(false);

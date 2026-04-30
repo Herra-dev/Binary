@@ -158,6 +158,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
     @Override public void actionPerformed(ActionEvent event) {
         if((this._input.getText().contains(".")) && (event.getActionCommand().matches("[.]{1}"))) return; // if input contains already a comma (".") and user enter comma, quit function
+        if((this._input.getText().contains("-")) && (event.getActionCommand().matches("[-]{1}"))) return; // if input contains already a minus sign ("-") and user enter comma, quit function
         if(event.getActionCommand().matches("Clear")) { this._input.setText(new String()); return; } // Clear input and quit function
 
         int caretPosition = this._input.getCaretPosition();
@@ -170,10 +171,17 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         lastString = currentInput.substring(caretPosition, currentInput.length());
 
         _output += firstString;
-        _output += event.getActionCommand();
+
+        if(event.getActionCommand().matches("[-]{1}")) {
+            if(currentInput.isEmpty())
+                _output += "-";
+        } else {
+            _output += event.getActionCommand();
+        }
+
         _output += lastString;
 
-        if((event.getActionCommand().matches("[0-9]++|[.]{1}"))) {
+        if((event.getActionCommand().matches("[0-9]++|[.]{1}|[-]{1}"))) {
             this._input.setText(_output);
 
             try {

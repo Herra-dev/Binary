@@ -212,6 +212,14 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                     _bitNumber.setEnabled(false);
                     _floatPrecision.setEnabled(true);
                     _convert.setEnabled(true);
+
+                    try {
+                        double number = java.lang.Double.parseDouble(currentInput);
+                        
+                    }catch(NullPointerException | NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+
                 }
                 if(!(currentInput.matches("[0-9]*+[.]{1}[0-9]*+"))) {
                     System.out.println("Integer");

@@ -590,4 +590,13 @@ public abstract class Binary {
             System.err.println("Error: " + e.getMessage());
         }
     }
+
+//============================================================================
+
+    public static String byteArrayToString(byte[] array) {
+        String result = new String();
+        
+
+        return result;
+    }
 }

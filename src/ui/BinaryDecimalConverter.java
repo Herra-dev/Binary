@@ -39,6 +39,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JSpinner _bitNumber = new JSpinner(new SpinnerNumberModel(4, 1, 256, 1));
     protected Integer[] _availablePrecision = {16, 32, 48, 64, 79, 128, 256};
     protected JComboBox<Integer> _floatPrecision = new JComboBox<Integer>(_availablePrecision);
+    protected JButton _convert = new JButton("Convert");
 
 //======================================================================================
 

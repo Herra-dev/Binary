@@ -233,6 +233,10 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
 // CLASS =============================================
 
+//
+// THIS CLASS IS LISTENING TO THE CONVERTER BUTTON
+//
+//
     class buttonConvertListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             byte[] arrayResult;
@@ -255,6 +259,12 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         }
     }
 
+//======================================================================================
+
+//
+// THIS CLASS IS LISTENING TO THE BUTTON INPUT TESTER 
+//
+//
     class buttonInputTesterListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             if(_input.getText().isEmpty()) return;

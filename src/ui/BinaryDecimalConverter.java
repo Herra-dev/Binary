@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BinaryDecimalConverter extends JFrame implements ActionListener {
-    protected JPanel _mainPanel = new JPanel(new GridLayout(3, 1));
+    protected JPanel _mainPanel = new JPanel(new GridLayout(2, 1));
     protected JPanel IODisplayerPanel = new JPanel(new GridLayout(3, 2));
 
     protected JLabel _modChoiceLabel = new JLabel("make your choice");
@@ -88,7 +88,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     public void loadBDC() {
         _userInputPanel.add(_input); // A JTextField to get user input
 
-        JPanel InputPanel = new JPanel(new GridLayout(2, 1));
+        JPanel InputPanel = new JPanel(new GridLayout(3, 1));
         JPanel NumberPanel = new JPanel(new GridLayout(4, 3));
         JPanel controlNumberPanel = new JPanel(new GridLayout(2, 4));
         JPanel testerPanel = new JPanel(new GridLayout(2, 2));
@@ -110,10 +110,12 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
             controlNumberPanel.add(convertButton);
         }
 
-        
+        testerPanel.add(_errorLabel);
+        // testerPanel.add(_bitNumber);
 
         InputPanel.add(NumberPanel);
         InputPanel.add(controlNumberPanel);
+        InputPanel.add(testerPanel);
 
         _mainPanel.add(InputPanel);
     }

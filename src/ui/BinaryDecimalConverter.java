@@ -201,15 +201,33 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         }
 
         if(event.getActionCommand().matches("Test input")) {
+            if(currentInput.isEmpty()) return;
 
-            if(currentInput.matches("[0-9]++|[.]{1}")) {
+            if(currentInput.matches("[0-9]*+[.]*+[0-9]*+")) {
                 _errorLabel.setText("Valid input");
                 _errorLabel.setForeground(Color.GREEN);
+
+                if(currentInput.matches("[0-9]*+[.]{1}[0-9]*+")) { // if input contains a comma '.', it is a floating point number
+                    System.out.println("floating");
+                    _bitNumber.setEnabled(false);
+                    _floatPrecision.setEnabled(true);
+                    _convert.setEnabled(true);
+                }
+                if(!(currentInput.matches("[0-9]*+[.]{1}[0-9]*+"))) {
+                    System.out.println("Integer");
+                    _bitNumber.setEnabled(true);
+                    _floatPrecision.setEnabled(false);
+                    _convert.setEnabled(true);
+                }
                 
             } else {
                 _errorLabel.setEnabled(true);
                 _errorLabel.setText("Invalid input");
                 _errorLabel.setForeground(Color.RED);
+
+                _bitNumber.setEnabled(false);
+                _floatPrecision.setEnabled(false);
+                _convert.setEnabled(false);
             }
         }
 

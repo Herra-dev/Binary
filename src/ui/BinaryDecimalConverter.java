@@ -90,7 +90,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
         JPanel InputPanel = new JPanel(new GridLayout(2, 1));
         JPanel NumberPanel = new JPanel(new GridLayout(4, 3));
-        JPanel controlNumberPanel = new JPanel(new GridLayout(1, 4));
+        JPanel controlNumberPanel = new JPanel(new GridLayout(2, 4));
+        JPanel testerPanel = new JPanel(new GridLayout(2, 2));
 
         for(int i = 9; i >= 0; i--) {
             JButton button = new JButton(""+i);
@@ -108,6 +109,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
             convertButton.addActionListener(this);
             controlNumberPanel.add(convertButton);
         }
+
+        
 
         InputPanel.add(NumberPanel);
         InputPanel.add(controlNumberPanel);

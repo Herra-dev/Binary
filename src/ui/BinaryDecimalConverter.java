@@ -5,6 +5,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextField;
 import javax.swing.plaf.DimensionUIResource;
 
@@ -28,9 +29,14 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JLabel _outputLabel = new JLabel("_output");
     protected JLabel _output = new JLabel("_output");
     protected JTextField _input = new JTextField();
+
     protected JTextField _secInput = new JTextField();
     protected String[] _availableSign = {"+", "-", "*", "/"};
     protected JComboBox<String> _sign = new JComboBox<String>(_availableSign);
+    protected JLabel _errorLabel = new JLabel("Error");
+    protected SpinnerNumberModel _bitNumber = new SpinnerNumberModel(1, 1, 256, 1);
+    protected Integer[] _availablePrecision = {16, 32, 48, 64, 79, 128, 256};
+    protected JComboBox<Integer> _floatPrecision = new JComboBox<Integer>(_availablePrecision);
 
 //======================================================================================
 
@@ -41,13 +47,11 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         this._mainPanel.add(this.IODisplayerPanel);
 
         this._input.setFocusable(true);
-        this._input.setRequestFocusEnabled(true);
         this._secInput.setFocusable(true);
-        this._secInput.setRequestFocusEnabled(true);
 
 
-        // if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
-        this.loadBCalculator();
+        if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
+        // this.loadBCalculator();
     }
 
 //======================================================================================

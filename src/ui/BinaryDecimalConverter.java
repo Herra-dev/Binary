@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextField;
 import javax.swing.plaf.DimensionUIResource;
@@ -17,6 +18,7 @@ import ui.enumeration.BinaryMod;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -32,7 +34,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JPanel _userInputPanel = new JPanel(new BorderLayout());
     protected JLabel _inputLabel = new JLabel("Input");
     protected JLabel _outputLabel = new JLabel("_output");
-    protected JLabel _output = new JLabel("_output");
+    protected JTextArea _output = new JTextArea("_output");
     protected JTextField _input = new JTextField();
 
     protected JTextField _secInput = new JTextField();
@@ -86,6 +88,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(new DimensionUIResource(500, 500));
         this.setContentPane(this._mainPanel);
+        this.setMinimumSize(new Dimension(500, 700));
     }
 
 //======================================================================================
@@ -103,7 +106,10 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
     public void setIODisplayerProperties() {
         this._input.setHorizontalAlignment(JTextField.RIGHT);
-        this._output.setHorizontalAlignment(JTextField.RIGHT);
+        // this._output.setHorizontalAlignment(JTextField.RIGHT);
+        this._output.setEditable(false);
+        this._output.setLineWrap(true);
+        this._output.setAutoscrolls(true);
     }
 
 //======================================================================================
@@ -137,10 +143,12 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
         JButton buttonBackspace = new JButton("Backspace");
         buttonBackspace.addActionListener(new buttonBackspaceListener());
+        buttonBackspace.setToolTipText("Delete before caret");
         controlNumberPanel.add(buttonBackspace);
 
         JButton buttonDelete = new JButton("Delete");
         buttonDelete.addActionListener(new buttonDeleteListener());
+        buttonDelete.setToolTipText("Delete after caret");
         controlNumberPanel.add(buttonDelete);
 
         JButton buttonClear = new JButton("Clear");

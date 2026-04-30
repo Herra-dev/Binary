@@ -228,8 +228,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
                     try {
                         this.number = java.lang.Double.parseDouble(currentInput);
-                        System.out.println("input in string = " + currentInput);
-                        System.out.println("input in double = " + number);
                         byte[] arrayResult = Binary._toBinaryFloat(number, (FloatPrecision)_floatPrecision.getSelectedItem());
                         this.result = Binary.byteArrayToString(arrayResult);
                     }catch(NullPointerException | NumberFormatException e) {
@@ -245,8 +243,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
                     try {
                         this.number  = java.lang.Integer.parseInt(currentInput);
-                        System.out.println("input in string = " + currentInput);
-                        System.out.println("input in integer = " + number);
                         byte[] arrayResult = Binary.toBinary(number, (int)_bitNumber.getValue());
                         this.result = Binary.byteArrayToString(arrayResult);
                     } catch (NumberFormatException | BinaryException e) {

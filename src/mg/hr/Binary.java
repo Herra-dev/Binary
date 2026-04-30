@@ -595,7 +595,8 @@ public abstract class Binary {
 
     public static String byteArrayToString(byte[] array) {
         String result = new String();
-        
+
+        for(byte b: array) result += b;
 
         return result;
     }

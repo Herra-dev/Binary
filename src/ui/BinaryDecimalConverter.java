@@ -33,8 +33,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JComboBox<BinaryMod> _modChoice = new JComboBox<BinaryMod>(_availableMod);
     protected JPanel _userInputPanel = new JPanel(new BorderLayout());
     protected JLabel _inputLabel = new JLabel("Input");
-    protected JLabel _outputLabel = new JLabel("_output");
-    protected JTextArea _output = new JTextArea("_output");
+    protected JLabel _outputLabel = new JLabel("Output");
+    protected JTextArea _output = new JTextArea();
     protected JTextField _input = new JTextField();
 
     protected JTextField _secInput = new JTextField();
@@ -105,8 +105,12 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     public void setIODisplayerProperties() {
+        this._modChoiceLabel.setFont(new Font("Times New Romance", 2, 25));
+
+        this._inputLabel.setFont(new Font("Times New Romance", 2, 25));
         this._input.setHorizontalAlignment(JTextField.RIGHT);
-        // this._output.setHorizontalAlignment(JTextField.RIGHT);
+
+        this._outputLabel.setFont(new Font("Times New Romance", 2, 25));
         this._output.setEditable(false);
         this._output.setLineWrap(true);
         this._output.setAutoscrolls(true);
@@ -125,34 +129,47 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         for(int i = 9; i >= 0; i--) {
             JButton button = new JButton(""+i);
             button.addActionListener(this);
+            button.setFont(new Font("Times New Romance", 1, 25));
             NumberPanel.add(button);
         }
         JButton commaButton = new JButton(".");
         commaButton.addActionListener(this);
+        commaButton.setFont(new Font("Times New Roman", 1, 20));
+        commaButton.setToolTipText("Comma");
         NumberPanel.add(commaButton);
 
         JButton minusSignButton = new JButton("-");
         minusSignButton.addActionListener(this);
+        minusSignButton.setFont(new Font("Times New Roman", 1, 20));
+        minusSignButton.setToolTipText("Minus sign");
         NumberPanel.add(minusSignButton);
 
 
 
         JButton buttonTest = new JButton("Test input");
         buttonTest.addActionListener(new buttonInputTesterListener());
+        buttonTest.setFont(new Font("Times New Roman", 1, 25));
         controlNumberPanel.add(buttonTest);
 
         JButton buttonBackspace = new JButton("Backspace");
         buttonBackspace.addActionListener(new buttonBackspaceListener());
         buttonBackspace.setToolTipText("Delete before caret");
+        buttonBackspace.setForeground(Color.ORANGE);
+        buttonBackspace.setFont(new Font("Times New Roman", 1, 20));
         controlNumberPanel.add(buttonBackspace);
 
         JButton buttonDelete = new JButton("Delete");
         buttonDelete.addActionListener(new buttonDeleteListener());
         buttonDelete.setToolTipText("Delete after caret");
+        buttonDelete.setForeground(Color.ORANGE);
+        buttonDelete.setFont(new Font("Times New Roman", 1, 20));
         controlNumberPanel.add(buttonDelete);
 
         JButton buttonClear = new JButton("Clear");
         buttonClear.addActionListener(new buttonClearListener());
+        buttonClear.setToolTipText("Clear the actual input");
+        buttonClear.setForeground(Color.RED);
+        buttonClear.setFont(new Font("Times New Roman", 1, 25));
         controlNumberPanel.add(buttonClear);
 
 
@@ -250,6 +267,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
             if(_input.getText().matches("[-]*+[0-9]*+[.]*+[0-9]*+") && !(_input.getText().matches("[-]{1}"))) {
                 _errorLabel.setText("Valid input");
                 _errorLabel.setForeground(Color.GREEN);
+                _errorLabel.setFont(new Font("MathJax", 1, 20));
 
                 if(_input.getText().matches("[0-9]*+[.]{1}[0-9]*+")) { // if input contains a comma '.', it is a floating point number
                     _bitNumber.setEnabled(false);
@@ -278,6 +296,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
             } else {
                 _errorLabel.setText("Invalid input");
                 _errorLabel.setForeground(Color.RED);
+                _errorLabel.setFont(new Font("MathJax", 1, 20));
 
                 _bitNumber.setEnabled(false);
                 _floatPrecision.setEnabled(false);

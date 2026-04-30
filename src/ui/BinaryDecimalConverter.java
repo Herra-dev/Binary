@@ -129,17 +129,24 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         minusSignButton.addActionListener(this);
         NumberPanel.add(minusSignButton);
 
-        String controlArray[] = {"Delete", "Backspace", "Clear"};
 
-        for(int i = 0; i < controlArray.length; i++) {
-            JButton convertButton = new JButton(controlArray[i]);
-            convertButton.addActionListener(this);
-            controlNumberPanel.add(convertButton);
-        }
 
         JButton buttonTest = new JButton("Test input");
         buttonTest.addActionListener(new buttonInputTesterListener());
         controlNumberPanel.add(buttonTest);
+
+        JButton buttonBackspace = new JButton("Backspace");
+        buttonBackspace.addActionListener(new buttonBackspaceListener());
+        controlNumberPanel.add(buttonBackspace);
+
+        JButton buttonDelete = new JButton("Delete");
+        buttonDelete.addActionListener(new buttonDeleteListener());
+        controlNumberPanel.add(buttonDelete);
+
+        JButton buttonClear = new JButton("Clear");
+        buttonClear.addActionListener(new buttonClearListener());
+        controlNumberPanel.add(buttonClear);
+
 
         testerPanel.add(_errorLabel);
         testerPanel.add(_bitNumber); _bitNumber.setEnabled(false);
@@ -177,8 +184,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     @Override public void actionPerformed(ActionEvent event) {
         if((this._input.getText().contains(".")) && (event.getActionCommand().matches("[.]{1}"))) return; // if input contains already a comma (".") and user enter comma, quit function
         if((this._input.getText().contains("-")) && (event.getActionCommand().matches("[-]{1}"))) return; // if input contains already a minus sign ("-") and user enter comma, quit function
-        if(event.getActionCommand().matches("Clear")) { this._input.setText(new String()); return; } // Clear input and quit function
-
+        
         int caretPosition = this._input.getCaretPosition();
         String currentInput = this._input.getText();
         String _output = new String();
@@ -201,42 +207,10 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                 e.printStackTrace();
             }
         }
-
-        if(event.getActionCommand().matches("Delete")) {
-            if(caretPosition >= currentInput.length()) return;
-            firstString = currentInput.substring(0, caretPosition);
-            lastString = currentInput.substring(caretPosition+1, currentInput.length());
-            _output = firstString + lastString;
-            this._input.setText(_output);
-
-            try {
-                this._input.moveCaretPosition(caretPosition); // Do not move caret position
-            }catch(IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
-        
-        if(event.getActionCommand().matches("Backspace")) {
-            if(caretPosition <= 0) return;
-            firstString = currentInput.substring(0, caretPosition-1);
-            lastString = currentInput.substring(caretPosition, currentInput.length());
-            _output = firstString + lastString;
-            this._input.setText(_output);
-
-            try {
-                this._input.moveCaretPosition(caretPosition-1); // Move caret position to its current position - 1
-            }catch(IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 // CLASS =============================================
 
-//
-// THIS CLASS IS LISTENING TO THE CONVERTER BUTTON
-//
-//
     class buttonConvertListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             byte[] arrayResult;
@@ -261,10 +235,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
 //======================================================================================
 
-//
-// THIS CLASS IS LISTENING TO THE BUTTON INPUT TESTER 
-//
-//
     class buttonInputTesterListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             if(_input.getText().isEmpty()) return;
@@ -310,6 +280,52 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
 //======================================================================================
 
+    class buttonBackspaceListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            int caretPosition = _input.getCaretPosition();
+            String currentInput = _input.getText();
 
+            if(caretPosition <= 0) return; 
+            String firstString = currentInput.substring(0, caretPosition-1);
+            String lastString = currentInput.substring(caretPosition, currentInput.length());
+            String output = firstString + lastString;
+            _input.setText(output);
+
+            try {
+                _input.moveCaretPosition(caretPosition-1); // Move caret position to its current position - 1
+            }catch(IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+//======================================================================================
+
+    class buttonDeleteListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            int caretPosition = _input.getCaretPosition();
+            String currentInput = _input.getText();
+
+            if(caretPosition >= currentInput.length()) return; // if caret is placed in the end of the text field, quit function
+            String firstString = currentInput.substring(0, caretPosition);
+            String lastString = currentInput.substring(caretPosition+1, currentInput.length());
+            String output = firstString + lastString;
+            _input.setText(output);
+
+            try {
+                _input.moveCaretPosition(caretPosition); // Do not move caret position
+            }catch(IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+//======================================================================================
+
+    class buttonClearListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            _input.setText(new String());
+        }
+    }
 
 }

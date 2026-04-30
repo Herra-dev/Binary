@@ -112,13 +112,15 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
             controlNumberPanel.add(convertButton);
         }
 
-        testerPanel.add(_errorLabel);
-        testerPanel.add(_bitNumber);
-        testerPanel.add(_floatPrecision);
+        testerPanel.add(_errorLabel); _errorLabel.setEnabled(false);
+        testerPanel.add(_bitNumber); _bitNumber.setEnabled(false);
+        testerPanel.add(_floatPrecision); _floatPrecision.setEnabled(false);
+        testerPanel.add(_convert); _convert.setEnabled(false);
 
         InputPanel.add(NumberPanel);
         InputPanel.add(controlNumberPanel);
         InputPanel.add(testerPanel);
+        
 
         _mainPanel.add(InputPanel);
     }
@@ -199,20 +201,16 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         }
 
         if(event.getActionCommand().matches("Test input")) {
-            JPanel controllerPanel = new JPanel(new GridLayout(3, 1));
-        if(currentInput.matches("[0-9]++|[.]{1}")) {
-                _errorLabel.setText("Invalid input");
-                _errorLabel.setForeground(Color.RED);
-                controllerPanel.add(_errorLabel);
-                System.out.println("in not error");
-            } else {
-                _errorLabel.setText("Invalid input");
-                _errorLabel.setForeground(Color.RED);
-                controllerPanel.add(_errorLabel);
-                System.out.println("in error");
-            }
 
-            _mainPanel.add(controllerPanel);
+            if(currentInput.matches("[0-9]++|[.]{1}")) {
+                _errorLabel.setText("Valid input");
+                _errorLabel.setForeground(Color.GREEN);
+                
+            } else {
+                _errorLabel.setEnabled(true);
+                _errorLabel.setText("Invalid input");
+                _errorLabel.setForeground(Color.RED);
+            }
         }
 
     }

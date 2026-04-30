@@ -53,8 +53,9 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     public BinaryDecimalConverter() {
         this.setBDCProperties();
         this.loadIODisplayer();
-        this.setIODisplayerProperties();      
-        this._mainPanel.add(this.IODisplayerPanel);
+        this.setIODisplayerProperties();
+
+        this.addToMainPanel();
 
         this._input.setFocusable(true);
         this._secInput.setFocusable(true);
@@ -62,6 +63,10 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
 
         if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
+    }
+
+    public void addToMainPanel() {
+        this._mainPanel.add(this.IODisplayerPanel);
     }
 
 //======================================================================================
@@ -216,7 +221,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         if(event.getActionCommand().matches("Test input")) {
             if(currentInput.isEmpty()) return;
 
-            if(currentInput.matches("[-]*+[0-9]*+[.]*+[0-9]*+")) {
+            if(currentInput.matches("[-]*+[0-9]*+[.]*+[0-9]*+") && !(currentInput.matches("[-]{1}"))) {
                 _errorLabel.setText("Valid input");
                 _errorLabel.setForeground(Color.GREEN);
 
@@ -267,7 +272,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                 e.printStackTrace();
             }
 
-            this._output.setFont(new Font("Arial", 1, 40));
+            this._output.setFont(new Font("Arial", 1, 20));
             this._output.setText(this.result);
             this._convert.setEnabled(false);
             this._bitNumber.setEnabled(false);

@@ -129,13 +129,17 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         minusSignButton.addActionListener(this);
         NumberPanel.add(minusSignButton);
 
-        String controlArray[] = {"Test input", "Delete", "Backspace", "Clear"};
+        String controlArray[] = {"Delete", "Backspace", "Clear"};
 
         for(int i = 0; i < controlArray.length; i++) {
             JButton convertButton = new JButton(controlArray[i]);
             convertButton.addActionListener(this);
             controlNumberPanel.add(convertButton);
         }
+
+        JButton buttonTest = new JButton("Test input");
+        buttonTest.addActionListener(new buttonInputTesterListener());
+        controlNumberPanel.add(buttonTest);
 
         testerPanel.add(_errorLabel);
         testerPanel.add(_bitNumber); _bitNumber.setEnabled(false);
@@ -225,47 +229,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                 e.printStackTrace();
             }
         }
-
-        if(event.getActionCommand().matches("Test input")) {
-            if(currentInput.isEmpty()) return;
-
-            if(currentInput.matches("[-]*+[0-9]*+[.]*+[0-9]*+") && !(currentInput.matches("[-]{1}"))) {
-                _errorLabel.setText("Valid input");
-                _errorLabel.setForeground(Color.GREEN);
-
-                if(currentInput.matches("[0-9]*+[.]{1}[0-9]*+")) { // if input contains a comma '.', it is a floating point number
-                    _bitNumber.setEnabled(false);
-                    _floatPrecision.setEnabled(true);
-                    _convert.setEnabled(true);
-
-                    try {
-                        this.number = java.lang.Double.parseDouble(currentInput);
-                    }catch(NullPointerException | NumberFormatException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-                if(!(currentInput.matches("[0-9]*+[.]{1}[0-9]*+"))) {                    
-                    _bitNumber.setEnabled(true);
-                    _floatPrecision.setEnabled(false);
-                    _convert.setEnabled(true);
-
-                    try {
-                        this.number  = java.lang.Integer.parseInt(currentInput);
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
-                    }
-                }
-                
-            } else {
-                _errorLabel.setText("Invalid input");
-                _errorLabel.setForeground(Color.RED);
-
-                _bitNumber.setEnabled(false);
-                _floatPrecision.setEnabled(false);
-                _convert.setEnabled(false);
-            }
-        }
     }
 
 // CLASS =============================================
@@ -289,6 +252,49 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
             _convert.setEnabled(false);
             _bitNumber.setEnabled(false);
             _floatPrecision.setEnabled(false);
+        }
+    }
+
+    class buttonInputTesterListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            if(_input.getText().isEmpty()) return;
+
+            if(_input.getText().matches("[-]*+[0-9]*+[.]*+[0-9]*+") && !(_input.getText().matches("[-]{1}"))) {
+                _errorLabel.setText("Valid input");
+                _errorLabel.setForeground(Color.GREEN);
+
+                if(_input.getText().matches("[0-9]*+[.]{1}[0-9]*+")) { // if input contains a comma '.', it is a floating point number
+                    _bitNumber.setEnabled(false);
+                    _floatPrecision.setEnabled(true);
+                    _convert.setEnabled(true);
+
+                    try {
+                        number = java.lang.Double.parseDouble(_input.getText());
+                    }catch(NullPointerException | NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                if(!(_input.getText().matches("[0-9]*+[.]{1}[0-9]*+"))) {                    
+                    _bitNumber.setEnabled(true);
+                    _floatPrecision.setEnabled(false);
+                    _convert.setEnabled(true);
+
+                    try {
+                        number  = java.lang.Integer.parseInt(_input.getText());
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+                
+            } else {
+                _errorLabel.setText("Invalid input");
+                _errorLabel.setForeground(Color.RED);
+
+                _bitNumber.setEnabled(false);
+                _floatPrecision.setEnabled(false);
+                _convert.setEnabled(false);
+            }
         }
     }
 

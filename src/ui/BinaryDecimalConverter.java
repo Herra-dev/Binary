@@ -12,6 +12,7 @@ import javax.swing.plaf.DimensionUIResource;
 import ui.enumeration.BinaryMod;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -195,7 +196,20 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         }
 
         if(event.getActionCommand().matches("Test input")) {
-            
+            JPanel controllerPanel = new JPanel(new GridLayout(3, 1));
+        if(currentInput.matches("[0-9]++|[.]{1}")) {
+                _errorLabel.setText("Invalid input");
+                _errorLabel.setForeground(Color.RED);
+                controllerPanel.add(_errorLabel);
+                System.out.println("in not error");
+            } else {
+                _errorLabel.setText("Invalid input");
+                _errorLabel.setForeground(Color.RED);
+                controllerPanel.add(_errorLabel);
+                System.out.println("in error");
+            }
+
+            _mainPanel.add(controllerPanel);
         }
 
     }

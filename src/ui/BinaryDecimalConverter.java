@@ -45,6 +45,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                                                             FloatPrecision._OCTUPLE_PRECISION,};
     protected JComboBox<FloatPrecision> _floatPrecision = new JComboBox<FloatPrecision>(_availablePrecision);
     protected JButton _convert = new JButton("Convert");
+    protected String result = new String();
 
 //======================================================================================
 
@@ -56,6 +57,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
         this._input.setFocusable(true);
         this._secInput.setFocusable(true);
+        this._convert.addActionListener(this);
 
 
         if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
@@ -108,6 +110,10 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         JButton commaButton = new JButton(".");
         commaButton.addActionListener(this);
         NumberPanel.add(commaButton);
+
+        JButton minusSignButton = new JButton("-");
+        minusSignButton.addActionListener(this);
+        NumberPanel.add(minusSignButton);
 
         String controlArray[] = {"Test input", "Delete", "Backspace", "Clear"};
 
@@ -221,9 +227,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                     try {
                         double number = java.lang.Double.parseDouble(currentInput);
                         byte[] arrayResult = Binary._toBinaryFloat(number, (FloatPrecision)_floatPrecision.getSelectedItem());
-                        String result = Binary.byteArrayToString(arrayResult);
-                        System.out.println("result = " + result);
-                        this._output.setText(result);
+                        this.result = Binary.byteArrayToString(arrayResult);
                     }catch(NullPointerException | NumberFormatException e) {
                         e.printStackTrace();
                     }
@@ -238,9 +242,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                     try {
                         int number  = java.lang.Integer.parseInt(currentInput);
                         byte[] arrayResult = Binary.toBinary(number, (int)_bitNumber.getValue());
-                        String result = Binary.byteArrayToString(arrayResult);
-                        System.out.println("result = " + result);
-                        this._output.setText(result);
+                        this.result = Binary.byteArrayToString(arrayResult);
                     } catch (NumberFormatException | BinaryException e) {
                         e.printStackTrace();
                     }
@@ -255,6 +257,15 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                 _convert.setEnabled(false);
             }
         }
+
+        if(event.getActionCommand().matches("Convert")) {
+            this._output.setFont(new Font("Arial", 1, 40));
+            this._output.setText(this.result);
+            this._convert.setEnabled(false);
+            this._bitNumber.setEnabled(false);
+            this._floatPrecision.setEnabled(false);
+        }
+
 
     }
 

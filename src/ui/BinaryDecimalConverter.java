@@ -10,6 +10,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextField;
 import javax.swing.plaf.DimensionUIResource;
 
+import mg.hr.Binary;
+import mg.hr.enumeration.FloatPrecision;
 import ui.enumeration.BinaryMod;
 
 import java.awt.BorderLayout;
@@ -37,8 +39,10 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JComboBox<String> _sign = new JComboBox<String>(_availableSign);
     protected JLabel _errorLabel = new JLabel("Error");
     protected JSpinner _bitNumber = new JSpinner(new SpinnerNumberModel(4, 1, 256, 1));
-    protected Integer[] _availablePrecision = {16, 32, 48, 64, 79, 128, 256};
-    protected JComboBox<Integer> _floatPrecision = new JComboBox<Integer>(_availablePrecision);
+    protected FloatPrecision[] _availablePrecision = {FloatPrecision._HALF_PRECISION, FloatPrecision._SIMPLE_PRECISION, FloatPrecision._EXTENDED_SIMPLE_PRECISION,
+                                                         FloatPrecision._DUAL_PRECISION, FloatPrecision._EXTENDED_DUAL_PRECISION, FloatPrecision._QUADRUPLE_PRECISION,
+                                                            FloatPrecision._OCTUPLE_PRECISION,};
+    protected JComboBox<FloatPrecision> _floatPrecision = new JComboBox<FloatPrecision>(_availablePrecision);
     protected JButton _convert = new JButton("Convert");
 
 //======================================================================================
@@ -215,7 +219,9 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
                     try {
                         double number = java.lang.Double.parseDouble(currentInput);
-                        
+                        byte[] arrayResult = Binary._toBinaryFloat(number, (FloatPrecision)_floatPrecision.getSelectedItem());
+                        String result = Binary.byteArrayToString(arrayResult);
+                        System.out.println("result = " + result);
                     }catch(NullPointerException | NumberFormatException e) {
                         e.printStackTrace();
                     }

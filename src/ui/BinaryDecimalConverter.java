@@ -56,6 +56,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         this.setIODisplayerProperties();
 
         this.addToMainPanel();
+        this.addListener();
 
         this._input.setFocusable(true);
         this._secInput.setFocusable(true);
@@ -64,6 +65,14 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
         if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
     }
+
+//======================================================================================
+
+    public void addListener() {
+        _convert.addActionListener(new buttonConvertListener());
+    }
+
+//======================================================================================
 
     public void addToMainPanel() {
         this._mainPanel.add(this.IODisplayerPanel);
@@ -77,7 +86,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(new DimensionUIResource(500, 500));
         this.setContentPane(this._mainPanel);
-        
     }
 
 //======================================================================================
@@ -258,28 +266,30 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                 _convert.setEnabled(false);
             }
         }
+    }
 
-        if(event.getActionCommand().matches("Convert")) {
+// CLASS =============================================
+
+    class buttonConvertListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
             byte[] arrayResult;
             try {
-                if(currentInput.matches("[0-9]*+[.]{1}[0-9]*+")) {
+                if(_input.getText().matches("[0-9]*+[.]{1}[0-9]*+")) {
                     arrayResult = Binary._toBinaryFloat(number, (FloatPrecision)_floatPrecision.getSelectedItem());
                 } else {
                     arrayResult = Binary.toBinary(number, (int)_bitNumber.getValue());
                 }
-                this.result = Binary.byteArrayToString(arrayResult);
+                result = Binary.byteArrayToString(arrayResult);
             } catch (BinaryException e) {
                 e.printStackTrace();
             }
 
-            this._output.setFont(new Font("Arial", 1, 20));
-            this._output.setText(this.result);
-            this._convert.setEnabled(false);
-            this._bitNumber.setEnabled(false);
-            this._floatPrecision.setEnabled(false);
+            _output.setFont(new Font("Arial", 1, 20));
+            _output.setText(result);
+            _convert.setEnabled(false);
+            _bitNumber.setEnabled(false);
+            _floatPrecision.setEnabled(false);
         }
-
-
     }
 
 //======================================================================================

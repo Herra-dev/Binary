@@ -45,6 +45,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                                                             FloatPrecision._OCTUPLE_PRECISION,};
     protected JComboBox<FloatPrecision> _floatPrecision = new JComboBox<FloatPrecision>(_availablePrecision);
     protected JButton _convert = new JButton("Convert");
+    protected double number = 0;
     protected String result = new String();
 
 //======================================================================================
@@ -171,14 +172,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         lastString = currentInput.substring(caretPosition, currentInput.length());
 
         _output += firstString;
-
-        if(event.getActionCommand().matches("[-]{1}")) {
-            if(currentInput.isEmpty())
-                _output += "-";
-        } else {
-            _output += event.getActionCommand();
-        }
-
+        _output += event.getActionCommand();
         _output += lastString;
 
         if((event.getActionCommand().matches("[0-9]++|[.]{1}|[-]{1}"))) {
@@ -222,7 +216,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         if(event.getActionCommand().matches("Test input")) {
             if(currentInput.isEmpty()) return;
 
-            if(currentInput.matches("[0-9]*+[.]*+[0-9]*+")) {
+            if(currentInput.matches("[-]*+[0-9]*+[.]*+[0-9]*+")) {
                 _errorLabel.setText("Valid input");
                 _errorLabel.setForeground(Color.GREEN);
 
@@ -233,7 +227,9 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                     _convert.setEnabled(true);
 
                     try {
-                        double number = java.lang.Double.parseDouble(currentInput);
+                        this.number = java.lang.Double.parseDouble(currentInput);
+                        System.out.println("input in string = " + currentInput);
+                        System.out.println("input in double = " + number);
                         byte[] arrayResult = Binary._toBinaryFloat(number, (FloatPrecision)_floatPrecision.getSelectedItem());
                         this.result = Binary.byteArrayToString(arrayResult);
                     }catch(NullPointerException | NumberFormatException e) {
@@ -242,13 +238,15 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
                 }
                 if(!(currentInput.matches("[0-9]*+[.]{1}[0-9]*+"))) {
-                    System.out.println("Integer");
+                    
                     _bitNumber.setEnabled(true);
                     _floatPrecision.setEnabled(false);
                     _convert.setEnabled(true);
 
                     try {
-                        int number  = java.lang.Integer.parseInt(currentInput);
+                        this.number  = java.lang.Integer.parseInt(currentInput);
+                        System.out.println("input in string = " + currentInput);
+                        System.out.println("input in integer = " + number);
                         byte[] arrayResult = Binary.toBinary(number, (int)_bitNumber.getValue());
                         this.result = Binary.byteArrayToString(arrayResult);
                     } catch (NumberFormatException | BinaryException e) {

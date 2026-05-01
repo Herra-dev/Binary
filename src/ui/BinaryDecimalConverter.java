@@ -25,10 +25,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BinaryDecimalConverter extends JFrame implements ActionListener {
-    protected JPanel _mainPanel = new JPanel(new GridLayout(2, 1));
-    protected JPanel IODisplayerPanel = new JPanel(new GridLayout(3, 2));
+    protected JPanel _mainPanel;
+    protected JPanel _IODisplayerPanel;
 
-    protected JLabel _modChoiceLabel = new JLabel("make your choice");
+    protected JLabel _modChoiceLabel;
     protected BinaryMod[] _availableMod = {BinaryMod.Binary_Decimal_Convertor, BinaryMod.Binary_Calculator};
     protected JComboBox<BinaryMod> _modChoice = new JComboBox<BinaryMod>(_availableMod);
     protected JPanel _userInputPanel = new JPanel(new BorderLayout());
@@ -45,6 +45,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected FloatPrecision[] _availablePrecision = {FloatPrecision._HALF_PRECISION, FloatPrecision._SIMPLE_PRECISION, FloatPrecision._EXTENDED_SIMPLE_PRECISION,
                                                          FloatPrecision._DUAL_PRECISION, FloatPrecision._EXTENDED_DUAL_PRECISION, FloatPrecision._QUADRUPLE_PRECISION,
                                                             FloatPrecision._OCTUPLE_PRECISION,};
+    
     protected JComboBox<FloatPrecision> _floatPrecision = new JComboBox<FloatPrecision>(_availablePrecision);
     protected JButton _convert = new JButton("Convert");
     protected double number = 0;
@@ -53,6 +54,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     public BinaryDecimalConverter() {
+        this.initializeInstanceVariable();
         this.setBDCProperties();
         this.loadIODisplayer();
         this.setIODisplayerProperties();
@@ -62,7 +64,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
         this._input.setFocusable(true);
         this._secInput.setFocusable(true);
-        this._convert.addActionListener(this);
 
 
         if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
@@ -70,14 +71,22 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
 //======================================================================================
 
+    public void initializeInstanceVariable() {
+        _mainPanel = new JPanel(new GridLayout(2, 1));
+        _IODisplayerPanel = new JPanel(new GridLayout(3, 2));
+        _modChoiceLabel = new JLabel("make your choice");
+    }
+
+//======================================================================================
+
     public void addListener() {
-        _convert.addActionListener(new buttonConvertListener());
+        this._convert.addActionListener(new buttonConvertListener());
     }
 
 //======================================================================================
 
     public void addToMainPanel() {
-        this._mainPanel.add(this.IODisplayerPanel);
+        this._mainPanel.add(this._IODisplayerPanel);
     }
 
 //======================================================================================
@@ -94,12 +103,12 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     public void loadIODisplayer() {
-        IODisplayerPanel.add(this._modChoiceLabel);
-        IODisplayerPanel.add(this._modChoice);
-        IODisplayerPanel.add(this._inputLabel);
-        IODisplayerPanel.add(this._userInputPanel);
-        IODisplayerPanel.add(this._outputLabel);
-        IODisplayerPanel.add(this._output);
+        _IODisplayerPanel.add(this._modChoiceLabel);
+        _IODisplayerPanel.add(this._modChoice);
+        _IODisplayerPanel.add(this._inputLabel);
+        _IODisplayerPanel.add(this._userInputPanel);
+        _IODisplayerPanel.add(this._outputLabel);
+        _IODisplayerPanel.add(this._output);
     }
 
 //======================================================================================
@@ -143,8 +152,6 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         minusSignButton.setFont(new Font("Times New Roman", 1, 20));
         minusSignButton.setToolTipText("Minus sign");
         NumberPanel.add(minusSignButton);
-
-
 
         JButton buttonTest = new JButton("Test input");
         buttonTest.addActionListener(new buttonInputTesterListener());

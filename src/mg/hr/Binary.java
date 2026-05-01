@@ -260,6 +260,8 @@ public abstract class Binary {
             e.printStackTrace();
         }
 
+        _displayBinaryNumber(_floorBinary);
+
         return _floorBinary;
     }
 

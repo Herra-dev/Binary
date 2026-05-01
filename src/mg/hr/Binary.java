@@ -396,7 +396,7 @@ public abstract class Binary {
         for(int k = 0; k < E.length; k++)
             tab[++j] = E[k]; // ========================= EXPONENT =========
 
-        if(_number.toBigIntegerExact().compareTo(new BigInteger("0")) != 0)
+        if(_number.toBigInteger().compareTo(new BigInteger("0")) != 0)
         {
             for(int k = expIndex; k < _floorBinary.length; k++)
             tab[++j] = _floorBinary[k]; // ============== MANTISSA =========

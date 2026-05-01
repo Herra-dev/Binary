@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import mg.hr.Binary;
 import mg.hr.enumeration.FloatPrecision;
+import mg.hr.exception.BinaryException;
 
 // import java.math.BigDecimal;
 // import java.math.BigInteger;
@@ -13,7 +14,13 @@ public class App {
         // BinaryDecimalConverter bdc = new BinaryDecimalConverter();
         // bdc.setVisible(true);
 
-        byte[] array = Binary._toBinaryFloat(new BigDecimal("-0.3"), FloatPrecision._SIMPLE_PRECISION);
+        // byte[] array = Binary._toBinaryFloat(new BigDecimal("0.3"), FloatPrecision._SIMPLE_PRECISION);
+        byte[] array = null;
+        try {
+            array = Binary.toBinary(new BigDecimal(2), 2);
+        } catch (BinaryException e) {
+            e.printStackTrace();
+        }
         Binary._displayBinaryNumber(array);
 
         // System.out.println(java.lang.Byte.MIN_VALUE + " - " + java.lang.Byte.MAX_VALUE);

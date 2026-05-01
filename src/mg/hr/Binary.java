@@ -374,10 +374,13 @@ public abstract class Binary {
     {
         if(_Precision == null) _Precision = _askForPrecision(_number);
         byte tab[] = new byte[_Precision.getPrecision()];
+        
+        BigDecimal _bd = _number.subtract(new BigDecimal(_number.toBigInteger()));
+        if(_bd.compareTo(new BigDecimal(0)) < 0) _bd = _bd.negate();
 
         byte _sign = _binarySign(_number); // SIGN
         byte _floorBinary[] = _floor(_number); // FLOOR
-        byte[] _decimalPartBinary = _decimal((_number.subtract(new BigDecimal(_number.toBigInteger()))), _Precision);
+        byte[] _decimalPartBinary = _decimal(_bd, _Precision);
         System.out.println("floor length = " + _floorBinary.length);
         //----------------------------------------------------------------------
         

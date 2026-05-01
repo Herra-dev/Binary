@@ -5,17 +5,17 @@
 // import mg.hr.exception.BinaryException;
 // import mg.hr.exception.NotAnIntegerException;
 // import mg.hr.exception.NotAnUnsignedIntegerException;
-// import ui.BinaryDecimalConverter;
+import ui.BinaryDecimalConverter;
 
-import java.math.BigDecimal;
+// import java.math.BigDecimal;
 
-import mg.hr.Binary;
-import mg.hr.enumeration.FloatPrecision;
+// import mg.hr.Binary;
+// import mg.hr.enumeration.FloatPrecision;
 
 public class App {
     public static void main(String[] args) {
-        // BinaryDecimalConverter bdc = new BinaryDecimalConverter();
-        // bdc.setVisible(true);
+        BinaryDecimalConverter bdc = new BinaryDecimalConverter();
+        bdc.setVisible(true);
         // byte[] array = null;
         // try {
         //     array = Binary._toBinaryUnsignedInteger(new BigDecimal("1073741824"), 15);
@@ -34,10 +34,12 @@ public class App {
         // BigDecimal bd = new BigDecimal("1000000000.0");
         // System.out.println(bd);
 
-        Binary._decimal(new BigDecimal(0.3), FloatPrecision._DUAL_PRECISION);
+        // Binary._decimal(new BigDecimal(3.3), FloatPrecision._DUAL_PRECISION);
 
-        // BigDecimal bd0 = new BigDecimal("3.3");
+        // BigDecimal _number = new BigDecimal("3.3");
         // BigDecimal bd1 = bd0.subtract(new BigDecimal(bd0.toBigInteger()));
         // System.out.println(bd1);
+        // _number = _number.subtract(new BigDecimal(_number.toBigInteger()));
+        // System.out.println(_number);
     }   
 }

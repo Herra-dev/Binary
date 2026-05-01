@@ -232,7 +232,7 @@ public abstract class Binary {
  */
     private static byte _binarySign(BigDecimal _number)
     {
-        return (_number.doubleValue() >= 0) ? (byte)0 : (byte)1;
+        return (_number.compareTo(new BigDecimal(0)) >= 0) ? (byte)0 : (byte)1;
     }
 
 //============================================================================
@@ -244,7 +244,7 @@ public abstract class Binary {
  * @return byte[]
  * @author {@see https://github.com/Herra-dev}
  */
-    private static byte[] _floor(BigDecimal _number)
+    public static byte[] _floor(BigDecimal _number)
     {
         byte _floorBinary[] = null;
         try
@@ -272,9 +272,9 @@ public abstract class Binary {
  */
     private static byte[] _decimal(BigInteger _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
     {
-        java.math.BigDecimal bd = new BigDecimal(_decimalPart);
-        java.math.BigDecimal limit = new java.math.BigDecimal("0.0");
-        java.math.BigDecimal multiplier = new java.math.BigDecimal("2");
+        BigDecimal bd = new BigDecimal(_decimalPart);
+        BigDecimal limit = BigDecimal.ZERO;
+        BigDecimal multiplier = new BigDecimal("2");
 
         byte[] _decimalPartBinary = new byte[_precision.getPrecision()];
         System.out.println("precision = " + _decimalPartBinary.length);

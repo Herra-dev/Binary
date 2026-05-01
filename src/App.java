@@ -35,5 +35,9 @@ public class App {
         // System.out.println(bd);
 
         Binary._decimal(new BigDecimal(0.3), FloatPrecision._DUAL_PRECISION);
+
+        // BigDecimal bd0 = new BigDecimal("3.3");
+        // BigDecimal bd1 = bd0.subtract(new BigDecimal(bd0.toBigInteger()));
+        // System.out.println(bd1);
     }   
 }

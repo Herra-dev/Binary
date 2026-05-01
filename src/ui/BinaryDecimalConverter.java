@@ -237,10 +237,10 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 // CLASS =============================================
 
     class buttonConvertListener implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+        @Override public void actionPerformed(ActionEvent event) {
             byte[] arrayResult;
             try {
-                if(_input.getText().matches("[0-9]*+[.]{1}[0-9]*+")) {
+                if(_input.getText().contains(".")) {
                     arrayResult = Binary._toBinaryFloat(number, (FloatPrecision)_floatPrecision.getSelectedItem());
                 } else {
                     arrayResult = Binary.toBinary(number, (int)_bitNumber.getValue());
@@ -261,7 +261,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     class buttonInputTesterListener implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+        @Override public void actionPerformed(ActionEvent event) {
             if(_input.getText().isEmpty()) return;
 
             if(_input.getText().matches("[-]*+[0-9]*+[.]*+[0-9]*+") && !(_input.getText().matches("[-]{1}"))) {
@@ -269,7 +269,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                 _errorLabel.setForeground(Color.GREEN);
                 _errorLabel.setFont(new Font("MathJax", 1, 20));
 
-                if(_input.getText().matches("[0-9]*+[.]{1}[0-9]*+")) { // if input contains a comma '.', it is a floating point number
+                if(_input.getText().contains(".")) { // if input contains a comma '.', it is a floating point number
                     _bitNumber.setEnabled(false);
                     _floatPrecision.setEnabled(true);
                     _convert.setEnabled(true);
@@ -281,7 +281,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                     }
 
                 }
-                if(!(_input.getText().matches("[0-9]*+[.]{1}[0-9]*+"))) {                    
+                else {                    
                     _bitNumber.setEnabled(true);
                     _floatPrecision.setEnabled(false);
                     _convert.setEnabled(true);
@@ -308,7 +308,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     class buttonBackspaceListener implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+        @Override public void actionPerformed(ActionEvent event) {
             int caretPosition = _input.getCaretPosition();
             String currentInput = _input.getText();
 
@@ -329,7 +329,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     class buttonDeleteListener implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+        @Override public void actionPerformed(ActionEvent event) {
             int caretPosition = _input.getCaretPosition();
             String currentInput = _input.getText();
 
@@ -350,9 +350,11 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     class buttonClearListener implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+        @Override public void actionPerformed(ActionEvent event) {
             _input.setText(new String());
         }
     }
+
+//======================================================================================
 
 }

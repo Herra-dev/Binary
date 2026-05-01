@@ -170,10 +170,11 @@ public abstract class Binary {
         int i = 1;
         int pow = 0;
 
-        // while((i *= 2) <= _number.doubleValue()) pow++;
+        System.out.println("in power");
 
         while(_number.compareTo(new BigDecimal(i *= 2)) >= 0) pow++;
 
+        System.out.println("out power");
         return pow;
     }
 
@@ -541,6 +542,7 @@ public abstract class Binary {
 
         while(_numberCopy.compareTo(new BigDecimal(0)) != 0.0) {
             j = _powerOfTwoCloseBottom(_numberCopy);
+            System.out.println("j = " + j);
             if(j < binaryReversed.length)
                 binaryReversed[j] = 1;
             System.out.println("j = " + j);

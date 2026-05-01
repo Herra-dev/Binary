@@ -8,6 +8,8 @@
 
 package mg.hr;
 
+import java.math.BigDecimal;
+
 import mg.hr.exception.NotABinaryNumberException;
 
 public abstract class BinaryMath
@@ -29,12 +31,12 @@ public abstract class BinaryMath
  * @see mg.hr.BinaryMath#_divideBinary(double, double, int)
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte[] _addBinary(double _firstNumber, double _secondNumber, int _bitNumber)
+    public static byte[] _addBinary(BigDecimal _firstNumber, BigDecimal _secondNumber, int _bitNumber)
     {
         byte _binary[] = null;
         try 
         {
-            _binary = mg.hr.Binary.toBinary((_firstNumber + _secondNumber), _bitNumber);
+            _binary = mg.hr.Binary.toBinary((_firstNumber.add(_secondNumber)), _bitNumber);
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -55,12 +57,12 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  * 
  */
-    public static byte[] _addBinary(double _firstNumber, double _secondNumber)
+    public static byte[] _addBinary(BigDecimal _firstNumber, BigDecimal _secondNumber)
     {
         byte _binary[] = null;
         try 
         {
-            _binary = mg.hr.Binary.toBinary((_firstNumber + _secondNumber));
+            _binary = mg.hr.Binary.toBinary((_firstNumber.add(_secondNumber)));
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -87,12 +89,12 @@ public abstract class BinaryMath
  * @see mg.hr.BinaryMath#_divideBinary(double, double, int)
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte[] _subtractBinary(double _firstNumber, double _secondNumber, int _bitNumber)
+    public static byte[] _subtractBinary(BigDecimal _firstNumber, BigDecimal _secondNumber, int _bitNumber)
     {
         byte _binary[] = null;
         try 
         {
-            _binary = mg.hr.Binary.toBinary((_firstNumber - _secondNumber), _bitNumber);
+            _binary = mg.hr.Binary.toBinary((_firstNumber.subtract(_secondNumber)), _bitNumber);
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -113,12 +115,12 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  * 
  */
-    public static byte[] _subtractBinary(double _firstNumber, double _secondNumber)
+    public static byte[] _subtractBinary(BigDecimal _firstNumber, BigDecimal _secondNumber)
     {
         byte _binary[] = null;
         try 
         {
-            _binary = mg.hr.Binary.toBinary((_firstNumber - _secondNumber));
+            _binary = mg.hr.Binary.toBinary((_firstNumber.subtract(_secondNumber)));
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -145,12 +147,12 @@ public abstract class BinaryMath
  * @see mg.hr.BinaryMath#_divideBinary(double, double, int)
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte[] _multiplyBinary(double _firstNumber, double _secondNumber, int _bitNumber)
+    public static byte[] _multiplyBinary(BigDecimal _firstNumber, BigDecimal _secondNumber, int _bitNumber)
     {
         byte _binary[] = null;
         try 
         {
-            _binary = mg.hr.Binary.toBinary((_firstNumber * _secondNumber), _bitNumber);
+            _binary = mg.hr.Binary.toBinary((_firstNumber.multiply(_secondNumber)), _bitNumber);
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -171,12 +173,12 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  * 
  */
-    public static byte[] _multiplyBinary(double _firstNumber, double _secondNumber)
+    public static byte[] _multiplyBinary(BigDecimal _firstNumber, BigDecimal _secondNumber)
     {
         byte _binary[] = null;
         try 
         {
-            _binary = mg.hr.Binary.toBinary((_firstNumber * _secondNumber));
+            _binary = mg.hr.Binary.toBinary((_firstNumber.multiply(_secondNumber)));
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -203,12 +205,12 @@ public abstract class BinaryMath
  * @see mg.hr.BinaryMath#_multiplyBinary(double, double, int)
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte[] _divideBinary(double _firstNumber, double _secondNumber, int _bitNumber)
+    public static byte[] _divideBinary(BigDecimal _firstNumber, BigDecimal _secondNumber, int _bitNumber)
     {
         byte _binary[] = null;
         try 
         {
-            _binary = mg.hr.Binary.toBinary((_firstNumber / _secondNumber), _bitNumber);
+            _binary = mg.hr.Binary.toBinary((_firstNumber.divide(_secondNumber)), _bitNumber);
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -229,12 +231,12 @@ public abstract class BinaryMath
  * @author {@see https://github.com/Herra-dev}
  * 
  */
-    public static byte[] _divideBinary(double _firstNumber, double _secondNumber)
+    public static byte[] _divideBinary(BigDecimal _firstNumber, BigDecimal _secondNumber)
     {
         byte _binary[] = null;
         try 
         {
-            _binary = mg.hr.Binary.toBinary((_firstNumber / _secondNumber));
+            _binary = mg.hr.Binary.toBinary((_firstNumber.divide(_secondNumber)));
         } 
         catch (Exception e) {
             e.printStackTrace();

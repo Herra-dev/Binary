@@ -171,6 +171,10 @@ public abstract class Binary {
         int pow = 0;
 
         while((i *= 2) <= _number.doubleValue()) pow++;
+        // do {
+        //     i *= 2;
+        //     pow++;
+        // } while(_number.compareTo(new BigDecimal(i)) > 0);
 
         return pow;
     }

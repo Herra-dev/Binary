@@ -148,11 +148,11 @@ public abstract class Binary {
  * @see mg.hr.Binary#_powerOfTwoCloseBottom(long)
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte[] toBinary(double _number) throws mg.hr.exception.BinaryException
+    public static byte[] toBinary(BigDecimal _number) throws mg.hr.exception.BinaryException
     {
-        return (_number > 0) 
-            ? toBinary(_number, mg.hr.Binary._powerOfTwoCloseBottom((long)_number) + 1)
-            : toBinary(_number, mg.hr.Binary._powerOfTwoCloseBottom((long)-(_number)) + 1);
+        return (_number.doubleValue() > 0) 
+            ? toBinary(_number, mg.hr.Binary._powerOfTwoCloseBottom(_number) + 1)
+            : toBinary(_number, mg.hr.Binary._powerOfTwoCloseBottom(_number.negate()) + 1);
     }
 
 //============================================================================
@@ -269,9 +269,9 @@ public abstract class Binary {
  * @return byte[]
  * @author {@see https://github.com/Herra-dev}
  */
-    private static byte[] _decimal(double _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
+    private static byte[] _decimal(BigDecimal _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
     {
-        java.math.BigDecimal bd = new java.math.BigDecimal(_decimalPart);
+        java.math.BigDecimal bd = _decimalPart;
         java.math.BigDecimal limit = new java.math.BigDecimal("0.0");
         java.math.BigDecimal multiplier = new java.math.BigDecimal("2");
 
@@ -382,7 +382,7 @@ public abstract class Binary {
         try
         {
             int l = exp + _Precision.getBiais();
-            E = toBinary(l, _Precision.getExpNumber());
+            E = toBinary(new BigDecimal(l), _Precision.getExpNumber());
         }
         catch(mg.hr.exception.BinaryException e)
         {
@@ -396,7 +396,7 @@ public abstract class Binary {
         for(int k = 0; k < E.length; k++)
             tab[++j] = E[k]; // ========================= EXPONENT =========
 
-        if((int)_number != 0)
+        if(_number.intValue() != 0)
         {
             for(int k = expIndex; k < _floorBinary.length; k++)
             tab[++j] = _floorBinary[k]; // ============== MANTISSA =========

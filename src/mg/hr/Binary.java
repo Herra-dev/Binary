@@ -29,12 +29,12 @@ public abstract class Binary {
  * 
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte[] toBinary(BigDecimal _number, int _bitNumber) throws mg.hr.exception.BinaryException
+    public static byte[] toBinary(BigDecimal _number, double _bitNumber) throws mg.hr.exception.BinaryException
     {
-        if(_bitNumber < 0) throw new mg.hr.exception.BinaryException(_bitNumber);
+        if(_bitNumber < 0) throw new mg.hr.exception.BinaryException((int)_bitNumber);
         if(_bitNumber == 0) return new byte[0];
 
-        byte tab[] = new byte[_bitNumber];
+        byte tab[] = new byte[(int)_bitNumber];
         
         //================
         // initialization of the array to stock binary number with 0
@@ -165,10 +165,10 @@ public abstract class Binary {
  * @return {@code int} 
  * @author {@see https://github.com/Herra-dev}
  */
-    public static int _powerOfTwoCloseBottom(BigDecimal _number)
+    public static double _powerOfTwoCloseBottom(BigDecimal _number)
     {
-        int i = 1;
-        int pow = 0;
+        double i = 1;
+        double pow = 0;
 
         System.out.println("in power");
 
@@ -440,13 +440,13 @@ public abstract class Binary {
  * 
  * @author {@see https://github.com/Herra-dev} 
  */
-    public static byte[] _toBinarySignedInteger(BigDecimal _number, int _bitNumber) 
+    public static byte[] _toBinarySignedInteger(BigDecimal _number, double _bitNumber) 
         throws  mg.hr.exception.BinaryException, 
                     mg.hr.exception.NotAnIntegerException {
         //-----------------------------------------------------------------------
         //          EXCEPTIONS
 
-        if(_bitNumber < 0) throw new mg.hr.exception.BinaryException(_bitNumber);
+        if(_bitNumber < 0) throw new mg.hr.exception.BinaryException((int)_bitNumber);
         
         double i = (_number.subtract(new BigDecimal(_number.toBigInteger()))).doubleValue();
         boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
@@ -464,12 +464,12 @@ public abstract class Binary {
             e.printStackTrace();
         }
 
-        byte tab[] = new byte[_bitNumber];
+        byte tab[] = new byte[(int)_bitNumber];
         
-        byte tab1[] = new byte[_bitNumber];
+        byte tab1[] = new byte[(int)_bitNumber];
         for(short j = 0; j < _bitNumber; j++) // Stock 0 in every index in tab1
             tab1[j] = 0;
-        tab1[_bitNumber - 1] = 1; // Stock 1 in last index of tab1
+        tab1[(int)_bitNumber - 1] = 1; // Stock 1 in last index of tab1
 
         try {
             // IF _number IS A NEGATIVE VALUE, TRANSFORM THE ABS OF THIS LAST INTO BINARY
@@ -482,7 +482,7 @@ public abstract class Binary {
         tab  = mg.hr.Binary._complementBinary(tab);
 
         try {
-            tab = mg.hr.BinaryMath._addBinary(tab, tab1, _bitNumber);
+            tab = mg.hr.BinaryMath._addBinary(tab, tab1, (int)_bitNumber);
         } catch (mg.hr.exception.NotABinaryNumberException e) {
             e.printStackTrace();
         }
@@ -517,14 +517,14 @@ public abstract class Binary {
  * 
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte[] _toBinaryUnsignedInteger(BigDecimal _number, int _bitNumber) 
+    public static byte[] _toBinaryUnsignedInteger(BigDecimal _number, double _bitNumber) 
         throws  mg.hr.exception.BinaryException, 
                     mg.hr.exception.NotAnIntegerException,
                         mg.hr.exception.NotAnUnsignedIntegerException {
         //-----------------------------------------------------------------------
         //          EXCEPTIONS
 
-        if(_bitNumber < 0) throw new mg.hr.exception.BinaryException(_bitNumber);
+        if(_bitNumber < 0) throw new mg.hr.exception.BinaryException((int)_bitNumber);
         
         BigDecimal _i = _number.subtract(new BigDecimal(_number.toBigIntegerExact()));
         double i = _i.doubleValue();
@@ -536,15 +536,15 @@ public abstract class Binary {
         //-----------------------------------------------------------------------
 
         BigDecimal _numberCopy = _number;
-        int j = 0;
-        byte binaryReversed[] = new byte[_bitNumber];
+        double j = 0;
+        byte binaryReversed[] = new byte[(int)_bitNumber];
         System.out.println("here");
 
         while(_numberCopy.compareTo(new BigDecimal(0)) != 0.0) {
             j = _powerOfTwoCloseBottom(_numberCopy);
             System.out.println("j = " + j);
             if(j < binaryReversed.length)
-                binaryReversed[j] = 1;
+                binaryReversed[(int)j] = 1;
             System.out.println("j = " + j);
             
             _numberCopy = _numberCopy.subtract(new BigDecimal(java.lang.StrictMath.pow(2, j)));

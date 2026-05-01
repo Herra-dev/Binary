@@ -27,5 +27,7 @@ public class App {
         // Binary._displayBinaryNumber(Binary._floor(new BigDecimal(15.525)));
 
 
+        // BigDecimal bd = new BigDecimal("1000000000.0");
+        // System.out.println(bd);
     }   
 }

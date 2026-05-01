@@ -373,7 +373,7 @@ public abstract class Binary {
         byte _sign = _binarySign(_number); // SIGN
         byte _floorBinary[] = _floor(_number); // FLOOR
         byte[] _decimalPartBinary = _decimal((_number.subtract(new BigDecimal(_number.intValue()))).toBigInteger(), _Precision);
-
+        System.out.println("floor length = " + _floorBinary.length);
         //----------------------------------------------------------------------
         
         short[] __ = _exp(_number, _floorBinary, _decimalPartBinary);

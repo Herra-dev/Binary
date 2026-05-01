@@ -240,8 +240,10 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
             byte[] arrayResult;
             try {
                 if(_input.getText().contains(".")) {
+                    System.out.println("Number = " + number);
                     arrayResult = Binary._toBinaryFloat(number, (FloatPrecision)_floatPrecision.getSelectedItem());
                 } else {
+                    System.out.println("Number = " + number);
                     arrayResult = Binary.toBinary(number, (int)_bitNumber.getValue());
                 }
                 result = Binary.byteArrayToString(arrayResult);

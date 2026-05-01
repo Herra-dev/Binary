@@ -3,7 +3,6 @@
 import java.math.BigDecimal;
 
 import mg.hr.Binary;
-import mg.hr.enumeration.FloatPrecision;
 import mg.hr.exception.BinaryException;
 
 // import java.math.BigDecimal;

@@ -9,6 +9,8 @@
 
 package mg.hr;
 
+import java.math.BigDecimal;
+
 public abstract class Binary {
 
 /**
@@ -26,7 +28,7 @@ public abstract class Binary {
  * 
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte[] toBinary(double _number, int _bitNumber) throws mg.hr.exception.BinaryException
+    public static byte[] toBinary(BigDecimal _number, int _bitNumber) throws mg.hr.exception.BinaryException
     {
         if(_bitNumber < 0) throw new mg.hr.exception.BinaryException(_bitNumber);
         if(_bitNumber == 0) return new byte[0];
@@ -39,10 +41,10 @@ public abstract class Binary {
         for(int i = 0; i < _bitNumber; i++)
             tab[i] = 0;
         
-        if(_number == 0) return tab;    
+        if(_number.equals(0)) return tab;    
 
-        boolean _signed = (_number < 0) ? true : false; 
-        double i = (_number - (int)_number); 
+        boolean _signed = (_number.doubleValue() < 0) ? true : false; 
+        double i = (_number.subtract(new BigDecimal(_number.toBigInteger()))).doubleValue();
 
         // if i(result of the previous calcul) is between -1 and 1(both excluded) but not 0, _number is a floating-point number
         boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
@@ -87,7 +89,7 @@ public abstract class Binary {
  * 
  * @author {@see https://github.com/Herra-dev}
  */
-    private static mg.hr.enumeration.FloatPrecision _askForPrecision(double _number)
+    private static mg.hr.enumeration.FloatPrecision _askForPrecision(BigDecimal _number)
     {
         mg.hr.enumeration.FloatPrecision[] _available = mg.hr.enumeration.FloatPrecision.getAvailablePrecision();
 
@@ -162,12 +164,12 @@ public abstract class Binary {
  * @return {@code int} 
  * @author {@see https://github.com/Herra-dev}
  */
-    public static int _powerOfTwoCloseBottom(double _number)
+    public static int _powerOfTwoCloseBottom(BigDecimal _number)
     {
         int i = 1;
         int pow = 0;
 
-        while((i *= 2) <= _number) pow++;
+        while((i *= 2) <= _number.doubleValue()) pow++;
 
         return pow;
     }
@@ -227,9 +229,9 @@ public abstract class Binary {
  * @return {@code byte}
  * @author {@see https://github.com/Herra-dev}
  */
-    private static byte _binarySign(double _number)
+    private static byte _binarySign(BigDecimal _number)
     {
-        return (_number >= 0) ? (byte)0 : (byte)1;
+        return (_number.doubleValue() >= 0) ? (byte)0 : (byte)1;
     }
 
 //============================================================================
@@ -241,12 +243,12 @@ public abstract class Binary {
  * @return byte[]
  * @author {@see https://github.com/Herra-dev}
  */
-    private static byte[] _floor(double _number)
+    private static byte[] _floor(BigDecimal _number)
     {
         byte _floorBinary[] = null;
         try
         {
-            int _numberAbsValue = (int)java.lang.StrictMath.abs(_number);
+            int _numberAbsValue = (int)java.lang.StrictMath.abs(_number.intValue());
             _floorBinary = mg.hr.Binary.toBinary(_numberAbsValue); // _floorBinary of _number in binary mode
         } 
         catch (mg.hr.exception.BinaryException e)
@@ -301,14 +303,14 @@ public abstract class Binary {
  * @return short[]
  * @author {@see https://github.com/Herra-dev}
  */
-    private static short[] _exp(double _number, byte[] _floorBinary, byte[] _decimalPartBinary)
+    private static short[] _exp(BigDecimal _number, byte[] _floorBinary, byte[] _decimalPartBinary)
     {
         short exp[] = new short[2];
 
         int exp_d = 0;
         int expIndex = 0;
-        _number = java.lang.StrictMath.abs(_number);
-        if((int)_number > 0)
+        _number = new BigDecimal(java.lang.StrictMath.abs(_number.intValue()));
+        if(_number.intValue() > 0)
         {
             for(exp_d = 0; exp_d < _floorBinary.length; exp_d++)
             {
@@ -321,7 +323,7 @@ public abstract class Binary {
             expIndex = exp_d;
             exp_d = _floorBinary.length - exp_d; // distance between _floorBinary and exp_d
         }
-        else if((int)_number == 0)
+        else if(_number.intValue() == 0)
         {
             for(exp_d = 0; exp_d < _decimalPartBinary.length; exp_d++)
             {
@@ -360,14 +362,15 @@ public abstract class Binary {
  * @see mg.hr.enumeration.FloatPrecision
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte[] _toBinaryFloat(double _number, mg.hr.enumeration.FloatPrecision _Precision)
+    public static byte[] _toBinaryFloat(BigDecimal _number, mg.hr.enumeration.FloatPrecision _Precision)
     {
         if(_Precision == null) _Precision = _askForPrecision(_number);
         byte tab[] = new byte[_Precision.getPrecision()];
 
         byte _sign = _binarySign(_number); // SIGN
         byte _floorBinary[] = _floor(_number); // FLOOR
-        byte[] _decimalPartBinary = _decimal(java.lang.StrictMath.abs(_number - (int)_number), _Precision); //DECIMAL PART
+        byte[] _decimalPartBinary = _decimal(java.lang.StrictMath.abs((_number.subtract(new BigDecimal(_number.toBigInteger()))).intValue()), _Precision); //DECIMAL PART
+        
 
         //----------------------------------------------------------------------
         
@@ -434,7 +437,7 @@ public abstract class Binary {
  * 
  * @author {@see https://github.com/Herra-dev} 
  */
-    public static byte[] _toBinarySignedInteger(double _number, int _bitNumber) 
+    public static byte[] _toBinarySignedInteger(BigDecimal _number, int _bitNumber) 
         throws  mg.hr.exception.BinaryException, 
                     mg.hr.exception.NotAnIntegerException {
         //-----------------------------------------------------------------------
@@ -442,15 +445,15 @@ public abstract class Binary {
 
         if(_bitNumber < 0) throw new mg.hr.exception.BinaryException(_bitNumber);
         
-        double i = _number - (int)_number;
+        double i = (_number.subtract(new BigDecimal(_number.toBigInteger()))).doubleValue();
         boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
-        if(_isFloat) throw new mg.hr.exception.NotAnIntegerException(_number);
+        if(_isFloat) throw new mg.hr.exception.NotAnIntegerException(_number.doubleValue());
 
         //-----------------------------------------------------------------------
         
         // if _number is a positive number, transform it with method _toBinaryUnsignedInteger
         try {
-            if(_number >= 0)
+            if(_number.doubleValue() >= 0)
                 return mg.hr.Binary._toBinaryUnsignedInteger(_number, _bitNumber);
         } catch (mg.hr.exception.BinaryException |
                     mg.hr.exception.NotAnIntegerException |
@@ -467,7 +470,7 @@ public abstract class Binary {
 
         try {
             // IF _number IS A NEGATIVE VALUE, TRANSFORM THE ABS OF THIS LAST INTO BINARY
-            tab = _toBinaryUnsignedInteger(-(_number), _bitNumber);
+            tab = _toBinaryUnsignedInteger(_number.negate(), _bitNumber);
         } catch (mg.hr.exception.BinaryException | 
                     mg.hr.exception.NotAnIntegerException | 
                         mg.hr.exception.NotAnUnsignedIntegerException e) {
@@ -511,7 +514,7 @@ public abstract class Binary {
  * 
  * @author {@see https://github.com/Herra-dev}
  */
-    public static byte[] _toBinaryUnsignedInteger(double _number, int _bitNumber) 
+    public static byte[] _toBinaryUnsignedInteger(BigDecimal _number, int _bitNumber) 
         throws  mg.hr.exception.BinaryException, 
                     mg.hr.exception.NotAnIntegerException,
                         mg.hr.exception.NotAnUnsignedIntegerException {
@@ -520,24 +523,26 @@ public abstract class Binary {
 
         if(_bitNumber < 0) throw new mg.hr.exception.BinaryException(_bitNumber);
         
-        double i = _number - (int)_number;
+        BigDecimal _i = _number.subtract(new BigDecimal(_number.toBigIntegerExact()));
+        double i = _i.doubleValue();
         boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
-        if(_isFloat) throw new mg.hr.exception.NotAnIntegerException(_number);
+        if(_isFloat) throw new mg.hr.exception.NotAnIntegerException(_number.doubleValue());
 
-        if(_number < 0) throw new mg.hr.exception.NotAnUnsignedIntegerException(_number);
+        if(_number.doubleValue() < 0) throw new mg.hr.exception.NotAnUnsignedIntegerException(_number.doubleValue());
 
         //-----------------------------------------------------------------------
 
-        double _numberCopy = _number;
+        BigDecimal _numberCopy = _number;
         int j = 0;
         byte binaryReversed[] = new byte[_bitNumber];
 
-        while(_numberCopy > 0) {
+        while(_numberCopy.doubleValue() > 0) {
             j = _powerOfTwoCloseBottom(_numberCopy);
             if(j < binaryReversed.length)
                 binaryReversed[j] = 1;
             System.out.println("j = " + j);
-            _numberCopy -= java.lang.StrictMath.pow(2, j);
+            
+            _numberCopy.subtract(new BigDecimal(java.lang.StrictMath.pow(2, j)));
         }
 
         return _reverseBinary(binaryReversed);

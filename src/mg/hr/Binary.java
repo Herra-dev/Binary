@@ -524,8 +524,6 @@ public abstract class Binary {
         //          EXCEPTIONS
 
         if(_bitNumber < 0) throw new mg.hr.exception.BinaryException(_bitNumber);
-
-        
         
         BigDecimal _i = _number.subtract(new BigDecimal(_number.toBigIntegerExact()));
         double i = _i.doubleValue();

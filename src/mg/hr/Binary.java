@@ -276,9 +276,10 @@ public abstract class Binary {
  * @return byte[]
  * @author {@see https://github.com/Herra-dev}
  */
-    private static byte[] _decimal(BigInteger _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
+    public static byte[] _decimal(BigDecimal _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
     {
-        BigDecimal bd = new BigDecimal(_decimalPart);
+        System.out.println("dec part = " + _decimalPart);
+        BigDecimal bd = _decimalPart;
         BigDecimal limit = BigDecimal.ZERO;
         BigDecimal multiplier = new BigDecimal("2");
 
@@ -376,7 +377,7 @@ public abstract class Binary {
 
         byte _sign = _binarySign(_number); // SIGN
         byte _floorBinary[] = _floor(_number); // FLOOR
-        byte[] _decimalPartBinary = _decimal((_number.subtract(new BigDecimal(_number.intValue()))).toBigInteger(), _Precision);
+        byte[] _decimalPartBinary = _decimal((_number.subtract(new BigDecimal(_number.toBigIntegerExact()))), _Precision);
         System.out.println("floor length = " + _floorBinary.length);
         //----------------------------------------------------------------------
         

@@ -42,7 +42,7 @@ public abstract class Binary {
         for(int i = 0; i < _bitNumber; i++)
             tab[i] = 0;
         
-        if(_number.equals(0)) return tab;    
+        if(_number.compareTo(new BigDecimal("0")) == 0) return tab;
 
         boolean _signed = (_number.doubleValue() < 0) ? true : false; 
         double i = (_number.subtract(new BigDecimal(_number.toBigInteger()))).doubleValue();
@@ -396,7 +396,7 @@ public abstract class Binary {
         for(int k = 0; k < E.length; k++)
             tab[++j] = E[k]; // ========================= EXPONENT =========
 
-        if(_number.intValue() != 0)
+        if(_number.toBigIntegerExact().compareTo(new BigInteger("0")) != 0)
         {
             for(int k = expIndex; k < _floorBinary.length; k++)
             tab[++j] = _floorBinary[k]; // ============== MANTISSA =========
@@ -536,7 +536,7 @@ public abstract class Binary {
         int j = 0;
         byte binaryReversed[] = new byte[_bitNumber];
 
-        while(_numberCopy.doubleValue() > 0) {
+        while(_numberCopy.compareTo(new BigDecimal(0)) <= 0) {
             j = _powerOfTwoCloseBottom(_numberCopy);
             if(j < binaryReversed.length)
                 binaryReversed[j] = 1;

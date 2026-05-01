@@ -23,6 +23,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 
 public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JPanel _mainPanel = new JPanel(new GridLayout(2, 1)); // The main container of the window
@@ -48,7 +49,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     
     protected JComboBox<FloatPrecision> _floatPrecision = new JComboBox<FloatPrecision>(_availablePrecision);
     protected JButton _convert = new JButton("Convert");
-    protected double number = 0;
+    protected BigDecimal number = BigDecimal.ZERO;
     protected String result = new String();
 
 //======================================================================================
@@ -273,8 +274,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                     _convert.setEnabled(true);
 
                     try {
-                        number = java.lang.Double.parseDouble(_input.getText());
-                        if(number > java.lang.Double.MAX_VALUE) number = java.lang.Double.MAX_VALUE;
+                        number = new BigDecimal(_input.getText());
                     }catch(NullPointerException | NumberFormatException e) {
                         e.printStackTrace();
                     }
@@ -286,8 +286,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
                     _convert.setEnabled(true);
 
                     try {
-                        number  = java.lang.Integer.parseInt(_input.getText());
-                        if(number > java.lang.Integer.MAX_VALUE) number = (int)java.lang.Integer.MAX_VALUE;
+                        number = new BigDecimal(_input.getText());
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                     }

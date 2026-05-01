@@ -369,7 +369,7 @@ public abstract class Binary {
         byte tab[] = new byte[_Precision.getPrecision()];
 
         byte _sign = _binarySign(_number); // SIGN
-        byte _floorBinary[] = _floor(_number); // FLOORbyte[] decimalPartBinary = _decimal(new BigInteger(java.lang.StrictMath.abs((_number.subtract(new BigDecimal(_number.toBigInteger()))))), _Precision); //DECIMAL PART
+        byte _floorBinary[] = _floor(_number); // FLOOR
         byte[] _decimalPartBinary = _decimal((_number.subtract(new BigDecimal(_number.intValue()))).toBigInteger(), _Precision);
 
         //----------------------------------------------------------------------

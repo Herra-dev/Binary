@@ -170,7 +170,11 @@ public abstract class Binary {
         int i = 1;
         int pow = 0;
 
-        while((i *= 2) <= _number.doubleValue()) pow++;
+        // while((i *= 2) <= _number.doubleValue()) pow++;
+        while(_number.compareTo(new BigDecimal(i)) > 0) {
+            i *= 2;
+            pow++;
+        }
 
         return pow;
     }
@@ -249,7 +253,7 @@ public abstract class Binary {
         byte _floorBinary[] = null;
         try
         {
-            int _numberAbsValue = java.lang.StrictMath.abs(_number.intValue());
+            int _numberAbsValue = java.lang.StrictMath.abs(_number.toBigInteger().intValue());
             _floorBinary = mg.hr.Binary.toBinary(new BigDecimal(_numberAbsValue)); // _floorBinary of _number in binary mode
         } 
         catch (mg.hr.exception.BinaryException e)
@@ -522,27 +526,31 @@ public abstract class Binary {
         //          EXCEPTIONS
 
         if(_bitNumber < 0) throw new mg.hr.exception.BinaryException(_bitNumber);
+
+        
         
         BigDecimal _i = _number.subtract(new BigDecimal(_number.toBigIntegerExact()));
         double i = _i.doubleValue();
         boolean _isFloat = (i > -1 && i < 1 && i != 0) ? true : false; 
         if(_isFloat) throw new mg.hr.exception.NotAnIntegerException(_number.doubleValue());
 
-        if(_number.doubleValue() < 0) throw new mg.hr.exception.NotAnUnsignedIntegerException(_number.doubleValue());
+        if(_number.compareTo(new BigDecimal(0)) < 0) throw new mg.hr.exception.NotAnUnsignedIntegerException(_number.doubleValue());
 
         //-----------------------------------------------------------------------
 
         BigDecimal _numberCopy = _number;
         int j = 0;
         byte binaryReversed[] = new byte[_bitNumber];
+        System.out.println("here");
 
-        while(_numberCopy.compareTo(new BigDecimal(0)) <= 0) {
+        while(_numberCopy.compareTo(new BigDecimal(0)) != 0.0) {
             j = _powerOfTwoCloseBottom(_numberCopy);
             if(j < binaryReversed.length)
                 binaryReversed[j] = 1;
             System.out.println("j = " + j);
             
-            _numberCopy.subtract(new BigDecimal(java.lang.StrictMath.pow(2, j)));
+            _numberCopy = _numberCopy.subtract(new BigDecimal(java.lang.StrictMath.pow(2, j)));
+            System.out.println(_numberCopy);
         }
 
         return _reverseBinary(binaryReversed);

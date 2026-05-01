@@ -34,6 +34,6 @@ public class App {
         // BigDecimal bd = new BigDecimal("1000000000.0");
         // System.out.println(bd);
 
-        Binary._toBinaryFloat(new BigDecimal(0.3), FloatPrecision._DUAL_PRECISION);
+        Binary._toBinaryFloat(new BigDecimal(0.35), FloatPrecision._DUAL_PRECISION);
     }   
 }

@@ -260,6 +260,7 @@ public abstract class Binary {
             e.printStackTrace();
         }
 
+        System.out.println("Displaying floor : ----------------------------------");
         _displayBinaryNumber(_floorBinary);
 
         return _floorBinary;
@@ -284,7 +285,7 @@ public abstract class Binary {
         byte[] _decimalPartBinary = new byte[_precision.getPrecision()];
         System.out.println("precision = " + _decimalPartBinary.length);
         int i = 0;
-        String s = "";
+        String s = new String();
         
         while(bd.compareTo(limit) != 0.0 && i < _decimalPartBinary.length)
         {

@@ -10,6 +10,7 @@
 package mg.hr;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public abstract class Binary {
 
@@ -248,8 +249,8 @@ public abstract class Binary {
         byte _floorBinary[] = null;
         try
         {
-            int _numberAbsValue = (int)java.lang.StrictMath.abs(_number.intValue());
-            _floorBinary = mg.hr.Binary.toBinary(_numberAbsValue); // _floorBinary of _number in binary mode
+            int _numberAbsValue = java.lang.StrictMath.abs(_number.intValue());
+            _floorBinary = mg.hr.Binary.toBinary(new BigDecimal(_numberAbsValue)); // _floorBinary of _number in binary mode
         } 
         catch (mg.hr.exception.BinaryException e)
         {
@@ -262,16 +263,16 @@ public abstract class Binary {
 //============================================================================
 
 /**
- * returns an array of byte representing the decimal part of a floating-point number number
+ * returns an array of byte representing the decimal part of a floating-point number
  * 
  * @param _decimalPart {@code double}
  * @param _precision {@link mg.hr.enumeration.FloatPrecision}
  * @return byte[]
  * @author {@see https://github.com/Herra-dev}
  */
-    private static byte[] _decimal(BigDecimal _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
+    private static byte[] _decimal(BigInteger _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
     {
-        java.math.BigDecimal bd = _decimalPart;
+        java.math.BigDecimal bd = new BigDecimal(_decimalPart);
         java.math.BigDecimal limit = new java.math.BigDecimal("0.0");
         java.math.BigDecimal multiplier = new java.math.BigDecimal("2");
 
@@ -368,9 +369,8 @@ public abstract class Binary {
         byte tab[] = new byte[_Precision.getPrecision()];
 
         byte _sign = _binarySign(_number); // SIGN
-        byte _floorBinary[] = _floor(_number); // FLOOR
-        byte[] _decimalPartBinary = _decimal(java.lang.StrictMath.abs((_number.subtract(new BigDecimal(_number.toBigInteger()))).intValue()), _Precision); //DECIMAL PART
-        
+        byte _floorBinary[] = _floor(_number); // FLOORbyte[] decimalPartBinary = _decimal(new BigInteger(java.lang.StrictMath.abs((_number.subtract(new BigDecimal(_number.toBigInteger()))))), _Precision); //DECIMAL PART
+        byte[] _decimalPartBinary = _decimal((_number.subtract(new BigDecimal(_number.intValue()))).toBigInteger(), _Precision);
 
         //----------------------------------------------------------------------
         

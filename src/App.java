@@ -22,7 +22,7 @@ public class App {
         // System.out.println("----------------------------------");
         // Binary._displayBinaryNumber(array);
         
-        System.out.println(Binary._powerOfTwoCloseBottom(new BigDecimal("33")));
+        System.out.println(Binary._powerOfTwoCloseBottom(new BigDecimal("39")));
         // Binary._displayBinaryNumber(Binary._floor(new BigDecimal(15.525)));
 
 

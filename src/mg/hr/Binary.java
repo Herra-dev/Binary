@@ -260,9 +260,6 @@ public abstract class Binary {
             e.printStackTrace();
         }
 
-        System.out.println("Displaying floor : ----------------------------------");
-        _displayBinaryNumber(_floorBinary);
-
         return _floorBinary;
     }
 

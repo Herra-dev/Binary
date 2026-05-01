@@ -1,18 +1,18 @@
 // // import java.math.BigDecimal;
 
-import java.math.BigDecimal;
+// import java.math.BigDecimal;
 
-import mg.hr.Binary;
+// import mg.hr.Binary;
 // import mg.hr.exception.BinaryException;
 // import mg.hr.exception.NotAnIntegerException;
 // import mg.hr.exception.NotAnUnsignedIntegerException;
-// import ui.BinaryDecimalConverter;
+import ui.BinaryDecimalConverter;
 
 
 public class App {
     public static void main(String[] args) {
-        // BinaryDecimalConverter bdc = new BinaryDecimalConverter();
-        // bdc.setVisible(true);
+        BinaryDecimalConverter bdc = new BinaryDecimalConverter();
+        bdc.setVisible(true);
         // byte[] array = null;
         // try {
         //     array = Binary._toBinaryUnsignedInteger(new BigDecimal("3000000000"), 15);
@@ -22,7 +22,8 @@ public class App {
         // System.out.println("----------------------------------");
         // Binary._displayBinaryNumber(array);
         
-        System.out.println(Binary._powerOfTwoCloseBottom(new BigDecimal("1073741824")));
+        // System.out.println(Binary._powerOfTwoCloseBottom(new BigDecimal("127")));
+        // System.out.println(java.lang.Integer.MAX_VALUE);
         // Binary._displayBinaryNumber(Binary._floor(new BigDecimal(15.525)));
 
 

@@ -274,6 +274,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
                     try {
                         number = java.lang.Double.parseDouble(_input.getText());
+                        if(number > java.lang.Double.MAX_VALUE) number = java.lang.Double.MAX_VALUE;
                     }catch(NullPointerException | NumberFormatException e) {
                         e.printStackTrace();
                     }
@@ -286,6 +287,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
                     try {
                         number  = java.lang.Integer.parseInt(_input.getText());
+                        if(number > java.lang.Integer.MAX_VALUE) number = (int)java.lang.Integer.MAX_VALUE;
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                     }

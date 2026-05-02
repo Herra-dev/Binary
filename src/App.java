@@ -5,11 +5,11 @@
 // import mg.hr.exception.BinaryException;
 // import mg.hr.exception.NotAnIntegerException;
 // import mg.hr.exception.NotAnUnsignedIntegerException;
-import java.math.BigDecimal;
+// import java.math.BigDecimal;
 
-import mg.hr.Binary;
-import mg.hr.enumeration.FloatPrecision;
-// import ui.BinaryDecimalConverter;
+// import mg.hr.Binary;
+// import mg.hr.enumeration.FloatPrecision;
+import ui.BinaryDecimalConverter;
 
 // import java.math.BigDecimal;
 
@@ -18,8 +18,8 @@ import mg.hr.enumeration.FloatPrecision;
 
 public class App {
     public static void main(String[] args) {
-        // BinaryDecimalConverter bdc = new BinaryDecimalConverter();
-        // bdc.setVisible(true);
+        BinaryDecimalConverter bdc = new BinaryDecimalConverter();
+        bdc.setVisible(true);
         // byte[] array = null;
         // try {
         //     array = Binary._toBinaryUnsignedInteger(new BigDecimal("1073741824"), 15);
@@ -46,7 +46,7 @@ public class App {
         // _number = _number.subtract(new BigDecimal(_number.toBigInteger()));
         // System.out.println(_number);
 
-        byte[] array = Binary._toBinaryFloat(new BigDecimal(5899995555555599999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999955555.3), FloatPrecision._HALF_PRECISION);
-        Binary._displayBinaryNumber(array);
+        // byte[] array = Binary._toBinaryFloat(new BigDecimal(5899995555555599999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999955555.3), FloatPrecision._HALF_PRECISION);
+        // Binary._displayBinaryNumber(array);
     }   
 }

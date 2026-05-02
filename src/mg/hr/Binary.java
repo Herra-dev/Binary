@@ -11,6 +11,7 @@ package mg.hr;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 
 public abstract class Binary {
 
@@ -249,18 +250,16 @@ public abstract class Binary {
         byte _floorBinary[] = null;
         try
         {
-            BigDecimal _numberAbsValue = new BigDecimal(java.lang.StrictMath.abs(_number.toBigInteger().intValue()));
-            System.out.println("number = " + _numberAbsValue);
-            _floorBinary = mg.hr.Binary.toBinary(_numberAbsValue, _powerOfTwoCloseBottom(_number)); // _floorBinary of _number in binary mode
+            BigDecimal _numberAbsValue = new BigDecimal(_number.toBigInteger().abs());
+            _floorBinary = mg.hr.Binary.toBinary(_numberAbsValue); // _floorBinary of _number in binary mode
         } 
         catch (mg.hr.exception.BinaryException e)
         {
             e.printStackTrace();
         }
 
-        System.out.println("displaying floor : ===========================================");
+        System.out.println("displayint floor in floor method: ******************");
         _displayBinaryNumber(_floorBinary);
-
         return _floorBinary;
     }
 
@@ -276,23 +275,24 @@ public abstract class Binary {
  */
     public static byte[] _decimal(BigDecimal _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
     {
-        BigDecimal bd = _decimalPart;
         BigDecimal limit = BigDecimal.ZERO;
-        BigDecimal multiplier = new BigDecimal("2");
 
         byte[] _decimalPartBinary = new byte[_precision.getPrecision()];
+        for(int i = 0; i < _decimalPartBinary.length; i++) _decimalPartBinary[i] = 0;
+
         int i = 0;
         String s = new String();
         
-        while(bd.compareTo(limit) != 0.0 && i < _decimalPartBinary.length)
+        while(_decimalPart.compareTo(limit) != 0.0 && i < _decimalPartBinary.length)
         {
-            bd = bd.multiply(multiplier, java.math.MathContext.DECIMAL32);       
-            _decimalPartBinary[i++] = bd.byteValue();
-
-            s = bd.intValue() + "";
-            bd = bd.subtract(new java.math.BigDecimal(s), java.math.MathContext.DECIMAL32);
+            _decimalPart = _decimalPart.multiply(new BigDecimal(2));   
+            _decimalPartBinary[i++] = (byte)_decimalPart.round(MathContext.DECIMAL128).intValue();
+            
+            s = _decimalPart.intValue() + "";
+            _decimalPart = _decimalPart.subtract(new java.math.BigDecimal(s), java.math.MathContext.DECIMAL128);
         }
 
+        
         return _decimalPartBinary;
     }
 
@@ -309,25 +309,33 @@ public abstract class Binary {
  */
     private static short[] _exp(BigDecimal _number, byte[] _floorBinary, byte[] _decimalPartBinary)
     {
+        System.out.println("Displaying floor ===========");
+        _displayBinaryNumber(_floorBinary);
+        System.out.println("Displaying dec part ===========");
+        _displayBinaryNumber(_decimalPartBinary);
+
         short exp[] = new short[2];
 
         int exp_d = 0;
         int expIndex = 0;
-        _number = new BigDecimal(java.lang.StrictMath.abs(_number.intValue()));
-        if(_number.intValue() > 0)
+        _number = _number.abs();
+        System.out.println("number is = " + _number);
+        if((_number.toBigInteger().compareTo(BigInteger.ZERO)) > 0)
         {
+            
             for(exp_d = 0; exp_d < _floorBinary.length; exp_d++)
             {
                 if(_floorBinary[exp_d] == 1) // search first bit 1
                 {
                     ++exp_d; // if 1 was found in index 0 for example, the comma place is in the next index
+                    System.out.println("find it");
                     break;
                 }
             }
             expIndex = exp_d;
             exp_d = _floorBinary.length - exp_d; // distance between _floorBinary and exp_d
         }
-        else if(_number.intValue() == 0)
+        else if((_number.toBigInteger().compareTo(BigInteger.ZERO)) == 0)
         {
             for(exp_d = 0; exp_d < _decimalPartBinary.length; exp_d++)
             {
@@ -338,8 +346,8 @@ public abstract class Binary {
             exp_d = -(exp_d + 1);
         }
 
-        exp[0] = (short)exp_d;
-        exp[1] = (short)expIndex;
+        exp[0] = (short)exp_d; System.out.println("----- " + exp[0]);
+        exp[1] = (short)expIndex; System.out.println("----- " + exp[1]);
 
         return exp;
     }
@@ -371,20 +379,16 @@ public abstract class Binary {
         if(_Precision == null) _Precision = _askForPrecision(_number);
         byte tab[] = new byte[_Precision.getPrecision()];
 
-        
-        BigDecimal _bd = _number.subtract(new BigDecimal(_number.toBigInteger()));
-        if(_bd.compareTo(new BigDecimal(0)) < 0) _bd = _bd.negate();
-
         byte _sign = _binarySign(_number); // SIGN
         byte _floorBinary[] = _floor(_number); // FLOOR
-        byte[] _decimalPartBinary = _decimal(_bd, _Precision);
+        byte[] _decimalPartBinary = _decimal((_number.subtract(new BigDecimal(_number.toBigInteger()))).abs(), _Precision);
+        
         //----------------------------------------------------------------------
         
         short[] __ = _exp(_number, _floorBinary, _decimalPartBinary);
         short exp = __[0];
         short expIndex = __[1];
 
-        System.out.println("tab = " + tab.length + ", floor = " + _floorBinary.length);
         byte E[]  = null;
         try
         {

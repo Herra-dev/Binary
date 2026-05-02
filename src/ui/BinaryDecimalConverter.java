@@ -265,7 +265,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         @Override public void actionPerformed(ActionEvent event) {
             if(_input.getText().isEmpty()) return;
 
-            if(_input.getText().matches("[-]*+[0-9]*+[.]*+[0-9]*+") && !(_input.getText().matches("[-]{1}"))) {
+            if(_input.getText().matches("[-]*+[0-9]*+[.]*+[0-9]*+") && !(_input.getText().matches("[-]{1}")) && (_input.getText().contains("[-]"))) {
                 _errorLabel.setText("Valid input");
                 _errorLabel.setForeground(Color.GREEN);
                 _errorLabel.setFont(new Font("MathJax", 1, 20));

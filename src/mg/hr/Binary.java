@@ -170,11 +170,8 @@ public abstract class Binary {
         double i = 1;
         double pow = 0;
 
-        System.out.println("in power");
-
         while(_number.compareTo(new BigDecimal(i *= 2)) >= 0) pow++;
 
-        System.out.println("out power");
         return pow;
     }
 
@@ -252,13 +249,17 @@ public abstract class Binary {
         byte _floorBinary[] = null;
         try
         {
-            int _numberAbsValue = java.lang.StrictMath.abs(_number.toBigInteger().intValue());
-            _floorBinary = mg.hr.Binary.toBinary(new BigDecimal(_numberAbsValue)); // _floorBinary of _number in binary mode
+            BigDecimal _numberAbsValue = new BigDecimal(java.lang.StrictMath.abs(_number.toBigInteger().intValue()));
+            System.out.println("number = " + _numberAbsValue);
+            _floorBinary = mg.hr.Binary.toBinary(_numberAbsValue, _powerOfTwoCloseBottom(_number)); // _floorBinary of _number in binary mode
         } 
         catch (mg.hr.exception.BinaryException e)
         {
             e.printStackTrace();
         }
+
+        System.out.println("displaying floor : ===========================================");
+        _displayBinaryNumber(_floorBinary);
 
         return _floorBinary;
     }
@@ -275,13 +276,11 @@ public abstract class Binary {
  */
     public static byte[] _decimal(BigDecimal _decimalPart, mg.hr.enumeration.FloatPrecision _precision)
     {
-        System.out.println("dec part = " + _decimalPart);
         BigDecimal bd = _decimalPart;
         BigDecimal limit = BigDecimal.ZERO;
         BigDecimal multiplier = new BigDecimal("2");
 
         byte[] _decimalPartBinary = new byte[_precision.getPrecision()];
-        System.out.println("precision = " + _decimalPartBinary.length);
         int i = 0;
         String s = new String();
         
@@ -359,11 +358,11 @@ public abstract class Binary {
  *      <p>- extended dual precision   = {@code 79 bits}
  *      <p>- quadruple precision       = {@code 128 bits}
  *      <p>- octuple precision         = {@code 256 bits}
- * <p>{@code if _precision is null, user will be asked to set it before proceeding transformation}
+ * <p>{@code if _precision is null, user will be asked to set it before proceeding to transformation}
  * 
  * @param _number {@code double}
  * @param _precision {@code mg.hr.enumeration.FloatPrecision}
- * @return byte[]
+ * @return byte[] {@code the floating-point number in binary}
  * @see mg.hr.enumeration.FloatPrecision
  * @author {@see https://github.com/Herra-dev}
  */
@@ -371,6 +370,7 @@ public abstract class Binary {
     {
         if(_Precision == null) _Precision = _askForPrecision(_number);
         byte tab[] = new byte[_Precision.getPrecision()];
+
         
         BigDecimal _bd = _number.subtract(new BigDecimal(_number.toBigInteger()));
         if(_bd.compareTo(new BigDecimal(0)) < 0) _bd = _bd.negate();
@@ -378,13 +378,13 @@ public abstract class Binary {
         byte _sign = _binarySign(_number); // SIGN
         byte _floorBinary[] = _floor(_number); // FLOOR
         byte[] _decimalPartBinary = _decimal(_bd, _Precision);
-        System.out.println("floor length = " + _floorBinary.length);
         //----------------------------------------------------------------------
         
         short[] __ = _exp(_number, _floorBinary, _decimalPartBinary);
         short exp = __[0];
         short expIndex = __[1];
 
+        System.out.println("tab = " + tab.length + ", floor = " + _floorBinary.length);
         byte E[]  = null;
         try
         {
@@ -402,11 +402,12 @@ public abstract class Binary {
 
         for(int k = 0; k < E.length; k++)
             tab[++j] = E[k]; // ========================= EXPONENT =========
-
         if(_number.toBigInteger().compareTo(new BigInteger("0")) != 0)
         {
-            for(int k = expIndex; k < _floorBinary.length; k++)
-            tab[++j] = _floorBinary[k]; // ============== MANTISSA =========
+            for(int k = expIndex; k < _floorBinary.length; k++){
+                if(++j >= tab.length) break;
+                tab[j] = _floorBinary[k]; // ============== MANTISSA =========
+            }
             int k = 0;
             while (++j < tab.length)
             {
@@ -542,17 +543,14 @@ public abstract class Binary {
         BigDecimal _numberCopy = _number;
         double j = 0;
         byte binaryReversed[] = new byte[(int)_bitNumber];
-        System.out.println("here");
 
         while(_numberCopy.compareTo(new BigDecimal(0)) != 0.0) {
             j = _powerOfTwoCloseBottom(_numberCopy);
             System.out.println("j = " + j);
             if(j < binaryReversed.length)
                 binaryReversed[(int)j] = 1;
-            System.out.println("j = " + j);
             
             _numberCopy = _numberCopy.subtract(new BigDecimal(java.lang.StrictMath.pow(2, j)));
-            System.out.println(_numberCopy);
         }
 
         return _reverseBinary(binaryReversed);

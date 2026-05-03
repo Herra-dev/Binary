@@ -55,8 +55,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     public BinaryDecimalConverter() {
-        this.setBDCProperties();
-        this.loadIODisplayer();
+        this.setBDCProperties();            // Setting the main app properties
+        this.loadIODisplayer();             // Load Input and Output displayer
         this.setIODisplayerProperties();
 
         this.addToMainPanel();
@@ -66,7 +66,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         this._secInput.setFocusable(true);
 
 
-        if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
+        // if(this._modChoice.getSelectedItem().equals(BinaryMod.Binary_Decimal_Convertor)) this.loadBDC();
+        this.loadBCalculator();
     }
 
 //======================================================================================
@@ -267,7 +268,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
             if(_input.getText().matches("[-]*+[0-9]*+[.]*+[0-9]*+") && 
                     !(_input.getText().matches("[-]{1}")) && 
-                        (herra.string.HString.occ(_input.getText(), '-') <= 1) &&
+                        (herra.string.HString.occ(_input.getText(), '-') <= 1) && 
                             (herra.string.HString.occ(_input.getText(), '.') <= 1)) {
                 _errorLabel.setText("Valid input");
                 _errorLabel.setForeground(Color.GREEN);

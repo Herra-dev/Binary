@@ -16,7 +16,6 @@ import mg.hr.enumeration.FloatPrecision;
 import mg.hr.exception.BinaryException;
 import ui.enumeration.BinaryMod;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -32,7 +31,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JLabel _modChoiceLabel = new JLabel("make your choice");
     protected BinaryMod[] _availableMod = {BinaryMod.Binary_Decimal_Convertor, BinaryMod.Binary_Calculator};
     protected JComboBox<BinaryMod> _modChoice = new JComboBox<BinaryMod>(_availableMod);
-    protected JPanel _userInputPanel = new JPanel(new BorderLayout());
+    protected JPanel _userInputPanel = new JPanel(new GridLayout(3, 2));
     protected JLabel _inputLabel = new JLabel("Input");
     protected JLabel _outputLabel = new JLabel("Output");
     protected JTextArea _output = new JTextArea();
@@ -41,12 +40,13 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JTextField _secInput = new JTextField();
     protected String[] _availableSign = {"+", "-", "*", "/"};
     protected JComboBox<String> _sign = new JComboBox<String>(_availableSign);
+    protected JTextArea _log = new JTextArea();
+
     protected JLabel _errorLabel = new JLabel("Error");
     protected JSpinner _bitNumber = new JSpinner(new SpinnerNumberModel(4, 1, 256, 1));
     protected FloatPrecision[] _availablePrecision = {FloatPrecision._HALF_PRECISION, FloatPrecision._SIMPLE_PRECISION, FloatPrecision._EXTENDED_SIMPLE_PRECISION,
                                                          FloatPrecision._DUAL_PRECISION, FloatPrecision._EXTENDED_DUAL_PRECISION, FloatPrecision._QUADRUPLE_PRECISION,
                                                             FloatPrecision._OCTUPLE_PRECISION,};
-    
     protected JComboBox<FloatPrecision> _floatPrecision = new JComboBox<FloatPrecision>(_availablePrecision);
     protected JButton _convert = new JButton("Convert");
     protected BigDecimal number = BigDecimal.ZERO;
@@ -189,19 +189,37 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 //======================================================================================
 
     public void loadBCalculator() {
-        _userInputPanel.add(_input, BorderLayout.NORTH);
-        _userInputPanel.add(_sign, BorderLayout.WEST);
-        _userInputPanel.add(_secInput, BorderLayout.SOUTH);
+        
+        JPanel calcContainer = new JPanel(new GridLayout(2, 1));
 
-        JPanel container = new JPanel(new GridLayout(2, 3));
+        JLabel iLabel = new JLabel("First number = ");
+        JLabel oLabel = new JLabel("Second number = ");
+        JLabel signLabel = new JLabel("Sign");
+        _userInputPanel.add(iLabel);
+        _userInputPanel.add(_input);
+        _userInputPanel.add(_sign);
+        _userInputPanel.add(signLabel);
+        _userInputPanel.add(oLabel);
+        _userInputPanel.add(_secInput);
+
+        JPanel calcButton = new JPanel(new GridLayout(2, 3));
+        JPanel log = new JPanel();
+
         String[] str = {"0", "1", "=", "Backspace", "Delete", "Clear"};
         for(int i = 0; i < str.length; i++) {
             JButton button = new JButton(str[i]);
             button.addActionListener(this);
-            button.setFont(new Font("Z003", 1, 30));
-            container.add(button);
+            button.setFont(new Font("Times New Romance", 2, 20));
+            calcButton.add(button);
         }
-        _mainPanel.add(container);
+
+        log.add(_log);
+
+        calcContainer.add(calcButton);
+        calcContainer.add(log);
+
+
+        _mainPanel.add(calcContainer);
     }
 
 //======================================================================================

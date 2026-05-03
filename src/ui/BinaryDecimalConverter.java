@@ -11,6 +11,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextField;
 import javax.swing.plaf.DimensionUIResource;
 
+import javax.swing.JScrollPane;
+
 import mg.hr.Binary;
 import mg.hr.enumeration.FloatPrecision;
 import mg.hr.exception.BinaryException;
@@ -22,9 +24,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.math.BigDecimal;
 
-public class BinaryDecimalConverter extends JFrame implements ActionListener {
+public class BinaryDecimalConverter extends JFrame implements ActionListener, FocusListener {
     protected JPanel _mainPanel = new JPanel(new GridLayout(2, 1)); // The main container of the window
     protected JPanel IODisplayerPanel = new JPanel(new GridLayout(3, 2));
 
@@ -35,12 +39,13 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
     protected JLabel _inputLabel = new JLabel("Input");
     protected JLabel _outputLabel = new JLabel("Output");
     protected JTextArea _output = new JTextArea();
+    protected JScrollPane _scrollOutput = new JScrollPane(_output);
     protected JTextField _input = new JTextField();
 
     protected JTextField _secInput = new JTextField();
     protected String[] _availableSign = {"+", "-", "*", "/"};
     protected JComboBox<String> _sign = new JComboBox<String>(_availableSign);
-    protected JTextArea _log = new JTextArea();
+    protected JTextArea _calcLog = new JTextArea();
 
     protected JLabel _errorLabel = new JLabel("Error");
     protected JSpinner _bitNumber = new JSpinner(new SpinnerNumberModel(4, 1, 256, 1));
@@ -101,7 +106,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         IODisplayerPanel.add(this._inputLabel);
         IODisplayerPanel.add(this._userInputPanel);
         IODisplayerPanel.add(this._outputLabel);
-        IODisplayerPanel.add(this._output);
+        IODisplayerPanel.add(this._scrollOutput);
     }
 
 //======================================================================================
@@ -111,6 +116,7 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
 
         this._inputLabel.setFont(new Font("Times New Romance", 2, 25));
         this._input.setHorizontalAlignment(JTextField.RIGHT);
+        this._input.addFocusListener(this);
 
         this._outputLabel.setFont(new Font("Times New Romance", 2, 25));
         this._output.setEditable(false);
@@ -192,8 +198,8 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         
         JPanel calcContainer = new JPanel(new GridLayout(2, 1));
 
-        JLabel iLabel = new JLabel("First number = ");
-        JLabel oLabel = new JLabel("Second number = ");
+        JLabel iLabel = new JLabel("First number");
+        JLabel oLabel = new JLabel("Second number");
         JLabel signLabel = new JLabel("Sign");
         _userInputPanel.add(iLabel);
         _userInputPanel.add(_input);
@@ -205,24 +211,59 @@ public class BinaryDecimalConverter extends JFrame implements ActionListener {
         JPanel calcButton = new JPanel(new GridLayout(2, 3));
         JPanel log = new JPanel();
 
-        String[] str = {"0", "1", "=", "Backspace", "Delete", "Clear"};
+        String[] str = {"0", "1", "="};
         for(int i = 0; i < str.length; i++) {
             JButton button = new JButton(str[i]);
             button.addActionListener(this);
-            button.setFont(new Font("Times New Romance", 2, 20));
+            button.setFont(new Font("Times New Romance", 2, 40));
             calcButton.add(button);
         }
 
-        log.add(_log);
+        JButton backspace = new JButton("Backspace");
+        backspace.setFont(new Font("Times New Romance", 2, 25));
+        backspace.setForeground(Color.ORANGE);
+        backspace.addActionListener(new buttonBackspaceListener());
+        calcButton.add(backspace);
+
+        JButton delete = new JButton("Delete");
+        delete.setFont(new Font("Times New Romance", 2, 25));
+        delete.setForeground(Color.ORANGE);
+        delete.addActionListener(new buttonDeleteListener());
+        calcButton.add(delete);
+
+        JButton clear = new JButton("Clear");
+        clear.setFont(new Font("Times New Romance", 2, 25));
+        clear.setForeground(Color.RED);
+        clear.addActionListener(new buttonDeleteListener());
+        calcButton.add(clear);
+
+
+        log.add(_calcLog);
 
         calcContainer.add(calcButton);
         calcContainer.add(log);
 
 
         _mainPanel.add(calcContainer);
+
+
+        if(_input.isFocusable()) System.out.println("focusable");
+        else System.out.println("not focusable");
+
+        if(_input.isFocusOwner()) System.out.println("the focus owner");
+        else System.out.println("not the focus owner");
     }
 
 //======================================================================================
+
+    @Override public void focusGained(FocusEvent event) {
+        System.out.println("Focus gained");
+    }
+
+    @Override public void focusLost(FocusEvent event) {
+        System.out.println("Focus lost");
+    }
+
 
     @Override public void actionPerformed(ActionEvent event) {
         if((this._input.getText().contains(".")) && (event.getActionCommand().matches("[.]{1}"))) return; // if input contains already a comma (".") and user enter comma, quit function
